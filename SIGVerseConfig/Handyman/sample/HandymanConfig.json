@@ -1,0 +1,7 @@
+﻿{
+    "maxNumberOfTrials": 2,
+    "isScoreFileRead": false,
+    "isGraspableObjectsPositionRandom": false,
+    "isAlwaysGoNext": false,
+    "playbackType": 1
+}
