@@ -41,6 +41,11 @@ SIGVerse window will be opened.
 
 Please start the ROS side application beforehand.
 
+<font color="Red"><b>
+Note: Currently, task message supports only the following formats.  
+"Go to the AAA,  grasp the BBB and come back here".
+</b></font>
+
 ### Execute On Unity Editor
 1. Double click "Assets/Competition/Handyman/Handyman(.unity)" in Project window.
 2. Click the Play button at the top of the Unity editor.
