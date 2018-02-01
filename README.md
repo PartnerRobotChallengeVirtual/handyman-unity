@@ -39,7 +39,8 @@ SIGVerse window will be opened.
 
 ## How to Execute Handyman Program
 
-Please start the ROS side application beforehand.
+Please start the ROS side application beforehand.  
+By default, given 2 attempts.
 
 ```diff
 ---    Note: Currently, task message supports only the following formats.    ---
