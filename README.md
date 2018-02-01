@@ -6,6 +6,8 @@ Please prepare a common unitypackage in advance, and import the unitypackage to 
 For details of using the common unitypackage, please see an introduction in the following repository.
 https://github.com/PartnerRobotChallengeVirtual/common-unity.git
 
+See also [wiki page](https://github.com/PartnerRobotChallengeVirtual/handyman-unity/wiki).
+
 ## Prerequisites
 
 - OS: Windows 10
