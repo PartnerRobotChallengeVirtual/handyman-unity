@@ -30,17 +30,11 @@ namespace SIGVerse.Competition.Handyman
 			}
 		}
 
-		// Use this for initialization
-		void Start()
+		public bool Initialize()
 		{
-			HandymanPlaybackCommon common = this.GetComponent<HandymanPlaybackCommon>();
+			string filePath = string.Format(Application.dataPath + HandymanPlaybackCommon.FilePathFormat, 0);
 
-			this.targetTransforms = common.GetTargetTransforms();
-
-			foreach (Transform targetTransform in targetTransforms)
-			{
-				this.targetObjectsPathMap.Add(HandymanPlaybackCommon.GetLinkPath(targetTransform), targetTransform);
-			}
+			return this.Initialize(filePath);
 		}
 	}
 }

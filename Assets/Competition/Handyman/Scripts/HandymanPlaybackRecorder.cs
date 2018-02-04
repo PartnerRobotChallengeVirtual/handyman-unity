@@ -17,12 +17,11 @@ namespace SIGVerse.Competition.Handyman
 			}
 		}
 
-		// Use this for initialization
-		void Start()
+		public bool Initialize(int numberOfTrials)
 		{
-			HandymanPlaybackCommon common = this.GetComponent<HandymanPlaybackCommon>();
+			string filePath = string.Format(Application.dataPath + HandymanPlaybackCommon.FilePathFormat, numberOfTrials);
 
-			this.targetTransforms = common.GetTargetTransforms();
+			return this.Initialize(filePath);
 		}
 	}
 }

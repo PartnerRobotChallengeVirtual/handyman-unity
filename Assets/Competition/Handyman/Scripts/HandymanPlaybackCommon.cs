@@ -7,13 +7,11 @@ namespace SIGVerse.Competition.Handyman
 {
 	public class HandymanPlaybackCommon : WorldPlaybackCommon
 	{
-		public List<string> playbackTargetTags;
-		
-		void Awake()
-		{
-			WorldPlaybackCommon.filePathFormat = "/../SIGVerseConfig/Handyman/Playback{0:D2}.dat";
+		public const string FilePathFormat = "/../SIGVerseConfig/Handyman/Playback{0:D2}.dat";
 
-			this.targetTransforms = new List<Transform>();
+		protected override void Awake()
+		{
+			base.Awake();
 
 			// Robot
 			Transform robot = GameObject.FindGameObjectWithTag("Robot").transform;
@@ -31,17 +29,7 @@ namespace SIGVerse.Competition.Handyman
 			this.targetTransforms.Add(HSRCommon.FindGameObjectFromChild(robot, HSRCommon.TorsoLiftLinkName));
 			this.targetTransforms.Add(HSRCommon.FindGameObjectFromChild(robot, HSRCommon.HandLProximalLinkName));
 			this.targetTransforms.Add(HSRCommon.FindGameObjectFromChild(robot, HSRCommon.HandRProximalLinkName));
-
-			// Additional
-			foreach (string playbackTargetTag in playbackTargetTags)
-			{
-				GameObject[] playbackTargetObjects = GameObject.FindGameObjectsWithTag(playbackTargetTag);
-
-				foreach(GameObject playbackTargetObject in playbackTargetObjects)
-				{
-					this.targetTransforms.Add(playbackTargetObject.transform);
-				}
-			}
 		}
 	}
 }
+
