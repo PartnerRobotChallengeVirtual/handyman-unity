@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using SIGVerse.ToyotaHSR;
 
-
 namespace SIGVerse.Competition.Handyman
 {
-	public class HandymanPlaybackCommon : WorldPlaybackCommon
+	public class HandymanPlaybackCommon : TrialPlaybackCommon
 	{
 		public const string FilePathFormat = "/../SIGVerseConfig/Handyman/Playback{0:D2}.dat";
 

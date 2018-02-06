@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace SIGVerse.Competition.Handyman
 {
 	[RequireComponent(typeof (HandymanPlaybackCommon))]
-	public class HandymanPlaybackRecorder : WorldPlaybackRecorder
+	public class HandymanPlaybackRecorder : TrialPlaybackRecorder
 	{
 		void Awake()
 		{

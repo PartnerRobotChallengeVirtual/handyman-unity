@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace SIGVerse.Competition.Handyman
 {
 	[RequireComponent(typeof (HandymanPlaybackCommon))]
-	public class HandymanPlaybackPlayer : WorldPlaybackPlayer
+	public class HandymanPlaybackPlayer : TrialPlaybackPlayer
 	{
 		void Awake()
 		{
@@ -12,8 +12,13 @@ namespace SIGVerse.Competition.Handyman
 			{
 				Transform robot = GameObject.FindGameObjectWithTag("Robot").transform;
 
-				robot.Find("CompetitionScripts").gameObject.SetActive(false);
+//				robot.Find("CompetitionScripts").gameObject.SetActive(false);
 				robot.Find("RosBridgeScripts")  .gameObject.SetActive(false);
+
+				//Transform moderator = GameObject.FindGameObjectWithTag("Moderator").transform;
+
+				//moderator.GetComponent<HandymanPubMessage>().enabled = false;
+				//moderator.GetComponent<HandymanSubMessage>().enabled = false;
 
 				GameObject mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
 
