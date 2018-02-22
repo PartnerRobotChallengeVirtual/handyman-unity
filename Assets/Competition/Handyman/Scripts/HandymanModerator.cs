@@ -25,12 +25,9 @@ namespace SIGVerse.Competition.Handyman
 		WaitForNextTask,
 	}
 
-	public class HandymanModerator : MonoBehaviour, IRosMsgReceiveHandler
+	public class HandymanModerator : MonoBehaviour, IRosMsgReceiveHandler, ITimeIsUpHandler, IGiveUpHandler
 	{
 		private const int SendingAreYouReadyInterval = 1000;
-
-		private readonly Color GreenColor = new Color(  0/255f, 143/255f, 36/255f, 255/255f);
-		private readonly Color RedColor   = new Color(255/255f,   0/255f,  0/255f, 255/255f);
 
 		private const string MsgAreYouReady     = "Are_you_ready?";
 		private const string MsgInstruction     = "Instruction";
@@ -50,15 +47,16 @@ namespace SIGVerse.Competition.Handyman
 
 		public List<GameObject> environments;
 
-		public GameObject worldPlayback;
+		public HandymanScoreManager scoreManager;
+		public GameObject playbackManager;
 
 		//-----------------------------
 
 		private HandymanModeratorTool tool;
 		private StepTimer stepTimer;
 
-		private HandymanMenu  handymanMenu;
-		private HandymanScoreManager scoreManager;
+		private GameObject mainMenu;
+		private PanelMainController mainPanelController;
 
 		private GameObject targetRoom;
 		private string taskMessage;
@@ -70,8 +68,6 @@ namespace SIGVerse.Competition.Handyman
 		private bool isAllTaskFinished;
 		private string interruptedReason;
 
-		private float noticeHideTime;
-
 
 		void Awake()
 		{
@@ -81,13 +77,10 @@ namespace SIGVerse.Competition.Handyman
 
 				this.stepTimer = new StepTimer();
 
-				this.tool.InitPlaybackVariables(this.worldPlayback);
+				this.tool.InitPlaybackVariables(this.playbackManager);
 
-
-				GameObject mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
-
-				this.handymanMenu    = mainMenu.GetComponent<HandymanMenu>();
-				this.scoreManager = mainMenu.GetComponent<HandymanScoreManager>();
+				this.mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
+				this.mainPanelController = mainMenu.GetComponent<PanelMainController>();
 			}
 			catch (Exception exception)
 			{
@@ -106,8 +99,6 @@ namespace SIGVerse.Competition.Handyman
 
 			this.isAllTaskFinished = false;
 			this.interruptedReason = string.Empty;
-			this.noticeHideTime    = 0.0f;
-
 
 			List<GameObject> graspables = this.tool.GetGraspables();
 
@@ -129,16 +120,16 @@ namespace SIGVerse.Competition.Handyman
 
 		private void PreProcess()
 		{
-			this.scoreManager.SetChallengeInfoText();
+			this.mainPanelController.SetChallengeInfoText(HandymanConfig.Instance.numberOfTrials);
 
-			SIGVerseLogger.Info("##### " + this.scoreManager.GetChallengeInfoText() + " #####");
+			SIGVerseLogger.Info("##### " + this.mainPanelController.GetChallengeInfoText() + " #####");
 
-			this.scoreManager.ResetTimeLeftText();
+			this.mainPanelController.ResetTimeLeftText();
 
 
 			this.taskMessage = this.tool.GenerateTaskMessage();
 
-			this.scoreManager.SetTaskMessageText(this.taskMessage);
+			this.mainPanelController.SetTaskMessageText(this.taskMessage);
 
 			Debug.Log(this.taskMessage);
 
@@ -181,7 +172,7 @@ namespace SIGVerse.Competition.Handyman
 				if(this.interruptedReason!=string.Empty && this.step != ModeratorStep.WaitForNextTask)
 				{
 					SIGVerseLogger.Info("Failed '" + this.interruptedReason + "'");
-					this.ShowNotice("Failed\n"+ interruptedReason.Replace('_',' '), 100, RedColor);
+					this.SendPanelNotice("Failed\n"+ interruptedReason.Replace('_',' '), 100, PanelNoticeStatus.Red);
 					this.GoToNextTaskTaskFailed(this.interruptedReason);
 				}
 
@@ -261,13 +252,13 @@ namespace SIGVerse.Competition.Handyman
 							if (isSucceeded)
 							{
 								SIGVerseLogger.Info("Succeeded '" + MsgRoomReached + "'");
-								this.ShowNotice("Good", 150, GreenColor);
+								this.SendPanelNotice("Good", 150, PanelNoticeStatus.Green);
 								this.scoreManager.AddScore(Score.Type.RoomReachedSuccess);
 							}
 							else
 							{
 								SIGVerseLogger.Info("Failed '" + MsgRoomReached + "'");
-								this.ShowNotice("Failed\n" + MsgRoomReached.Replace('_', ' '), 100, RedColor);
+								this.SendPanelNotice("Failed\n" + MsgRoomReached.Replace('_', ' '), 100, PanelNoticeStatus.Red);
 								this.GoToNextTaskTaskFailed("Failed " + MsgRoomReached);
 
 								return;
@@ -298,13 +289,13 @@ namespace SIGVerse.Competition.Handyman
 							if (isSucceeded)
 							{
 								SIGVerseLogger.Info("Succeeded '" + MsgObjectGrasped + "'");
-								this.ShowNotice("Good", 150, GreenColor);
+								this.SendPanelNotice("Good", 150, PanelNoticeStatus.Green);
 								this.scoreManager.AddScore(Score.Type.ObjectGraspedSuccess);
 							}
 							else
 							{
 								SIGVerseLogger.Info("Failed '" + MsgObjectGrasped + "'");
-								this.ShowNotice("Failed\n" + MsgObjectGrasped.Replace('_', ' '), 100, RedColor);
+								this.SendPanelNotice("Failed\n" + MsgObjectGrasped.Replace('_', ' '), 100, PanelNoticeStatus.Red);
 								this.GoToNextTaskTaskFailed("Failed " + MsgObjectGrasped);
 
 								return;
@@ -335,7 +326,7 @@ namespace SIGVerse.Competition.Handyman
 							if (isSucceeded)
 							{
 								SIGVerseLogger.Info("Succeeded '" + MsgTaskFinished + "'");
-								this.ShowNotice("Succeeded!", 150, GreenColor);
+								this.SendPanelNotice("Succeeded!", 150, PanelNoticeStatus.Green);
 								this.scoreManager.AddScore(Score.Type.ComeBackSuccess);
 
 								this.GoToNextTaskTaskSucceeded();
@@ -343,7 +334,7 @@ namespace SIGVerse.Competition.Handyman
 							else
 							{
 								SIGVerseLogger.Info("Failed '" + MsgTaskFinished + "'");
-								this.ShowNotice("Failed\nCome back", 100, RedColor);
+								this.SendPanelNotice("Failed\nCome back", 100, PanelNoticeStatus.Red);
 								this.GoToNextTaskTaskFailed("Failed " + MsgTaskFinished);
 							}
 						}
@@ -379,15 +370,6 @@ namespace SIGVerse.Competition.Handyman
 			Application.Quit();
 		}
 
-		public void InterruptTimeIsUp()
-		{
-			this.interruptedReason = HandymanModerator.ReasonTimeIsUp;
-		}
-
-		public void InterruptGiveUp()
-		{
-			this.interruptedReason = HandymanModerator.ReasonGiveUp;
-		}
 
 		private void GoToNextTaskTaskSucceeded()
 		{
@@ -421,6 +403,28 @@ namespace SIGVerse.Competition.Handyman
 			);
 		}
 
+		private void SendPanelNotice(string message, int fontSize, Color color)
+		{
+			PanelNoticeStatus noticeStatus = new PanelNoticeStatus(message, fontSize, color, 2.0f);
+
+			// For changing the notice of a panel
+			ExecuteEvents.Execute<IPanelNoticeHandler>
+			(
+				target: this.mainMenu, 
+				eventData: null, 
+				functor: (reciever, eventData) => reciever.OnChange(noticeStatus)
+			);
+
+			// For recording
+			ExecuteEvents.Execute<IPanelNoticeHandler>
+			(
+				target: this.playbackManager, 
+				eventData: null, 
+				functor: (reciever, eventData) => reciever.OnChange(noticeStatus)
+			);
+		}
+
+
 		public void OnReceiveRosMessage(ROSBridge.handyman.HandymanMsg handymanMsg)
 		{
 			if(this.receivedMessageMap.ContainsKey(handymanMsg.message))
@@ -445,29 +449,16 @@ namespace SIGVerse.Competition.Handyman
 			}
 		}
 
-		private void ShowNotice(string message, int fontSize, Color color)
+
+		public void OnTimeIsUp()
 		{
-			this.handymanMenu.notice.SetActive(true);
-
-			Text noticeText = this.handymanMenu.notice.GetComponentInChildren<Text>();
-
-			noticeText.text     = message;
-			noticeText.fontSize = fontSize;
-			noticeText.color    = color;
-
-			this.noticeHideTime = UnityEngine.Time.time + 2.0f;
-
-			StartCoroutine(this.HideNotice()); // Hide after 2[s]
+			this.interruptedReason = HandymanModerator.ReasonTimeIsUp;
 		}
 
-		private IEnumerator HideNotice()
+		public void OnGiveUp()
 		{
-			while(UnityEngine.Time.time < this.noticeHideTime)
-			{
-				yield return null;
-			}
-
-			this.handymanMenu.notice.SetActive(false);
+			this.interruptedReason = HandymanModerator.ReasonGiveUp;
 		}
 	}
 }
+

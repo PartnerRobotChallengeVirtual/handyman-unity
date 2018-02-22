@@ -57,7 +57,6 @@ namespace SIGVerse.Competition.Handyman
 		private GameObject livingArea;
 		private GameObject lobbyArea;
 
-		private HandymanPlaybackPlayer   playbackPlayer;
 		private HandymanPlaybackRecorder playbackRecorder;
 
 		public HandymanModeratorTool(List<GameObject> environments)
@@ -214,7 +213,6 @@ namespace SIGVerse.Competition.Handyman
 
 		public void InitPlaybackVariables(GameObject worldPlayback)
 		{
-			this.playbackPlayer   = worldPlayback.GetComponent<HandymanPlaybackPlayer>();
 			this.playbackRecorder = worldPlayback.GetComponent<HandymanPlaybackRecorder>();
 		}
 
@@ -422,10 +420,6 @@ namespace SIGVerse.Competition.Handyman
 			{
 				this.playbackRecorder.Initialize(HandymanConfig.Instance.numberOfTrials);
 			}
-			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypePlay)
-			{
-				this.playbackPlayer.Initialize();
-			}
 		}
 
 
@@ -434,10 +428,6 @@ namespace SIGVerse.Competition.Handyman
 			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord)
 			{
 				if(!this.playbackRecorder.IsInitialized()) { return false; }
-			}
-			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypePlay)
-			{
-				if(!this.playbackPlayer.IsInitialized()) { return false; }
 			}
 
 			return true;
@@ -452,12 +442,6 @@ namespace SIGVerse.Competition.Handyman
 
 				if(!isStarted) { SIGVerseLogger.Warn("Cannot start the world playback recording"); }
 			}
-			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypePlay)
-			{
-				bool isStarted = this.playbackPlayer.Play();
-
-				if(!isStarted) { SIGVerseLogger.Warn("Cannot start the world playback playing"); }
-			}
 		}
 
 		public void StopPlayback()
@@ -468,12 +452,6 @@ namespace SIGVerse.Competition.Handyman
 
 				if(!isStopped) { SIGVerseLogger.Warn("Cannot stop the world playback recording"); }
 			}
-			if (HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypePlay)
-			{
-				bool isStopped = this.playbackPlayer.Stop();
-
-				if(!isStopped) { SIGVerseLogger.Warn("Cannot stop the world playback playing"); }
-			}
 		}
 
 		public bool IsPlaybackFinished()
@@ -481,11 +459,6 @@ namespace SIGVerse.Competition.Handyman
 			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord)
 			{
 				if(!this.playbackRecorder.IsFinished()) { return false; }
-			}
-
-			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypePlay)
-			{
-				if(!this.playbackPlayer.IsFinished()) { return false; }
 			}
 
 			return true;

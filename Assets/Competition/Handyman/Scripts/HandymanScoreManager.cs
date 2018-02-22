@@ -6,6 +6,7 @@ using System.Text;
 using System.Collections.Generic;
 using SIGVerse.Common;
 using SIGVerse.ToyotaHSR;
+using UnityEngine.EventSystems;
 
 namespace SIGVerse.Competition.Handyman
 {
@@ -36,61 +37,32 @@ namespace SIGVerse.Competition.Handyman
 		}
 	}
 
+
 	public class HandymanScoreManager : MonoBehaviour, IHSRCollisionHandler
 	{
-		private const string TimeFormat = "#####0";
 		private const float DefaultTimeScale = 1.0f;
 
-		public HandymanModerator moderator;
+		public List<GameObject> scoreNotificationDestinations;
 
-		[HeaderAttribute("Task status")]
-		public Text challengeInfoText;
-		public Text taskMessageText;
-
-		//[HeaderAttribute("Buttons")]
-		//public Button startButton;
-
-		[HeaderAttribute("Time left")]
-		[TooltipAttribute("seconds")]
-		public int timeLimit = 600;
-
-		public Text timeLeftValueText;
-
-		[HeaderAttribute("Score")]
-		public Text scoreValText;
-		public Text totalValText;
 		//---------------------------------------------------
-
-		private float timeLeft;
+		private GameObject mainMenu;
 
 		private int score;
 
 
+		void Awake()
+		{
+			this.mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
+		}
+
 		// Use this for initialization
 		void Start()
 		{
-			this.timeLeft = (float)this.timeLimit;
-
-			this.timeLeftValueText.text = this.timeLeft.ToString(TimeFormat);
-			this.scoreValText.text = "0";
-			this.totalValText.text = HandymanConfig.Instance.GetTotalScore().ToString();
-
+			this.UpdateScoreText(0, HandymanConfig.Instance.GetTotalScore());
+			
 			this.score = 0;
 
 			Time.timeScale = 0.0f;
-		}
-
-		// Update is called once per frame
-		void Update()
-		{
-			this.timeLeft = Mathf.Max(0.0f, this.timeLeft-Time.deltaTime);
-
-			this.timeLeftValueText.text = this.timeLeft.ToString(TimeFormat);
-
-			if(this.timeLeft == 0.0f)
-			{
-				this.moderator.InterruptTimeIsUp();
-			}
 		}
 
 
@@ -98,14 +70,27 @@ namespace SIGVerse.Competition.Handyman
 		{
 			this.score = Mathf.Clamp(this.score + Score.GetScore(scoreType), Score.MinScore, Score.MaxScore);
 
-			this.scoreValText.text = this.score.ToString(TimeFormat);
+			this.UpdateScoreText(this.score);
 
 			SIGVerseLogger.Info("Score add [" + Score.GetScore(scoreType) + "], Challenge " + HandymanConfig.Instance.numberOfTrials + " Score=" + this.score);
+
+			// Send the Score Notification
+			ScoreStatus scoreStatus = new ScoreStatus(Score.GetScore(scoreType), this.score, HandymanConfig.Instance.GetTotalScore());
+
+			foreach(GameObject scoreNotificationDestination in this.scoreNotificationDestinations)
+			{
+				ExecuteEvents.Execute<IScoreHandler>
+				(
+					target: scoreNotificationDestination,
+					eventData: null,
+					functor: (reciever, eventData) => reciever.OnScoreChange(scoreStatus)
+				);
+			}
 		}
 
 		public void TaskStart()
 		{
-			this.scoreValText.text = this.score.ToString(TimeFormat);
+			this.UpdateScoreText(this.score);
 
 			Time.timeScale = HandymanScoreManager.DefaultTimeScale;
 		}
@@ -116,63 +101,36 @@ namespace SIGVerse.Competition.Handyman
 
 			HandymanConfig.Instance.AddScore(this.score);
 
-			this.totalValText.text = HandymanConfig.Instance.GetTotalScore().ToString();
+			this.UpdateScoreText(this.score, HandymanConfig.Instance.GetTotalScore());
 
-			SIGVerseLogger.Info("Total Score=" + this.totalValText.text);
+			SIGVerseLogger.Info("Total Score=" + HandymanConfig.Instance.GetTotalScore().ToString());
 
 			HandymanConfig.Instance.RecordScoreInFile();
 		}
 
-		public void ResetTimeLeftText()
+
+		private void UpdateScoreText(float score)
 		{
-			this.timeLeft = (float)this.timeLimit;
-			this.timeLeftValueText.text = this.timeLeft.ToString(TimeFormat);
+			ExecuteEvents.Execute<IPanelScoreHandler>
+			(
+				target: this.mainMenu,
+				eventData: null,
+				functor: (reciever, eventData) => reciever.OnScoreChange(score)
+			);
 		}
 
-		public void SetTaskMessageText(string taskMessage)
+		private void UpdateScoreText(float score, float total)
 		{
-			this.taskMessageText.text = taskMessage;
+			ExecuteEvents.Execute<IPanelScoreHandler>
+			(
+				target: this.mainMenu,
+				eventData: null,
+				functor: (reciever, eventData) => reciever.OnScoreChange(score, total)
+			);
 		}
 
-		public void SetChallengeInfoText()
-		{
-			int numberOfTrials = HandymanConfig.Instance.numberOfTrials;
 
-			string ordinal;
-
-			if (numberOfTrials == 11 || numberOfTrials == 12 || numberOfTrials == 13)
-			{
-				ordinal = "th";
-			}
-			else
-			{
-				if (numberOfTrials % 10 == 1)
-				{
-					ordinal = "st";
-				}
-				else if (numberOfTrials % 10 == 2)
-				{
-					ordinal = "nd";
-				}
-				else if (numberOfTrials % 10 == 3)
-				{
-					ordinal = "rd";
-				}
-				else
-				{
-					ordinal = "th";
-				}
-			}
-
-			this.challengeInfoText.text = numberOfTrials + ordinal + " challenge";
-		}
-
-		public string GetChallengeInfoText()
-		{
-			return this.challengeInfoText.text;
-		}
-
-		public void OnHsrCollisionEnter()
+		public void OnHsrCollisionEnter(Vector3 contactPoint)
 		{
 			this.AddScore(Score.Type.CollisionEnter);
 		}

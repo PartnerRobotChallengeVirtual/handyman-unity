@@ -13,6 +13,7 @@ TagManager:
   - Moderator
   - PlaybackTarget
   - MainMenu
+  - AudienceCamera
   layers:
   - Default
   - TransparentFX
