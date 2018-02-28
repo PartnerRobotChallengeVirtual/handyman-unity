@@ -20,25 +20,37 @@ namespace SIGVerse.Competition.Handyman
 			RoomReachedSuccess,
 			ObjectGraspedSuccess,
 			ComeBackSuccess,
-			CollisionEnter,
+			HsrCollisionEnter,
+			ObjectCollisionEnter,
 		}
 
-		public static int GetScore(Type scoreType)
+		public static int GetScore(Type scoreType, params object[] args)
 		{
 			switch(scoreType)
 			{
 				case Score.Type.RoomReachedSuccess  : { return +20; }
 				case Score.Type.ObjectGraspedSuccess: { return +50; }
 				case Score.Type.ComeBackSuccess     : { return +30; }
-				case Score.Type.CollisionEnter      : { return -10; }
+				case Score.Type.HsrCollisionEnter   : { return -10; }
+				case Score.Type.ObjectCollisionEnter: { return GetObjectCollisionScore((Collision)args[0]); }
 			}
 
 			throw new Exception("Illegal score type. Type = " + (int)scoreType + ", method name=(" + System.Reflection.MethodBase.GetCurrentMethod().Name + ")");
 		}
+
+		public static float GetObjectCollisionVeloticyThreshold()
+		{
+			return 1.0f;
+		}
+
+		private static int GetObjectCollisionScore(Collision collision)
+		{
+			return Mathf.FloorToInt((collision.relativeVelocity.magnitude - 1.0f) * -10);
+		}
 	}
 
 
-	public class HandymanScoreManager : MonoBehaviour, IHSRCollisionHandler
+	public class HandymanScoreManager : MonoBehaviour, IHSRCollisionHandler, ITransferredCollisionHandler
 	{
 		private const float DefaultTimeScale = 1.0f;
 
@@ -66,16 +78,18 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void AddScore(Score.Type scoreType)
+		public void AddScore(Score.Type scoreType, params object[] args)
 		{
-			this.score = Mathf.Clamp(this.score + Score.GetScore(scoreType), Score.MinScore, Score.MaxScore);
+			int additionalScore = Score.GetScore(scoreType, args);
+
+			this.score = Mathf.Clamp(this.score + additionalScore, Score.MinScore, Score.MaxScore);
 
 			this.UpdateScoreText(this.score);
 
-			SIGVerseLogger.Info("Score add [" + Score.GetScore(scoreType) + "], Challenge " + HandymanConfig.Instance.numberOfTrials + " Score=" + this.score);
+			SIGVerseLogger.Info("Score add [" + additionalScore + "], Challenge " + HandymanConfig.Instance.numberOfTrials + " Score=" + this.score);
 
 			// Send the Score Notification
-			ScoreStatus scoreStatus = new ScoreStatus(Score.GetScore(scoreType), this.score, HandymanConfig.Instance.GetTotalScore());
+			ScoreStatus scoreStatus = new ScoreStatus(additionalScore, this.score, HandymanConfig.Instance.GetTotalScore());
 
 			foreach(GameObject scoreNotificationDestination in this.scoreNotificationDestinations)
 			{
@@ -132,7 +146,15 @@ namespace SIGVerse.Competition.Handyman
 
 		public void OnHsrCollisionEnter(Vector3 contactPoint)
 		{
-			this.AddScore(Score.Type.CollisionEnter);
+			this.AddScore(Score.Type.HsrCollisionEnter);
+		}
+
+
+		public void OnTransferredCollisionEnter(Collision collision, GameObject collidingObject)
+		{
+			SIGVerseLogger.Info("Object collision occurred. name=" + collidingObject.name);
+
+			this.AddScore(Score.Type.ObjectCollisionEnter, collision);
 		}
 	}
 }

@@ -58,7 +58,6 @@ namespace SIGVerse.Competition.Handyman
 		private GameObject mainMenu;
 		private PanelMainController mainPanelController;
 
-		private GameObject targetRoom;
 		private string taskMessage;
 
 		private ModeratorStep step;
@@ -73,11 +72,9 @@ namespace SIGVerse.Competition.Handyman
 		{
 			try
 			{
-				this.tool = new HandymanModeratorTool(this.environments);
+				this.tool = new HandymanModeratorTool(this.environments, this.scoreManager, this.playbackManager);
 
 				this.stepTimer = new StepTimer();
-
-				this.tool.InitPlaybackVariables(this.playbackManager);
 
 				this.mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
 				this.mainPanelController = mainMenu.GetComponent<PanelMainController>();

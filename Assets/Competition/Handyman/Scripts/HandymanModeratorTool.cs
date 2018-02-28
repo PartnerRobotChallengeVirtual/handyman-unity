@@ -21,9 +21,12 @@ namespace SIGVerse.Competition.Handyman
 	[Serializable]
 	public class EnvironmentInfo
 	{
+		public string taskMessage;
 		public string environmentName;
 		public string graspingTargetName;
+		public string destinationName;
 		public List<RelocatableObjectInfo> graspablesPositions;
+		public List<RelocatableObjectInfo> destinationsPositions; 
 	}
 
 	public class HandymanModeratorTool
@@ -47,6 +50,10 @@ namespace SIGVerse.Competition.Handyman
 
 		private List<GameObject> graspingCandidatesPositions;
 
+		private GameObject destination;
+		private List<GameObject> destinationCandidates;
+
+		private GameObject robot;
 		private Transform hsrBaseFootPrint;
 		private HSRGraspingDetector hsrGraspingDetector;
 
@@ -57,17 +64,21 @@ namespace SIGVerse.Competition.Handyman
 		private GameObject livingArea;
 		private GameObject lobbyArea;
 
+		private bool? isPlacementSucceeded;
+
 		private HandymanPlaybackRecorder playbackRecorder;
 
-		public HandymanModeratorTool(List<GameObject> environments)
+
+
+		public HandymanModeratorTool(List<GameObject> environments, HandymanScoreManager scoreManager, GameObject worldPlayback)
 		{
 			HandymanConfig.Instance.InclementNumberOfTrials();
 
 			EnvironmentInfo environmentInfo = this.EnableEnvironment(environments);
 
-			this.GetGameObjects();
+			this.GetGameObjects(worldPlayback);
 
-			this.Initialize(environmentInfo);
+			this.Initialize(environmentInfo, scoreManager);
 		}
 
 		private EnvironmentInfo EnableEnvironment(List<GameObject> environments)
@@ -116,12 +127,12 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		private void GetGameObjects()
+		private void GetGameObjects(GameObject worldPlayback)
 		{
-			GameObject robot = GameObject.FindGameObjectWithTag("Robot");
+			this.robot = GameObject.FindGameObjectWithTag("Robot");
 
-			this.hsrBaseFootPrint = HSRCommon.FindGameObjectFromChild(robot.transform, HSRCommon.BaseFootPrintName);
-			this.hsrGraspingDetector = robot.GetComponentInChildren<HSRGraspingDetector>();
+			this.hsrBaseFootPrint = HSRCommon.FindGameObjectFromChild(this.robot.transform, HSRCommon.BaseFootPrintName);
+			this.hsrGraspingDetector = this.robot.GetComponentInChildren<HSRGraspingDetector>();
 
 
 			// Get grasping candidates
@@ -148,6 +159,7 @@ namespace SIGVerse.Competition.Handyman
 
 			SIGVerseLogger.Info("Count of Graspables = " + this.graspables.Count);
 
+
 			this.bedRoomArea = GameObject.Find(AreaNameBedRoom);
 			this.kitchenArea = GameObject.Find(AreaNameKitchen);
 			this.livingArea  = GameObject.Find(AreaNameLiving);
@@ -164,30 +176,65 @@ namespace SIGVerse.Competition.Handyman
 			{
 				SIGVerseLogger.Info("Count of GraspingCandidatesPosition = " + this.graspingCandidatesPositions.Count);
 			}
+
+
+			this.destinationCandidates = GameObject.FindGameObjectsWithTag("DestinationCandidates").ToList<GameObject>();
+
+			if(this.destinationCandidates.Count == 0)
+			{
+				throw new Exception("Count of DestinationCandidates is zero.");
+			}
+
+			// Check the name conflict of destination candidates.
+			if(this.destinationCandidates.Count != (from destinations in this.destinationCandidates select destinations.name).Distinct().Count())
+			{
+				throw new Exception("There is the name conflict of destination candidates objects.");
+			}
+
+			SIGVerseLogger.Info("Count of Destinations = " + this.destinationCandidates.Count);
+
+
+			this.playbackRecorder = worldPlayback.GetComponent<HandymanPlaybackRecorder>();
 		}
 
 
-		private void Initialize(EnvironmentInfo environmentInfo)
+		private void Initialize(EnvironmentInfo environmentInfo, HandymanScoreManager scoreManager)
 		{
+			List<GameObject> objectCollisionDestinations = new List<GameObject>();
+			objectCollisionDestinations.Add(scoreManager.gameObject);
+
+			foreach(GameObject graspable in this.graspables)
+			{
+				CollisionTransferer collisionTransferer = graspable.AddComponent<CollisionTransferer>();
+
+				collisionTransferer.Initialize(objectCollisionDestinations, Score.GetObjectCollisionVeloticyThreshold());
+			}
+
+
 			Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap = null; //key:GraspablePositionInfo, value:Graspables
+			Dictionary<RelocatableObjectInfo, GameObject> destinationsPositionsMap = null; //key:DestinationPositionInfo, value:DestinationCandidate
 
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
 			{
 				this.graspingTarget = this.DecideGraspingTarget();
+				this.destination = this.DecideDestination();
 
-				graspablesPositionMap = this.CreateGraspablesPositionMap();
+				graspablesPositionMap    = this.CreateGraspablesPositionMap();
+				destinationsPositionsMap = this.CreateDestinationsPositionsMap();
 
-				this.SaveEnvironmentInfo(environmentInfo.environmentName, this.graspingTarget.name, graspablesPositionMap);
+				string taskMessage = "target=" + this.graspingTarget.name + " destination=" + this.destination.name;
+
+				this.SaveEnvironmentInfo(taskMessage, environmentInfo.environmentName, this.graspingTarget.name, this.destination.name, graspablesPositionMap, destinationsPositionsMap);
 			}
 			else
 			{
 				this.DeactivateGraspingCandidatesPositions();
 
-				graspablesPositionMap = new Dictionary<RelocatableObjectInfo, GameObject>();
-
 				this.graspingTarget = (from graspable in this.graspables where graspable.name == environmentInfo.graspingTargetName select graspable).First();
 
 				if(this.graspingTarget==null) { throw new Exception("Grasping target not found. name=" + environmentInfo.graspingTargetName); }
+
+				graspablesPositionMap = new Dictionary<RelocatableObjectInfo, GameObject>();
 
 				foreach(RelocatableObjectInfo graspablePositionInfo in environmentInfo.graspablesPositions)
 				{
@@ -197,8 +244,30 @@ namespace SIGVerse.Competition.Handyman
 
 					graspablesPositionMap.Add(graspablePositionInfo, graspableObj);
 				}
+
+
+				// Destination object
+				this.destination = (from destinationCandidate in this.destinationCandidates where destinationCandidate.name == environmentInfo.destinationName select destinationCandidate).First();
+
+				if (this.destination == null) { throw new Exception("Destination not found. name=" + environmentInfo.destinationName); }
+
+				// Destination candidates position map
+				destinationsPositionsMap = new Dictionary<RelocatableObjectInfo, GameObject>();
+
+				foreach (RelocatableObjectInfo destinationPositionInfo in environmentInfo.destinationsPositions)
+				{
+					GameObject destinationObj = (from destinationCandidate in this.destinationCandidates where destinationCandidate.name == destinationPositionInfo.name select destinationCandidate).First();
+
+					if (destinationObj == null) { throw new Exception("Destination candidate not found. name=" + destinationPositionInfo.name); }
+
+					destinationsPositionsMap.Add(destinationPositionInfo, destinationObj);
+				}
 			}
 
+			// Add a contact checker to the destination
+			this.destination.AddComponent<PlacementChecker>();
+
+			
 			foreach (KeyValuePair<RelocatableObjectInfo, GameObject> pair in graspablesPositionMap)
 			{
 				pair.Value.transform.position    = pair.Key.position;
@@ -207,13 +276,17 @@ namespace SIGVerse.Competition.Handyman
 //				Debug.Log(pair.Key.name + " : " + pair.Value.name);
 			}
 
+			foreach (KeyValuePair<RelocatableObjectInfo, GameObject> pair in destinationsPositionsMap)
+			{
+				pair.Value.transform.position    = pair.Key.position;
+				pair.Value.transform.eulerAngles = pair.Key.eulerAngles;
+
+//				Debug.Log(pair.Key.name + " : " + pair.Value.name);
+			}
+
 			this.targetRoom = this.GetTargetRoom();
-		}
 
-
-		public void InitPlaybackVariables(GameObject worldPlayback)
-		{
-			this.playbackRecorder = worldPlayback.GetComponent<HandymanPlaybackRecorder>();
+			this.isPlacementSucceeded   = null;
 		}
 
 
@@ -236,12 +309,23 @@ namespace SIGVerse.Competition.Handyman
 
 		public GameObject DecideGraspingTarget()
 		{
-			// Decide the grasping target and get the instance ID
+			// Decide the grasping target
 			GameObject graspingTarget = this.graspingCandidates[UnityEngine.Random.Range(0, this.graspingCandidates.Count)];
 
 			SIGVerseLogger.Info("Grasping target is " + graspingTarget.name);
 
 			return graspingTarget;
+		}
+
+
+		public GameObject DecideDestination()
+		{
+			// Decide the destination
+			GameObject destination = this.destinationCandidates[UnityEngine.Random.Range(0, this.destinationCandidates.Count)];
+
+			SIGVerseLogger.Info("Destination is " + destination.name);
+
+			return destination;
 		}
 
 
@@ -321,6 +405,25 @@ namespace SIGVerse.Competition.Handyman
 			}
 
 			return graspingCandidatesMap;
+		}
+
+
+		public Dictionary<RelocatableObjectInfo, GameObject> CreateDestinationsPositionsMap()
+		{
+			Dictionary<RelocatableObjectInfo, GameObject> destinationsPositionsMap = new Dictionary<RelocatableObjectInfo, GameObject>();
+
+			for (int i=0; i<this.destinationCandidates.Count; i++)
+			{
+				RelocatableObjectInfo destinationPositionInfo = new RelocatableObjectInfo();
+
+				destinationPositionInfo.name        = this.destinationCandidates[i].name;
+				destinationPositionInfo.position    = this.destinationCandidates[i].transform.position;
+				destinationPositionInfo.eulerAngles = this.destinationCandidates[i].transform.eulerAngles;
+
+				destinationsPositionsMap.Add(destinationPositionInfo, this.destinationCandidates[i]);
+			}
+
+			return destinationsPositionsMap;
 		}
 
 		public string GetRoomName(GameObject roomObj)
@@ -408,9 +511,40 @@ namespace SIGVerse.Competition.Handyman
 			return false;
 		}
 
+		public bool IsPlacementCheckFinished()
+		{
+			return isPlacementSucceeded != null;
+		}
+
+		public bool IsPlacementSucceeded()
+		{
+			return (bool)isPlacementSucceeded;
+		}
+
 		public bool IsTaskFinishedSucceeded(Vector3 moderatorPosition)
 		{
 			return Vector3.Distance(this.hsrBaseFootPrint.position, moderatorPosition) <= 2.0f && this.IsObjectGraspedSucceeded();
+		}
+
+
+		public IEnumerator UpdatePlacementStatus(MonoBehaviour moderator)
+		{
+			if(this.graspingTarget.transform.root == this.robot.transform.root)
+			{
+				this.isPlacementSucceeded = false;
+
+				SIGVerseLogger.Info("Target placement failed: HSR has the grasping target.");
+			}
+
+//			Debug.Log("UpdatePlacementStatus start time=" + Time.time);
+
+			PlacementChecker placementChecker = this.destination.GetComponent<PlacementChecker>();
+
+			IEnumerator<bool?> isPlaced = placementChecker.IsPlaced(this.graspingTarget);
+
+			yield return moderator.StartCoroutine(isPlaced);
+
+			this.isPlacementSucceeded = (bool)isPlaced.Current;
 		}
 
 
@@ -488,12 +622,15 @@ namespace SIGVerse.Competition.Handyman
 			return environmentInfo;
 		}
 
-		public void SaveEnvironmentInfo(string environmentName, string graspingTargetName, Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap)
+
+		public void SaveEnvironmentInfo(string taskMessage, string environmentName, string graspingTargetName, string destinationName, Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap, Dictionary<RelocatableObjectInfo, GameObject> destinationsPositionsMap)
 		{
 			EnvironmentInfo environmentInfo = new EnvironmentInfo();
 
+			environmentInfo.taskMessage        = taskMessage;
 			environmentInfo.environmentName    = environmentName;
 			environmentInfo.graspingTargetName = graspingTargetName;
+			environmentInfo.destinationName    = destinationName;
 
 			List<RelocatableObjectInfo> graspablesPositions = new List<RelocatableObjectInfo>();
 
@@ -508,6 +645,21 @@ namespace SIGVerse.Competition.Handyman
 			}
 
 			environmentInfo.graspablesPositions = graspablesPositions;
+
+
+			List<RelocatableObjectInfo> destinationsPositions = new List<RelocatableObjectInfo>();
+
+			foreach(KeyValuePair<RelocatableObjectInfo, GameObject> destinationPositionPair in destinationsPositionsMap)
+			{
+				RelocatableObjectInfo destinationInfo = new RelocatableObjectInfo();
+				destinationInfo.name        = destinationPositionPair.Value.name;
+				destinationInfo.position    = destinationPositionPair.Key.position;
+				destinationInfo.eulerAngles = destinationPositionPair.Key.eulerAngles;
+
+				destinationsPositions.Add(destinationInfo);
+			}
+
+			environmentInfo.destinationsPositions = destinationsPositions;
 
 
 			string filePath = String.Format(Application.dataPath + EnvironmentInfoFileNameFormat, HandymanConfig.Instance.numberOfTrials);
