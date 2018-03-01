@@ -19,7 +19,7 @@ namespace SIGVerse.Competition.Handyman
 		{
 			RoomReachedSuccess,
 			ObjectGraspedSuccess,
-			ComeBackSuccess,
+			PlacementSuccess,
 			HsrCollisionEnter,
 			ObjectCollisionEnter,
 		}
@@ -30,7 +30,7 @@ namespace SIGVerse.Competition.Handyman
 			{
 				case Score.Type.RoomReachedSuccess  : { return +20; }
 				case Score.Type.ObjectGraspedSuccess: { return +50; }
-				case Score.Type.ComeBackSuccess     : { return +30; }
+				case Score.Type.PlacementSuccess    : { return +30; }
 				case Score.Type.HsrCollisionEnter   : { return -10; }
 				case Score.Type.ObjectCollisionEnter: { return GetObjectCollisionScore((Collision)args[0]); }
 			}

@@ -31,6 +31,17 @@ namespace SIGVerse.Competition.Handyman
 
 	public class HandymanModeratorTool
 	{
+		private const string EnvironmentInfoFileNameFormat = "/../SIGVerseConfig/Handyman/EnvironmentInfo{0:D2}.json";
+
+		private const string TagRobot                      = "Robot";
+		private const string TagModerator                  = "Moderator";
+		private const string TagGraspingCandidates         = "GraspingCandidates";
+		private const string TagDummyGraspingCandidates    = "DummyGraspingCandidates";
+		private const string TagGraspingCandidatesPosition = "GraspingCandidatesPosition";
+		private const string TagDestinationCandidates      = "DestinationCandidates";
+
+		private const string JudgeTriggersName = "JudgeTriggers";
+
 		private const string AreaNameBedRoom = "BedRoomArea";
 		private const string AreaNameKitchen = "KitchenArea";
 		private const string AreaNameLiving  = "LivingArea";
@@ -40,8 +51,6 @@ namespace SIGVerse.Competition.Handyman
 		private const string RoomNameForTaskMessageLobby   = "lobby";
 		private const string RoomNameForTaskMessageBedRoom = "bed room";
 		private const string RoomNameForTaskMessageLiving  = "living room";
-
-		private const string EnvironmentInfoFileNameFormat = "/../SIGVerseConfig/Handyman/EnvironmentInfo{0:D2}.json";
 
 
 		private GameObject graspingTarget;
@@ -56,6 +65,7 @@ namespace SIGVerse.Competition.Handyman
 		private GameObject robot;
 		private Transform hsrBaseFootPrint;
 		private HSRGraspingDetector hsrGraspingDetector;
+
 
 		private GameObject targetRoom;
 
@@ -129,14 +139,17 @@ namespace SIGVerse.Competition.Handyman
 
 		private void GetGameObjects(GameObject worldPlayback)
 		{
-			this.robot = GameObject.FindGameObjectWithTag("Robot");
+			this.robot = GameObject.FindGameObjectWithTag(TagRobot);
 
 			this.hsrBaseFootPrint = HSRCommon.FindGameObjectFromChild(this.robot.transform, HSRCommon.BaseFootPrintName);
 			this.hsrGraspingDetector = this.robot.GetComponentInChildren<HSRGraspingDetector>();
 
 
+			GameObject moderator = GameObject.FindGameObjectWithTag(TagModerator);
+
+
 			// Get grasping candidates
-			this.graspingCandidates = GameObject.FindGameObjectsWithTag("GraspingCandidates").ToList<GameObject>();
+			this.graspingCandidates = GameObject.FindGameObjectsWithTag(TagGraspingCandidates).ToList<GameObject>();
 
 
 			if (this.graspingCandidates.Count == 0)
@@ -144,7 +157,7 @@ namespace SIGVerse.Competition.Handyman
 				throw new Exception("Count of GraspingCandidates is zero.");
 			}
 
-			List<GameObject> dummyGraspingCandidates = GameObject.FindGameObjectsWithTag("DummyGraspingCandidates").ToList<GameObject>();
+			List<GameObject> dummyGraspingCandidates = GameObject.FindGameObjectsWithTag(TagDummyGraspingCandidates).ToList<GameObject>();
 
 			this.graspables = new List<GameObject>();
 
@@ -166,7 +179,7 @@ namespace SIGVerse.Competition.Handyman
 			this.lobbyArea   = GameObject.Find(AreaNameLobby);
 
 			// Get grasping candidates positions
-			this.graspingCandidatesPositions = GameObject.FindGameObjectsWithTag("GraspingCandidatesPosition").ToList<GameObject>();
+			this.graspingCandidatesPositions = GameObject.FindGameObjectsWithTag(TagGraspingCandidatesPosition).ToList<GameObject>();
 
 			if (this.graspables.Count > this.graspingCandidatesPositions.Count)
 			{
@@ -178,7 +191,9 @@ namespace SIGVerse.Competition.Handyman
 			}
 
 
-			this.destinationCandidates = GameObject.FindGameObjectsWithTag("DestinationCandidates").ToList<GameObject>();
+			this.destinationCandidates = GameObject.FindGameObjectsWithTag(TagDestinationCandidates).ToList<GameObject>();
+
+			this.destinationCandidates.Add(moderator); // Treat moderator as a destination candidate
 
 			if(this.destinationCandidates.Count == 0)
 			{
@@ -217,7 +232,7 @@ namespace SIGVerse.Competition.Handyman
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
 			{
 				this.graspingTarget = this.DecideGraspingTarget();
-				this.destination = this.DecideDestination();
+				this.destination    = this.DecideDestination();
 
 				graspablesPositionMap    = this.CreateGraspablesPositionMap();
 				destinationsPositionsMap = this.CreateDestinationsPositionsMap();
@@ -264,8 +279,16 @@ namespace SIGVerse.Competition.Handyman
 				}
 			}
 
-			// Add a contact checker to the destination
-			this.destination.AddComponent<PlacementChecker>();
+
+			if(this.destination.tag!=TagModerator)
+			{ 
+				// Add Placement checker to triggers
+				Transform judgeTriggersTransform = this.destination.transform.Find(JudgeTriggersName);
+
+				if (judgeTriggersTransform==null) { throw new Exception("No Judge Triggers object"); }
+
+				judgeTriggersTransform.gameObject.AddComponent<PlacementChecker>();
+			}
 
 			
 			foreach (KeyValuePair<RelocatableObjectInfo, GameObject> pair in graspablesPositionMap)
@@ -370,25 +393,10 @@ namespace SIGVerse.Competition.Handyman
 
 			for (int i=0; graspingCandidatesPositionsTmp.Count < this.graspables.Count; i++)
 			{
-				if (graspingCandidatesPositionsInBedRoom.Count > i)
-				{
-					graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInBedRoom[i]);
-				}
-
-				if (graspingCandidatesPositionsInKitchen.Count > i)
-				{
-					graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInKitchen[i]);
-				}
-
-				if (graspingCandidatesPositionsInLiving.Count > i)
-				{
-					graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInLiving[i]);
-				}
-
-				if (graspingCandidatesPositionsInLobby.Count > i)
-				{
-					graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInLobby[i]);
-				}
+				if (graspingCandidatesPositionsInBedRoom.Count > i){ graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInBedRoom[i]); }
+				if (graspingCandidatesPositionsInKitchen.Count > i){ graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInKitchen[i]); }
+				if (graspingCandidatesPositionsInLiving.Count  > i){ graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInLiving[i]); }
+				if (graspingCandidatesPositionsInLobby.Count   > i){ graspingCandidatesPositionsTmp.Add(graspingCandidatesPositionsInLobby[i]); }
 			}
 
 			Dictionary<RelocatableObjectInfo, GameObject> graspingCandidatesMap = new Dictionary<RelocatableObjectInfo, GameObject>();
@@ -444,22 +452,10 @@ namespace SIGVerse.Competition.Handyman
 
 		public GameObject GetTargetRoom()
 		{
-			if (this.IsTargetInArea(this.graspingTarget.transform.position, this.bedRoomArea))
-			{
-				return this.bedRoomArea;
-			}
-			else if (this.IsTargetInArea(this.graspingTarget.transform.position, this.kitchenArea))
-			{
-				return this.kitchenArea;
-			}
-			else if (this.IsTargetInArea(this.graspingTarget.transform.position, this.livingArea))
-			{
-				return this.livingArea;
-			}
-			else if (this.IsTargetInArea(this.graspingTarget.transform.position, this.lobbyArea))
-			{
-				return this.lobbyArea;
-			}
+			if      (this.IsTargetInArea(this.graspingTarget.transform.position, this.bedRoomArea)){ return this.bedRoomArea; }
+			else if (this.IsTargetInArea(this.graspingTarget.transform.position, this.kitchenArea)){ return this.kitchenArea; }
+			else if (this.IsTargetInArea(this.graspingTarget.transform.position, this.livingArea)) { return this.livingArea; }
+			else if (this.IsTargetInArea(this.graspingTarget.transform.position, this.lobbyArea))  { return this.lobbyArea; }
 			else
 			{
 				throw new Exception("There is no grasping target in the 4 rooms. Grasping target = " 
@@ -521,30 +517,40 @@ namespace SIGVerse.Competition.Handyman
 			return (bool)isPlacementSucceeded;
 		}
 
-		public bool IsTaskFinishedSucceeded(Vector3 moderatorPosition)
+		private bool IsTaskFinishedSucceeded(Vector3 moderatorPosition)
 		{
-			return Vector3.Distance(this.hsrBaseFootPrint.position, moderatorPosition) <= 2.0f && this.IsObjectGraspedSucceeded();
+			Vector3 hsrPos       = new Vector3(this.hsrBaseFootPrint.position.x, 0.0f, this.hsrBaseFootPrint.position.z);
+			Vector3 moderatorPos = new Vector3(moderatorPosition.x,              0.0f, moderatorPosition.z);
+
+			return Vector3.Distance(hsrPos, moderatorPos) <= 2.0f && this.IsObjectGraspedSucceeded();
 		}
 
 
 		public IEnumerator UpdatePlacementStatus(MonoBehaviour moderator)
 		{
-			if(this.graspingTarget.transform.root == this.robot.transform.root)
+			if(this.destination.tag == TagModerator)
 			{
-				this.isPlacementSucceeded = false;
-
-				SIGVerseLogger.Info("Target placement failed: HSR has the grasping target.");
+				this.isPlacementSucceeded = this.IsTaskFinishedSucceeded(moderator.transform.position);
 			}
+			else
+			{
+				if(this.graspingTarget.transform.root == this.robot.transform.root)
+				{
+					this.isPlacementSucceeded = false;
 
-//			Debug.Log("UpdatePlacementStatus start time=" + Time.time);
+					SIGVerseLogger.Info("Target placement failed: HSR has the grasping target.");
+				}
+				else
+				{
+					PlacementChecker placementChecker = this.destination.GetComponentInChildren<PlacementChecker>();
 
-			PlacementChecker placementChecker = this.destination.GetComponent<PlacementChecker>();
+					IEnumerator<bool?> isPlaced = placementChecker.IsPlaced(this.graspingTarget);
 
-			IEnumerator<bool?> isPlaced = placementChecker.IsPlaced(this.graspingTarget);
+					yield return moderator.StartCoroutine(isPlaced);
 
-			yield return moderator.StartCoroutine(isPlaced);
-
-			this.isPlacementSucceeded = (bool)isPlaced.Current;
+					this.isPlacementSucceeded = (bool)isPlaced.Current;
+				}
+			}
 		}
 
 

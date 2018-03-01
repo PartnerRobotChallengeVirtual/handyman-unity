@@ -11379,6 +11379,15 @@ Prefab:
       propertyPath: m_Name
       value: lobby_sofa_2seater
       objectReference: {fileID: 0}
+    - target: {fileID: 65666953276152630, guid: 2239f7e0b48b8dd4ca81efcc0251f439,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808017440407682, guid: 2239f7e0b48b8dd4ca81efcc0251f439, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.498
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2239f7e0b48b8dd4ca81efcc0251f439, type: 2}
   m_IsPrefabParent: 0

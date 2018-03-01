@@ -22,6 +22,7 @@ namespace SIGVerse.Competition.Handyman
 		WaitForRoomReached,
 		WaitForObjectGrasped,
 		WaitForTaskFinished,
+		Judgement,
 		WaitForNextTask,
 	}
 
@@ -311,8 +312,18 @@ namespace SIGVerse.Competition.Handyman
 					{
 						if (this.receivedMessageMap[MsgTaskFinished])
 						{
-							// Check for robot position
-							bool isSucceeded = this.tool.IsTaskFinishedSucceeded(this.transform.position);
+							StartCoroutine(this.tool.UpdatePlacementStatus(this));
+
+							this.step++;
+						}
+
+						break;
+					}
+					case ModeratorStep.Judgement:
+					{
+						if (this.tool.IsPlacementCheckFinished())
+						{
+							bool isSucceeded = this.tool.IsPlacementSucceeded();
 
 							if (HandymanConfig.Instance.configFileInfo.isAlwaysGoNext)
 							{
@@ -324,14 +335,14 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Succeeded '" + MsgTaskFinished + "'");
 								this.SendPanelNotice("Succeeded!", 150, PanelNoticeStatus.Green);
-								this.scoreManager.AddScore(Score.Type.ComeBackSuccess);
+								this.scoreManager.AddScore(Score.Type.PlacementSuccess);
 
 								this.GoToNextTaskTaskSucceeded();
 							}
 							else
 							{
 								SIGVerseLogger.Info("Failed '" + MsgTaskFinished + "'");
-								this.SendPanelNotice("Failed\nCome back", 100, PanelNoticeStatus.Red);
+								this.SendPanelNotice("Failed\n" + MsgTaskFinished.Replace('_', ' '), 100, PanelNoticeStatus.Red);
 								this.GoToNextTaskTaskFailed("Failed " + MsgTaskFinished);
 							}
 						}
