@@ -3548,6 +3548,11 @@ Prefab:
       propertyPath: collisionNotificationDestinations.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114346628091449176, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: collisionNotificationDestinations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4565211342487820, guid: 52e4f49510f5e83429982d5221396009, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -3601,6 +3606,24 @@ Prefab:
     - target: {fileID: 1052170469509074, guid: 52e4f49510f5e83429982d5221396009, type: 2}
       propertyPath: m_TagString
       value: AudienceCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346628091449176, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: collisionNotificationDestinations.Array.data[0]
+      value: 
+      objectReference: {fileID: 2002887735}
+    - target: {fileID: 114346628091449176, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: collisionNotificationDestinations.Array.data[1]
+      value: 
+      objectReference: {fileID: 68156980}
+    - target: {fileID: 4565211342487820, guid: 52e4f49510f5e83429982d5221396009, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565211342487820, guid: 52e4f49510f5e83429982d5221396009, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114502051689684226, guid: 52e4f49510f5e83429982d5221396009, type: 2}
