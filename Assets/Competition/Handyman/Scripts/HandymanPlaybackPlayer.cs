@@ -13,11 +13,11 @@ namespace SIGVerse.Competition.Handyman
 
 		protected override void Awake()
 		{
-			base.isPlay = HandymanConfig.Instance.configFileInfo.playbackType == WorldPlaybackCommon.PlaybackTypePlay;
+			this.isPlay = HandymanConfig.Instance.configFileInfo.playbackType == WorldPlaybackCommon.PlaybackTypePlay;
 
 			base.Awake();
 
-			if (base.isPlay)
+			if (this.isPlay)
 			{
 				Transform robot = GameObject.FindGameObjectWithTag("Robot").transform;
 
@@ -42,11 +42,11 @@ namespace SIGVerse.Competition.Handyman
 
 		public override void OnReadFileButtonClick()
 		{
-			base.trialNo = int.Parse(base.trialNoInputField.text);
+			this.trialNo = int.Parse(this.trialNoInputField.text);
 
-			string filePath = string.Format(Application.dataPath + HandymanPlaybackCommon.FilePathFormat, base.trialNo);
+			string filePath = string.Format(Application.dataPath + HandymanPlaybackCommon.FilePathFormat, this.trialNo);
 
-			base.Initialize(filePath);
+			this.Initialize(filePath);
 		}
 	}
 }

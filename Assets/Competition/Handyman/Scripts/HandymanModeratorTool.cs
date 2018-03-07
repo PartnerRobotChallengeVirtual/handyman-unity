@@ -236,10 +236,6 @@ namespace SIGVerse.Competition.Handyman
 
 				graspablesPositionMap    = this.CreateGraspablesPositionMap();
 				destinationsPositionsMap = this.CreateDestinationsPositionsMap();
-
-				string taskMessage = "target=" + this.graspingTarget.name + " destination=" + this.destination.name;
-
-				this.SaveEnvironmentInfo(taskMessage, environmentInfo.environmentName, this.graspingTarget.name, this.destination.name, graspablesPositionMap, destinationsPositionsMap);
 			}
 			else
 			{
@@ -308,6 +304,13 @@ namespace SIGVerse.Competition.Handyman
 			}
 
 			this.targetRoom = this.GetTargetRoom();
+
+
+			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				this.SaveEnvironmentInfo(this.GetTaskMessage(), environmentInfo.environmentName, this.graspingTarget.name, this.destination.name, graspablesPositionMap, destinationsPositionsMap);
+			}
+
 
 			this.isPlacementSucceeded   = null;
 		}
@@ -444,9 +447,9 @@ namespace SIGVerse.Competition.Handyman
 			throw new Exception("There is no grasping target in the 4 rooms. Grasping target =");
 		}
 
-		public string GenerateTaskMessage()
+		public string GetTaskMessage()
 		{
-			return "Go to the " + this.GetRoomName(this.targetRoom) + ", grasp the " + this.graspingTarget.name + " and come back here.";
+			return "Go to the " + this.GetRoomName(this.targetRoom) + ", grasp the " + this.graspingTarget.name + " and send it to the " + this.destination.name + ".";
 		}
 
 

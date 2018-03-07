@@ -118,14 +118,14 @@ namespace SIGVerse.Competition.Handyman
 
 		private void PreProcess()
 		{
-			this.mainPanelController.SetChallengeInfoText(HandymanConfig.Instance.numberOfTrials);
+			this.mainPanelController.SetTrialNumberText(HandymanConfig.Instance.numberOfTrials);
 
-			SIGVerseLogger.Info("##### " + this.mainPanelController.GetChallengeInfoText() + " #####");
+			SIGVerseLogger.Info("##### " + this.mainPanelController.GetTrialNumberText() + " #####");
 
 			this.mainPanelController.ResetTimeLeftText();
 
 
-			this.taskMessage = this.tool.GenerateTaskMessage();
+			this.taskMessage = this.tool.GetTaskMessage();
 
 			this.mainPanelController.SetTaskMessageText(this.taskMessage);
 
@@ -420,7 +420,7 @@ namespace SIGVerse.Competition.Handyman
 			(
 				target: this.mainMenu, 
 				eventData: null, 
-				functor: (reciever, eventData) => reciever.OnChange(noticeStatus)
+				functor: (reciever, eventData) => reciever.OnPanelNoticeChange(noticeStatus)
 			);
 
 			// For recording
@@ -428,7 +428,7 @@ namespace SIGVerse.Competition.Handyman
 			(
 				target: this.playbackManager, 
 				eventData: null, 
-				functor: (reciever, eventData) => reciever.OnChange(noticeStatus)
+				functor: (reciever, eventData) => reciever.OnPanelNoticeChange(noticeStatus)
 			);
 		}
 

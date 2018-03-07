@@ -8,7 +8,7 @@ namespace SIGVerse.Competition.Handyman
 	{
 		protected override void Awake()
 		{
-			base.isRecord = HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord;
+			this.isRecord = HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord;
 
 			base.Awake();
 		}
@@ -17,7 +17,7 @@ namespace SIGVerse.Competition.Handyman
 		{
 			string filePath = string.Format(Application.dataPath + HandymanPlaybackCommon.FilePathFormat, numberOfTrials);
 
-			return base.Initialize(filePath);
+			return this.Initialize(filePath);
 		}
 	}
 }
