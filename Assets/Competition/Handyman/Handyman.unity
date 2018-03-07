@@ -15058,22 +15058,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 1998121914415254, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
-      propertyPath: m_Name
-      value: trashbox_c02
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523969240225046, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523969240225046, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523969240225046, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
   m_IsPrefabParent: 0
@@ -33412,22 +33396,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 1880966546096396, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
-      propertyPath: m_Name
-      value: trashbox_c03
-      objectReference: {fileID: 0}
-    - target: {fileID: 4290888245140876, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4290888245140876, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4290888245140876, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
   m_IsPrefabParent: 0
@@ -36897,22 +36865,6 @@ Prefab:
     - target: {fileID: 4019540231455106, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755707175658570, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
-      propertyPath: m_Name
-      value: trashbox_c01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4019540231455106, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4019540231455106, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4019540231455106, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}

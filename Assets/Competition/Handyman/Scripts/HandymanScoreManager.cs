@@ -152,6 +152,11 @@ namespace SIGVerse.Competition.Handyman
 
 		public void OnTransferredCollisionEnter(Collision collision, GameObject collidingObject)
 		{
+			foreach(ContactPoint contactPoint in collision.contacts)
+			{
+				if(contactPoint.otherCollider.CompareTag("NoDeductionCollider")){ return; }
+			}
+
 			SIGVerseLogger.Info("Object collision occurred. name=" + collidingObject.name);
 
 			this.AddScore(Score.Type.ObjectCollisionEnter, collision);
