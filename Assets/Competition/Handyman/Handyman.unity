@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1543,6 +1543,10 @@ Prefab:
       propertyPath: m_Name
       value: desk_lamp
       objectReference: {fileID: 0}
+    - target: {fileID: 1815666965692918, guid: a889f80797660794198b159bf4dd725f, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a889f80797660794198b159bf4dd725f, type: 2}
   m_IsPrefabParent: 0
@@ -2180,6 +2184,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1835491127487276, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
   m_IsPrefabParent: 0
@@ -2455,6 +2463,10 @@ Prefab:
     - target: {fileID: 1240832102280088, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
       propertyPath: m_Name
       value: clock
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240832102280088, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
@@ -4338,6 +4350,10 @@ Prefab:
     - target: {fileID: 1731800234963376, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
       propertyPath: m_Name
       value: photoframe
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731800234963376, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
@@ -11501,6 +11517,10 @@ Prefab:
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1500800958369752, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
   m_IsPrefabParent: 0
@@ -12392,6 +12412,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.59999996
       objectReference: {fileID: 0}
+    - target: {fileID: 1739990246696206, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
   m_IsPrefabParent: 0
@@ -13048,6 +13072,10 @@ Prefab:
     - target: {fileID: 1283823254175280, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
       propertyPath: m_Name
       value: Sponge_c01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283823254175280, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
@@ -13736,6 +13764,10 @@ Prefab:
     - target: {fileID: 1942365740794960, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
       propertyPath: m_Name
       value: tumiki_car
+      objectReference: {fileID: 0}
+    - target: {fileID: 1942365740794960, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
@@ -15467,14 +15499,6 @@ Prefab:
     - target: {fileID: 4079081119475970, guid: ccb59c06a8caaf94fb946ae945774c7f, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548437775898154, guid: ccb59c06a8caaf94fb946ae945774c7f, type: 2}
-      propertyPath: m_Name
-      value: sauce_full
-      objectReference: {fileID: 0}
-    - target: {fileID: 4079081119475970, guid: ccb59c06a8caaf94fb946ae945774c7f, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ccb59c06a8caaf94fb946ae945774c7f, type: 2}
@@ -27104,6 +27128,10 @@ Prefab:
       propertyPath: m_Name
       value: pepper_full
       objectReference: {fileID: 0}
+    - target: {fileID: 1896168604333454, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
   m_IsPrefabParent: 0
@@ -32885,6 +32913,10 @@ Prefab:
       propertyPath: m_Name
       value: donburi
       objectReference: {fileID: 0}
+    - target: {fileID: 1794219264704046, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
   m_IsPrefabParent: 0
@@ -35661,6 +35693,10 @@ Prefab:
     - target: {fileID: 1464778597184674, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
       propertyPath: m_Name
       value: toy_duck
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464778597184674, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
+      propertyPath: m_TagString
+      value: DummyGraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
