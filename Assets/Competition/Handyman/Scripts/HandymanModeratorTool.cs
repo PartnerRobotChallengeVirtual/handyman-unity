@@ -144,7 +144,7 @@ namespace SIGVerse.Competition.Handyman
 		{
 			this.robot = GameObject.FindGameObjectWithTag(TagRobot);
 
-			this.hsrBaseFootPrint = HSRCommon.FindGameObjectFromChild(this.robot.transform, HSRCommon.BaseFootPrintName);
+			this.hsrBaseFootPrint = SIGVerseUtil.FindTransformFromChild(this.robot.transform, HSRCommon.BaseFootPrintName);
 			this.hsrGraspingDetector = this.robot.GetComponentInChildren<HSRGraspingDetector>();
 
 
@@ -528,7 +528,7 @@ namespace SIGVerse.Competition.Handyman
 			Rigidbody targetRigidbody = this.graspingTarget.GetComponent<Rigidbody>();
 
 			Vector3 targetPos    = targetRigidbody.transform.TransformPoint(targetRigidbody.centerOfMass);
-			Vector3 moderatorPos = FindGameObjectFromChild(moderatorRoot, DeliveryPositionName).transform.position;
+			Vector3 moderatorPos = SIGVerseUtil.FindTransformFromChild(moderatorRoot, DeliveryPositionName).position;
 
 			return Vector3.Distance(targetPos, moderatorPos) <= DeliveryThreshold && this.IsObjectGraspedSucceeded();
 		}
@@ -559,21 +559,6 @@ namespace SIGVerse.Competition.Handyman
 					this.isPlacementSucceeded = (bool)isPlaced.Current;
 				}
 			}
-		}
-
-		public static GameObject FindGameObjectFromChild(Transform root, string name)
-		{
-			Transform[] transforms = root.GetComponentsInChildren<Transform>();
-
-			foreach (Transform transform in transforms)
-			{
-				if (transform.name == name)
-				{
-					return transform.gameObject;
-				}
-			}
-
-			return null;
 		}
 
 

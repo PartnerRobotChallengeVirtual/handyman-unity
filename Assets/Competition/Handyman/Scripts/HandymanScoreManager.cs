@@ -144,20 +144,21 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void OnHsrCollisionEnter(Vector3 contactPoint)
+		public void OnHsrCollisionEnter(Collision collision)
 		{
 			this.AddScore(Score.Type.HsrCollisionEnter);
 		}
 
 
-		public void OnTransferredCollisionEnter(Collision collision, GameObject collidingObject)
+
+		public void OnTransferredCollisionEnter(Collision collision)
 		{
 			foreach(ContactPoint contactPoint in collision.contacts)
 			{
 				if(contactPoint.otherCollider.CompareTag("NoDeductionCollider")){ return; }
 			}
 
-			SIGVerseLogger.Info("Object collision occurred. name=" + collidingObject.name);
+			SIGVerseLogger.Info("Object collision occurred. name=" + collision.contacts[0].thisCollider.name);
 
 			this.AddScore(Score.Type.ObjectCollisionEnter, collision);
 		}
