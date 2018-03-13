@@ -40,7 +40,10 @@ namespace SIGVerse.Competition.Handyman
 		private const string TagGraspingCandidatesPosition = "GraspingCandidatesPosition";
 		private const string TagDestinationCandidates      = "DestinationCandidates";
 
-		private const string JudgeTriggersName = "JudgeTriggers";
+		private const string JudgeTriggersName    = "JudgeTriggers";
+		private const string DeliveryPositionName = "DeliveryPosition";
+
+		private const float  DeliveryThreshold = 0.3f;
 
 		private const string AreaNameBedRoom = "BedRoomArea";
 		private const string AreaNameKitchen = "KitchenArea";
@@ -520,12 +523,14 @@ namespace SIGVerse.Competition.Handyman
 			return (bool)isPlacementSucceeded;
 		}
 
-		private bool IsTaskFinishedSucceeded(Vector3 moderatorPosition)
+		private bool IsDeliverySucceeded(Transform moderatorRoot)
 		{
-			Vector3 hsrPos       = new Vector3(this.hsrBaseFootPrint.position.x, 0.0f, this.hsrBaseFootPrint.position.z);
-			Vector3 moderatorPos = new Vector3(moderatorPosition.x,              0.0f, moderatorPosition.z);
+			Rigidbody targetRigidbody = this.graspingTarget.GetComponent<Rigidbody>();
 
-			return Vector3.Distance(hsrPos, moderatorPos) <= 2.0f && this.IsObjectGraspedSucceeded();
+			Vector3 targetPos    = targetRigidbody.transform.TransformPoint(targetRigidbody.centerOfMass);
+			Vector3 moderatorPos = FindGameObjectFromChild(moderatorRoot, DeliveryPositionName).transform.position;
+
+			return Vector3.Distance(targetPos, moderatorPos) <= DeliveryThreshold && this.IsObjectGraspedSucceeded();
 		}
 
 
@@ -533,7 +538,7 @@ namespace SIGVerse.Competition.Handyman
 		{
 			if(this.destination.tag == TagModerator)
 			{
-				this.isPlacementSucceeded = this.IsTaskFinishedSucceeded(moderator.transform.position);
+				this.isPlacementSucceeded = this.IsDeliverySucceeded(moderator.transform.root);
 			}
 			else
 			{
@@ -554,6 +559,21 @@ namespace SIGVerse.Competition.Handyman
 					this.isPlacementSucceeded = (bool)isPlaced.Current;
 				}
 			}
+		}
+
+		public static GameObject FindGameObjectFromChild(Transform root, string name)
+		{
+			Transform[] transforms = root.GetComponentsInChildren<Transform>();
+
+			foreach (Transform transform in transforms)
+			{
+				if (transform.name == name)
+				{
+					return transform.gameObject;
+				}
+			}
+
+			return null;
 		}
 
 
