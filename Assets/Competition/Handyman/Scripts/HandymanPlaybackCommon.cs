@@ -18,17 +18,17 @@ namespace SIGVerse.Competition.Handyman
 
 			this.targetTransforms.Add(robot);
 
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.BaseFootPrintName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.ArmLiftLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.ArmFlexLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.ArmRollLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.WristFlexLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.WristRollLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.HeadPanLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.HeadTiltLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.TorsoLiftLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.HandLProximalLinkName));
-			this.targetTransforms.Add(SIGVerseUtil.FindTransformFromChild(robot, HSRCommon.HandRProximalLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.BaseFootPrintName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.ArmLiftLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.ArmFlexLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.ArmRollLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.WristFlexLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.WristRollLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.HeadPanLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.HeadTiltLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.TorsoLiftLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.HandLProximalLinkName));
+			this.targetTransforms.Add(SIGVerseUtils.FindTransformFromChild(robot, HSRCommon.HandRProximalLinkName));
 		}
 	}
 }
