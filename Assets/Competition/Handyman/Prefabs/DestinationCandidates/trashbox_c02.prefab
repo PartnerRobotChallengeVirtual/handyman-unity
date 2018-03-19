@@ -186,8 +186,8 @@ GameObject:
   - component: {fileID: 65425038598380278}
   - component: {fileID: 65469631836043172}
   m_Layer: 0
-  m_Name: no_deduction_colliders
-  m_TagString: NoDeductionCollider
+  m_Name: non_deduction_colliders
+  m_TagString: NonDeductionCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

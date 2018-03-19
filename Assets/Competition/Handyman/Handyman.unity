@@ -14890,6 +14890,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1606044325712468, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
+      propertyPath: m_Name
+      value: non_deduction_colliders
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28c335de0dd39024d91059c3bfa6f234, type: 2}
   m_IsPrefabParent: 0
@@ -33174,6 +33178,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1515574173676054, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
+      propertyPath: m_Name
+      value: non_deduction_colliders
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf0d6c6f5aaac404286ddf1c8165bdcd, type: 2}
   m_IsPrefabParent: 0
@@ -36647,6 +36655,10 @@ Prefab:
     - target: {fileID: 4019540231455106, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578478809051070, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}
+      propertyPath: m_Name
+      value: non_deduction_colliders
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e1b067197f952f43bd9961d8b724214, type: 2}

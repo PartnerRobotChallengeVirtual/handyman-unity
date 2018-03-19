@@ -14,7 +14,7 @@ TagManager:
   - PlaybackTarget
   - MainMenu
   - AudienceCamera
-  - NoDeductionCollider
+  - NonDeductionCollider
   layers:
   - Default
   - TransparentFX
