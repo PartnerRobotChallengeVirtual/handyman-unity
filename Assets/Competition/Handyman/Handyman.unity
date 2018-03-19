@@ -1915,8 +1915,6 @@ MonoBehaviour:
   mainPanel: {fileID: 544185389}
   scorePanel: {fileID: 54911071}
   playbackPanel: {fileID: 678721179}
-  collisionEffect: {fileID: 1600245392930048, guid: 3ef8c8ac6a526b644b05d40d67ed7dc8,
-    type: 2}
   playSprite: {fileID: 21300000, guid: e63a23797bffe18499ff2682f037c019, type: 3}
   pauseSprite: {fileID: 21300000, guid: 0735b2e898e701e47b1b251ceafda887, type: 3}
   scoreManager: {fileID: 2002887737}
@@ -19030,6 +19028,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114346628091449176, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: collisionNotificationDestinations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4565211342487820, guid: 52e4f49510f5e83429982d5221396009, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2
