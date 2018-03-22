@@ -31,8 +31,8 @@ namespace SIGVerse.Competition.Handyman
 				case Score.Type.RoomReachedSuccess  : { return +20; }
 				case Score.Type.ObjectGraspedSuccess: { return +50; }
 				case Score.Type.PlacementSuccess    : { return +30; }
-				case Score.Type.HsrCollisionEnter   : { return -10; }
-				case Score.Type.ObjectCollisionEnter: { return GetObjectCollisionScore((Collision)args[0]); }
+				case Score.Type.HsrCollisionEnter   : { return GetHsrCollisionScore   ((Collision)args[0], (float)args[1]); }
+				case Score.Type.ObjectCollisionEnter: { return GetObjectCollisionScore((Collision)args[0], (float)args[1]); }
 			}
 
 			throw new Exception("Illegal score type. Type = " + (int)scoreType + ", method name=(" + System.Reflection.MethodBase.GetCurrentMethod().Name + ")");
@@ -43,9 +43,19 @@ namespace SIGVerse.Competition.Handyman
 			return 1.0f;
 		}
 
-		private static int GetObjectCollisionScore(Collision collision)
+		private static int GetObjectCollisionScore(Collision collision, float collisionVelocity)
 		{
-			return Mathf.FloorToInt((collision.relativeVelocity.magnitude - 1.0f) * -10);
+			return Mathf.Clamp(Mathf.FloorToInt((collisionVelocity - 1.0f) * -10), -50, -1);
+		}
+
+		public static float GetHsrCollisionVeloticyThreshold()
+		{
+			return 0.0f;
+		}
+
+		private static int GetHsrCollisionScore(Collision collision, float collisionVelocity)
+		{
+			return Mathf.Clamp(Mathf.FloorToInt(Mathf.Log10(100 * collisionVelocity) * -20), -50, -5);
 		}
 	}
 
@@ -144,15 +154,14 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void OnHsrCollisionEnter(Collision collision, float effectScale)
+		public void OnTransferredCollisionEnter(Collision collision, float collisionVelocity, float effectScale)
 		{
-			this.AddScore(Score.Type.HsrCollisionEnter);
+			this.AddScore(Score.Type.ObjectCollisionEnter, collision, collisionVelocity);
 		}
 
-
-		public void OnTransferredCollisionEnter(Collision collision, float effectScale)
+		public void OnHsrCollisionEnter(Collision collision, float collisionVelocity, float effectScale)
 		{
-			this.AddScore(Score.Type.ObjectCollisionEnter, collision);
+			this.AddScore(Score.Type.HsrCollisionEnter, collision, collisionVelocity);
 		}
 	}
 }
