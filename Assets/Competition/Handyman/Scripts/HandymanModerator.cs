@@ -465,7 +465,14 @@ namespace SIGVerse.Competition.Handyman
 
 		public void OnGiveUp()
 		{
-			this.interruptedReason = HandymanModerator.ReasonGiveUp;
+			if(this.step > ModeratorStep.TaskStart && this.step < ModeratorStep.WaitForNextTask)
+			{
+				this.interruptedReason = HandymanModerator.ReasonGiveUp;
+			}
+			else
+			{
+				SIGVerseLogger.Warn("It is a timing not allowed to give up.");
+			}
 		}
 	}
 }
