@@ -265,8 +265,6 @@ namespace SIGVerse.Competition.Handyman
 							this.step++;
 
 							SIGVerseLogger.Info("Waiting for '" + MsgObjectGrasped + "'");
-
-							break;
 						}
 
 						break;
@@ -438,15 +436,24 @@ namespace SIGVerse.Competition.Handyman
 			if(this.receivedMessageMap.ContainsKey(handymanMsg.message))
 			{
 				// Check message order
-				if(handymanMsg.message==MsgObjectGrasped)
+				if(handymanMsg.message==MsgIamReady)
 				{
-					if(!this.receivedMessageMap[MsgRoomReached]) { return; }
+					if(this.step!=ModeratorStep.WaitForIamReady) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
 				}
 
-				// Check message order
+				if(handymanMsg.message==MsgRoomReached)
+				{
+					if(this.step!=ModeratorStep.WaitForRoomReached) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
+				}
+
+				if(handymanMsg.message==MsgObjectGrasped)
+				{
+					if(this.step!=ModeratorStep.WaitForObjectGrasped) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
+				}
+
 				if(handymanMsg.message==MsgTaskFinished)
 				{
-					if(!this.receivedMessageMap[MsgObjectGrasped]) { return; }
+					if(this.step!=ModeratorStep.WaitForTaskFinished) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
 				}
 
 				this.receivedMessageMap[handymanMsg.message] = true;
