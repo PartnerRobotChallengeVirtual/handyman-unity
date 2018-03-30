@@ -1,5 +1,6 @@
 using UnityEngine.EventSystems;
 using SIGVerse.Common;
+using SIGVerse.RosBridge;
 
 namespace SIGVerse.Competition.Handyman
 {
@@ -8,13 +9,13 @@ namespace SIGVerse.Competition.Handyman
 		void OnSendRosMessage(string message, string detail);
 	}
 
-	public class HandymanPubMessage : RosPubMessage<ROSBridge.handyman.HandymanMsg>, IRosMsgSendHandler
+	public class HandymanPubMessage : RosPubMessage<RosBridge.handyman.HandymanMsg>, IRosMsgSendHandler
 	{
 		public void OnSendRosMessage(string message, string detail)
 		{
 			SIGVerseLogger.Info("Sending message :" + message + ", " + detail);
 
-			ROSBridge.handyman.HandymanMsg handymanMsg = new ROSBridge.handyman.HandymanMsg();
+			RosBridge.handyman.HandymanMsg handymanMsg = new RosBridge.handyman.HandymanMsg();
 			handymanMsg.message = message;
 			handymanMsg.detail = detail;
 

@@ -4,16 +4,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SIGVerse.ROSBridge;
+using SIGVerse.RosBridge;
 using UnityEngine;
 
 
-namespace SIGVerse.ROSBridge 
+namespace SIGVerse.RosBridge 
 {
 	namespace handyman 
 	{
 		[System.Serializable]
-		public class HandymanMsg : ROSMessage
+		public class HandymanMsg : RosMessage
 		{
 			public string message;
 			public string detail;

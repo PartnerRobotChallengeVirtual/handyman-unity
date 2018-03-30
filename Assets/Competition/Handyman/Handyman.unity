@@ -32149,11 +32149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f973e961bc28948ba9c66ffa0a37e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinations:
-  - {fileID: 1726123952}
   rosBridgeIP: 
   rosBridgePort: 0
-  receivingTopicName: /handyman/message/to_moderator
+  topicName: /handyman/message/to_moderator
+  destinations:
+  - {fileID: 1726123952}
 --- !u!114 &1726123956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32167,7 +32167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rosBridgeIP: 
   rosBridgePort: 0
-  sendingTopicName: /handyman/message/to_robot
+  topicName: /handyman/message/to_robot
 --- !u!4 &1726123958
 Transform:
   m_ObjectHideFlags: 0

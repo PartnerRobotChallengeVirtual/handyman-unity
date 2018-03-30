@@ -16,8 +16,8 @@ namespace SIGVerse.Competition.Handyman
 	{
 		Initialize,
 		WaitForStart,
-		WaitForIamReady, 
 		TaskStart,
+		WaitForIamReady, 
 		SendInstruction,
 		WaitForRoomReached,
 		WaitForObjectGrasped,
@@ -178,19 +178,31 @@ namespace SIGVerse.Competition.Handyman
 				{
 					case ModeratorStep.Initialize:
 					{
-						SIGVerseLogger.Info("Initialize");
-						this.PreProcess();
-						this.step++;
+						if (this.stepTimer.IsTimePassed((int)this.step, 3000))
+						{
+							SIGVerseLogger.Info("Initialize");
+							this.PreProcess();
+							this.step++;
+						}
 						break;
 					}
 					case ModeratorStep.WaitForStart:
 					{
-						if (this.stepTimer.IsTimePassed((int)this.step, 3000))
-						{
-							if(!this.tool.IsPlaybackInitialized()) { break; }
-
+						if(this.tool.IsPlaybackInitialized() && this.tool.IsConnectedToRos())
+						{ 
 							this.step++;
 						}
+						break;
+					}
+					case ModeratorStep.TaskStart:
+					{
+						SIGVerseLogger.Info("Task start!");
+
+						this.scoreManager.TaskStart();
+
+						this.tool.StartPlayback();
+
+						this.step++;
 
 						break;
 					}
@@ -206,19 +218,6 @@ namespace SIGVerse.Competition.Handyman
 						{
 							this.SendRosMessage(MsgAreYouReady, "");
 						}
-
-						break;
-					}
-					case ModeratorStep.TaskStart:
-					{
-						SIGVerseLogger.Info("Task start!");
-
-						this.scoreManager.TaskStart();
-
-						this.tool.StartPlayback();
-
-						this.step++;
-
 						break;
 					}
 					case ModeratorStep.SendInstruction:
@@ -266,7 +265,6 @@ namespace SIGVerse.Competition.Handyman
 
 							SIGVerseLogger.Info("Waiting for '" + MsgObjectGrasped + "'");
 						}
-
 						break;
 					}
 					case ModeratorStep.WaitForObjectGrasped:
@@ -303,7 +301,6 @@ namespace SIGVerse.Competition.Handyman
 
 							break;
 						}
-
 						break;
 					}
 					case ModeratorStep.WaitForTaskFinished:
@@ -314,7 +311,6 @@ namespace SIGVerse.Competition.Handyman
 
 							this.step++;
 						}
-
 						break;
 					}
 					case ModeratorStep.Judgement:
@@ -344,7 +340,6 @@ namespace SIGVerse.Competition.Handyman
 								this.GoToNextTaskTaskFailed("Failed " + MsgTaskFinished);
 							}
 						}
-
 						break;
 					}
 					case ModeratorStep.WaitForNextTask:
@@ -355,7 +350,6 @@ namespace SIGVerse.Competition.Handyman
 
 							SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 						}
-
 						break;
 					}
 				}
@@ -431,7 +425,7 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void OnReceiveRosMessage(ROSBridge.handyman.HandymanMsg handymanMsg)
+		public void OnReceiveRosMessage(RosBridge.handyman.HandymanMsg handymanMsg)
 		{
 			if(this.receivedMessageMap.ContainsKey(handymanMsg.message))
 			{

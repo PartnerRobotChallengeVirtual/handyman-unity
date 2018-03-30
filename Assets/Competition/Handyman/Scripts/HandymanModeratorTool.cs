@@ -7,6 +7,8 @@ using UnityEngine;
 using SIGVerse.Common;
 using SIGVerse.ToyotaHSR;
 using System.Collections;
+using SIGVerse.RosBridge;
+using SIGVerse.SIGVerseRosBridge;
 
 namespace SIGVerse.Competition.Handyman
 {
@@ -55,6 +57,8 @@ namespace SIGVerse.Competition.Handyman
 		private const string RoomNameForTaskMessageBedRoom = "bed room";
 		private const string RoomNameForTaskMessageLiving  = "living room";
 
+
+		private IRosConnection[] rosConnections;
 
 		private GameObject graspingTarget;
 		private List<GameObject> graspables;
@@ -315,6 +319,10 @@ namespace SIGVerse.Competition.Handyman
 				this.SaveEnvironmentInfo(this.GetTaskMessage(), environmentInfo.environmentName, this.graspingTarget.name, this.destination.name, graspablesPositionMap, destinationsPositionsMap);
 			}
 
+			this.rosConnections = SIGVerseUtils.FindObjectsOfInterface<IRosConnection>();
+
+			SIGVerseLogger.Info("ROS connection : count=" + this.rosConnections.Length);
+
 
 			this.isPlacementSucceeded   = null;
 		}
@@ -571,6 +579,18 @@ namespace SIGVerse.Competition.Handyman
 			}
 		}
 
+
+		public bool IsConnectedToRos()
+		{
+			foreach(IRosConnection rosConnection in this.rosConnections)
+			{
+				if(!rosConnection.IsConnected())
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 
 		public bool IsPlaybackInitialized()
 		{
