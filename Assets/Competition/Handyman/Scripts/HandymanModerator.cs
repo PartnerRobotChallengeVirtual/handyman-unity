@@ -178,19 +178,19 @@ namespace SIGVerse.Competition.Handyman
 				{
 					case ModeratorStep.Initialize:
 					{
-						if (this.stepTimer.IsTimePassed((int)this.step, 3000))
-						{
-							SIGVerseLogger.Info("Initialize");
-							this.PreProcess();
-							this.step++;
-						}
+						SIGVerseLogger.Info("Initialize");
+						this.PreProcess();
+						this.step++;
 						break;
 					}
 					case ModeratorStep.WaitForStart:
 					{
-						if(this.tool.IsPlaybackInitialized() && this.tool.IsConnectedToRos())
-						{ 
-							this.step++;
+						if (this.stepTimer.IsTimePassed((int)this.step, 3000))
+						{
+							if(this.tool.IsPlaybackInitialized() && this.tool.IsConnectedToRos())
+							{ 
+								this.step++;
+							}
 						}
 						break;
 					}
