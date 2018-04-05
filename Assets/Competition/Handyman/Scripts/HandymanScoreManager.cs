@@ -64,17 +64,41 @@ namespace SIGVerse.Competition.Handyman
 	{
 		private const float DefaultTimeScale = 1.0f;
 
+		public int timeLimit = 600;
+
 		public List<GameObject> scoreNotificationDestinations;
+
+		public List<string> timeIsUpDestinationTags;
 
 		//---------------------------------------------------
 		private GameObject mainMenu;
+		private PanelMainController panelMainController;
 
+		private List<GameObject> timeIsUpDestinations;
+
+		private float timeLeft;
+		
 		private int score;
 
 
 		void Awake()
 		{
 			this.mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
+
+			this.panelMainController = this.mainMenu.GetComponent<PanelMainController>();
+
+
+			this.timeIsUpDestinations = new List<GameObject>();
+
+			foreach (string timeIsUpDestinationTag in this.timeIsUpDestinationTags)
+			{
+				GameObject[] timeIsUpDestinationArray = GameObject.FindGameObjectsWithTag(timeIsUpDestinationTag);
+
+				foreach(GameObject timeIsUpDestination in timeIsUpDestinationArray)
+				{
+					this.timeIsUpDestinations.Add(timeIsUpDestination);
+				}
+			}
 		}
 
 		// Use this for initialization
@@ -84,9 +108,34 @@ namespace SIGVerse.Competition.Handyman
 			
 			this.score = 0;
 
+			this.timeLeft = (float)timeLimit;
+
+			this.panelMainController.SetTimeLeft(this.timeLeft);
+
 			Time.timeScale = 0.0f;
 		}
 
+
+		// Update is called once per frame
+		void Update()
+		{
+			this.timeLeft = Mathf.Max(0.0f, this.timeLeft-Time.deltaTime);
+
+			this.panelMainController.SetTimeLeft(this.timeLeft);
+
+			if(this.timeLeft == 0.0f)
+			{
+				foreach(GameObject timeIsUpDestination in this.timeIsUpDestinations)
+				{
+					ExecuteEvents.Execute<ITimeIsUpHandler>
+					(
+						target: timeIsUpDestination,
+						eventData: null,
+						functor: (reciever, eventData) => reciever.OnTimeIsUp()
+					);
+				}
+			}
+		}
 
 		public void AddScore(Score.Type scoreType, params object[] args)
 		{
@@ -132,6 +181,12 @@ namespace SIGVerse.Competition.Handyman
 			HandymanConfig.Instance.RecordScoreInFile();
 		}
 
+
+		public void ResetTimeLeftText()
+		{
+			this.timeLeft = (float)timeLimit;
+			this.panelMainController.SetTimeLeft(this.timeLeft);
+		}
 
 		private void UpdateScoreText(float score)
 		{

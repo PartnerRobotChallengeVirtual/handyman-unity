@@ -122,7 +122,7 @@ namespace SIGVerse.Competition.Handyman
 
 			SIGVerseLogger.Info("##### " + this.mainPanelController.GetTrialNumberText() + " #####");
 
-			this.mainPanelController.ResetTimeLeftText();
+			this.scoreManager.ResetTimeLeftText();
 
 
 			this.taskMessage = this.tool.GetTaskMessage();

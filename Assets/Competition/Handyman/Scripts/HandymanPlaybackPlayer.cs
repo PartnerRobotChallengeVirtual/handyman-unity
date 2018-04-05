@@ -36,6 +36,8 @@ namespace SIGVerse.Competition.Handyman
 				{
 					graspingCandidatePosition.SetActive(false);
 				}
+
+				this.timeLimit = this.scoreManager.timeLimit;
 			}
 		}
 

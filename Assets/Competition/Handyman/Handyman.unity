@@ -37043,8 +37043,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722ad75188acc8b4b856a62c90db12f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLimit: 600
   scoreNotificationDestinations:
   - {fileID: 68156980}
+  timeIsUpDestinationTags:
+  - Moderator
 --- !u!1 &2006197485
 GameObject:
   m_ObjectHideFlags: 0
