@@ -19079,6 +19079,50 @@ Prefab:
       propertyPath: collisionNotificationDestinations.Array.data[1]
       value: 
       objectReference: {fileID: 68156980}
+    - target: {fileID: 1872639706377518, guid: 52e4f49510f5e83429982d5221396009, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776877642247912, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114256865905274884, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114902140591885036, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114049945588189110, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114613339065414956, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114247472335588442, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114626428202431274, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242712182628556, guid: 52e4f49510f5e83429982d5221396009,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52e4f49510f5e83429982d5221396009, type: 2}
   m_IsPrefabParent: 0

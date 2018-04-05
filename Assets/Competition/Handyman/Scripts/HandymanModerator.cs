@@ -152,10 +152,15 @@ namespace SIGVerse.Competition.Handyman
 				this.SendRosMessage(MsgMissionComplete, "");
 
 				SIGVerseLogger.Info("All tasks finished.");
+
+				this.tool.CloseRosConnections();
+
 				this.isAllTaskFinished = true;
 			}
 			else
 			{
+				this.tool.ClearRosConnections();
+
 				this.step = ModeratorStep.WaitForNextTask;
 			}
 		}
@@ -350,6 +355,7 @@ namespace SIGVerse.Competition.Handyman
 
 							SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 						}
+
 						break;
 					}
 				}
@@ -362,7 +368,6 @@ namespace SIGVerse.Competition.Handyman
 				this.ApplicationQuitAfter1sec();
 			}
 		}
-
 
 		private void ApplicationQuitAfter1sec()
 		{

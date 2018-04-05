@@ -592,6 +592,26 @@ namespace SIGVerse.Competition.Handyman
 			return true;
 		}
 
+		public void ClearRosConnections()
+		{
+			foreach(IRosConnection rosConnection in this.rosConnections)
+			{
+				rosConnection.Clear();
+			}
+
+			SIGVerseLogger.Info("Clear ROS connections");
+		}
+
+		public void CloseRosConnections()
+		{
+			foreach(IRosConnection rosConnection in this.rosConnections)
+			{
+				rosConnection.Close();
+			}
+
+			SIGVerseLogger.Info("Close ROS connections");
+		}
+
 		public bool IsPlaybackInitialized()
 		{
 			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord)
