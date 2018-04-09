@@ -1,6 +1,7 @@
 ﻿{
     "taskMessage": "Go to the living, grasp the cannedjuice and send it to the lowtable_A.",
     "environmentName": "Environment_01",
+    "isEnvironmentNameSent": true,
     "graspingTargetName": "cannedjuice",
     "destinationName": "lowtable_A",
     "graspablesPositions": [

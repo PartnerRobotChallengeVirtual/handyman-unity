@@ -25,6 +25,7 @@ namespace SIGVerse.Competition.Handyman
 	{
 		public string taskMessage;
 		public string environmentName;
+		public bool   isEnvironmentNameSent;
 		public string graspingTargetName;
 		public string destinationName;
 		public List<RelocatableObjectInfo> graspablesPositions;
@@ -59,6 +60,9 @@ namespace SIGVerse.Competition.Handyman
 
 
 		private IRosConnection[] rosConnections;
+
+		private string environmentName;
+		private bool   isEnvironmentNameSent;
 
 		private GameObject graspingTarget;
 		private List<GameObject> graspables;
@@ -106,7 +110,7 @@ namespace SIGVerse.Competition.Handyman
 			}
 
 
-			EnvironmentInfo environmentInfo = new EnvironmentInfo();
+			EnvironmentInfo environmentInfo = null;
 
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
 			{
@@ -114,23 +118,25 @@ namespace SIGVerse.Competition.Handyman
 
 				if(activeEnvironment!=null)
 				{
-					environmentInfo.environmentName = activeEnvironment.name;
+					this.environmentName = activeEnvironment.name;
 
 					SIGVerseLogger.Warn("Selected an active environment. name=" + activeEnvironment.name);
 				}
 				else
 				{
-					environmentInfo.environmentName = environments[UnityEngine.Random.Range(0, environments.Count)].name;
+					this.environmentName = environments[UnityEngine.Random.Range(0, environments.Count)].name;
 				}
 			}
 			else
 			{
 				environmentInfo = this.GetEnvironmentInfo();
+
+				this.environmentName = environmentInfo.environmentName;
 			}
 
 			foreach (GameObject environment in environments)
 			{
-				if(environment.name==environmentInfo.environmentName)
+				if(environment.name==this.environmentName)
 				{
 					environment.SetActive(true);
 				}
@@ -239,14 +245,17 @@ namespace SIGVerse.Competition.Handyman
 
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
 			{
-				this.graspingTarget = this.DecideGraspingTarget();
-				this.destination    = this.DecideDestination();
+				this.isEnvironmentNameSent = true;
+				this.graspingTarget        = this.DecideGraspingTarget();
+				this.destination           = this.DecideDestination();
 
 				graspablesPositionMap    = this.CreateGraspablesPositionMap();
 				destinationsPositionsMap = this.CreateDestinationsPositionsMap();
 			}
 			else
 			{
+				this.isEnvironmentNameSent = environmentInfo.isEnvironmentNameSent;
+
 				this.DeactivateGraspingCandidatesPositions();
 
 				this.graspingTarget = (from graspable in this.graspables where graspable.name == environmentInfo.graspingTargetName select graspable).First();
@@ -316,7 +325,7 @@ namespace SIGVerse.Competition.Handyman
 
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
 			{
-				this.SaveEnvironmentInfo(this.GetTaskMessage(), environmentInfo.environmentName, this.graspingTarget.name, this.destination.name, graspablesPositionMap, destinationsPositionsMap);
+				SaveEnvironmentInfo(this.GetTaskMessage(), this.environmentName, this.isEnvironmentNameSent, this.graspingTarget.name, this.destination.name, graspablesPositionMap, destinationsPositionsMap);
 			}
 
 			this.rosConnections = SIGVerseUtils.FindObjectsOfInterface<IRosConnection>();
@@ -457,6 +466,18 @@ namespace SIGVerse.Competition.Handyman
 			if (roomObj == this.lobbyArea)   { return RoomNameForTaskMessageLobby; }
 
 			throw new Exception("There is no grasping target in the 4 rooms. Grasping target =");
+		}
+
+		public string GetEnvironmentName()
+		{
+			if(this.isEnvironmentNameSent)
+			{
+				return this.environmentName;
+			}
+			else
+			{
+				return string.Empty;
+			}
 		}
 
 		public string GetTaskMessage()
@@ -678,14 +699,15 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void SaveEnvironmentInfo(string taskMessage, string environmentName, string graspingTargetName, string destinationName, Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap, Dictionary<RelocatableObjectInfo, GameObject> destinationsPositionsMap)
+		public static void SaveEnvironmentInfo(string taskMessage, string environmentName, bool isEnvironmentNameSent, string graspingTargetName, string destinationName, Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap, Dictionary<RelocatableObjectInfo, GameObject> destinationsPositionsMap)
 		{
 			EnvironmentInfo environmentInfo = new EnvironmentInfo();
 
-			environmentInfo.taskMessage        = taskMessage;
-			environmentInfo.environmentName    = environmentName;
-			environmentInfo.graspingTargetName = graspingTargetName;
-			environmentInfo.destinationName    = destinationName;
+			environmentInfo.taskMessage           = taskMessage;
+			environmentInfo.environmentName       = environmentName;
+			environmentInfo.isEnvironmentNameSent = isEnvironmentNameSent;
+			environmentInfo.graspingTargetName    = graspingTargetName;
+			environmentInfo.destinationName       = destinationName;
 
 			List<RelocatableObjectInfo> graspablesPositions = new List<RelocatableObjectInfo>();
 

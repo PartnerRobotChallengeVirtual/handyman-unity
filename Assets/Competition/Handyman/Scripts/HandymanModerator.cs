@@ -31,6 +31,7 @@ namespace SIGVerse.Competition.Handyman
 		private const int SendingAreYouReadyInterval = 1000;
 
 		private const string MsgAreYouReady     = "Are_you_ready?";
+		private const string MsgEnvironment     = "Environment";
 		private const string MsgInstruction     = "Instruction";
 		private const string MsgTaskSucceeded   = "Task_succeeded";
 		private const string MsgTaskFailed      = "Task_failed";
@@ -149,7 +150,7 @@ namespace SIGVerse.Competition.Handyman
 
 			if (HandymanConfig.Instance.numberOfTrials == HandymanConfig.Instance.configFileInfo.maxNumberOfTrials)
 			{
-				this.SendRosMessage(MsgMissionComplete, "");
+				this.SendRosMessage(MsgMissionComplete, string.Empty);
 
 				SIGVerseLogger.Info("All tasks finished.");
 
@@ -221,7 +222,8 @@ namespace SIGVerse.Competition.Handyman
 
 						if (this.stepTimer.IsTimePassed((int)this.step, SendingAreYouReadyInterval))
 						{
-							this.SendRosMessage(MsgAreYouReady, "");
+							this.SendRosMessage(MsgAreYouReady, string.Empty);
+							this.SendRosMessage(MsgEnvironment, this.tool.GetEnvironmentName());
 						}
 						break;
 					}
@@ -378,7 +380,7 @@ namespace SIGVerse.Competition.Handyman
 
 		private void GoToNextTaskTaskSucceeded()
 		{
-			this.GoToNextTask(MsgTaskSucceeded, "");
+			this.GoToNextTask(MsgTaskSucceeded, string.Empty);
 		}
 
 		private void GoToNextTaskTaskFailed(string detail)
