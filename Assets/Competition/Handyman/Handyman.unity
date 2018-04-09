@@ -1505,7 +1505,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4236021753008472, guid: a889f80797660794198b159bf4dd725f, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1537,7 +1537,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4236021753008472, guid: a889f80797660794198b159bf4dd725f, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1815666965692918, guid: a889f80797660794198b159bf4dd725f, type: 2}
       propertyPath: m_Name
@@ -1545,7 +1545,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1815666965692918, guid: a889f80797660794198b159bf4dd725f, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a889f80797660794198b159bf4dd725f, type: 2}
@@ -2132,7 +2132,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4793009904469842, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2164,7 +2164,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4793009904469842, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1835491127487276, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
       propertyPath: m_Name
@@ -2184,7 +2184,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1835491127487276, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08ad0076c6699564f8dbfad9e123a2bd, type: 2}
@@ -2424,7 +2424,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4049324426332380, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2456,7 +2456,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4049324426332380, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1240832102280088, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
       propertyPath: m_Name
@@ -2464,7 +2464,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1240832102280088, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 489a5c2658e1bca49b227e8fd7a6afda, type: 2}
@@ -4311,7 +4311,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4268107987783502, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
       propertyPath: m_LocalPosition.x
@@ -4343,7 +4343,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4268107987783502, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1731800234963376, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
       propertyPath: m_Name
@@ -4351,7 +4351,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1731800234963376, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 707e1c762bf7f894e98196a7ef996cea, type: 2}
@@ -11472,7 +11472,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4407227889553440, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
       propertyPath: m_LocalPosition.x
@@ -11504,7 +11504,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4407227889553440, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1500800958369752, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
       propertyPath: m_Name
@@ -11517,7 +11517,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1500800958369752, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc0934e1b1855554b89b5172f50484f2, type: 2}
@@ -12360,7 +12360,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4638828279204380, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
       propertyPath: m_LocalPosition.x
@@ -12392,7 +12392,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4638828279204380, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1739990246696206, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
       propertyPath: m_Name
@@ -12412,7 +12412,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1739990246696206, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71f0e75960e60b948888da6cb9034ad7, type: 2}
@@ -13033,7 +13033,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4086622766148562, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
       propertyPath: m_LocalPosition.x
@@ -13065,7 +13065,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4086622766148562, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1283823254175280, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
       propertyPath: m_Name
@@ -13073,7 +13073,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1283823254175280, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af7dbd8134c65214ab45d9eb5220166e, type: 2}
@@ -13725,7 +13725,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4230317685044708, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
       propertyPath: m_LocalPosition.x
@@ -13757,7 +13757,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4230317685044708, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1942365740794960, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
       propertyPath: m_Name
@@ -13765,7 +13765,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1942365740794960, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd90dae67151d8a49bc32d1547cd42d2, type: 2}
@@ -19978,45 +19978,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1166511716}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1006716687
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1006716688}
-  m_Layer: 0
-  m_Name: DummyGraspingCandidates
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1006716688
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1006716687}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 678720808}
-  - {fileID: 1778865490}
-  - {fileID: 653523614}
-  - {fileID: 95461066}
-  - {fileID: 62398931}
-  - {fileID: 205891296}
-  - {fileID: 604859663}
-  - {fileID: 711168320}
-  - {fileID: 76643442}
-  - {fileID: 1390368768}
-  - {fileID: 1940896229}
-  m_Father: {fileID: 1750278270}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011153986
 GameObject:
@@ -27154,7 +27115,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4413754409260404, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
       propertyPath: m_LocalPosition.x
@@ -27186,7 +27147,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4413754409260404, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1896168604333454, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
       propertyPath: m_Name
@@ -27194,7 +27155,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1896168604333454, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2ace2bb5f29fcd44b9ae8b8e233e459, type: 2}
@@ -27427,8 +27388,19 @@ Transform:
   - {fileID: 2044955843}
   - {fileID: 339195633}
   - {fileID: 989554721}
+  - {fileID: 678720808}
+  - {fileID: 1778865490}
+  - {fileID: 653523614}
+  - {fileID: 95461066}
+  - {fileID: 62398931}
+  - {fileID: 205891296}
+  - {fileID: 604859663}
+  - {fileID: 711168320}
+  - {fileID: 76643442}
+  - {fileID: 1390368768}
+  - {fileID: 1940896229}
   m_Father: {fileID: 1750278270}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1413409363
 GameObject:
@@ -32605,7 +32577,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1006716688}
   - {fileID: 1409772886}
   m_Father: {fileID: 1953088596}
   m_RootOrder: 5
@@ -32939,7 +32910,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4324719152904808, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
       propertyPath: m_LocalPosition.x
@@ -32971,7 +32942,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4324719152904808, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1794219264704046, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
       propertyPath: m_Name
@@ -32979,7 +32950,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1794219264704046, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 78cd74a361d2f394a818f40bd4305092, type: 2}
@@ -35808,7 +35779,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1006716688}
+    m_TransformParent: {fileID: 1409772886}
     m_Modifications:
     - target: {fileID: 4071586113314130, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
       propertyPath: m_LocalPosition.x
@@ -35840,7 +35811,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4071586113314130, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 1464778597184674, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
       propertyPath: m_Name
@@ -35848,7 +35819,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1464778597184674, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
       propertyPath: m_TagString
-      value: DummyGraspingCandidates
+      value: GraspingCandidates
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a0424512dacef84ebffe810c805284c, type: 2}
