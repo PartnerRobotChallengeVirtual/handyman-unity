@@ -17,8 +17,10 @@ namespace SIGVerse.Competition.Handyman
 
 		public enum Type
 		{
-			RoomReachedSuccess,
-			ObjectGraspedSuccess,
+			RoomReachingSuccess,
+			TargetConfirmationSuccess, 
+			TargetConfirmationFailure, 
+			GraspingSuccess,
 			PlacementSuccess,
 			HsrCollisionEnter,
 			ObjectCollisionEnter,
@@ -28,11 +30,13 @@ namespace SIGVerse.Competition.Handyman
 		{
 			switch(scoreType)
 			{
-				case Score.Type.RoomReachedSuccess  : { return +20; }
-				case Score.Type.ObjectGraspedSuccess: { return +50; }
-				case Score.Type.PlacementSuccess    : { return +30; }
-				case Score.Type.HsrCollisionEnter   : { return GetHsrCollisionScore   ((Collision)args[0], (float)args[1]); }
-				case Score.Type.ObjectCollisionEnter: { return GetObjectCollisionScore((Collision)args[0], (float)args[1]); }
+				case Score.Type.RoomReachingSuccess      : { return +20; }
+				case Score.Type.TargetConfirmationSuccess: { return +50; }
+				case Score.Type.TargetConfirmationFailure: { return -10; }
+				case Score.Type.GraspingSuccess          : { return +50; }
+				case Score.Type.PlacementSuccess         : { return +30; }
+				case Score.Type.HsrCollisionEnter        : { return GetHsrCollisionScore   ((Collision)args[0], (float)args[1]); }
+				case Score.Type.ObjectCollisionEnter     : { return GetObjectCollisionScore((Collision)args[0], (float)args[1]); }
 			}
 
 			throw new Exception("Illegal score type. Type = " + (int)scoreType + ", method name=(" + System.Reflection.MethodBase.GetCurrentMethod().Name + ")");

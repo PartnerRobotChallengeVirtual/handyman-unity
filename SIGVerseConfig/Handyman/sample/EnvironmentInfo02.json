@@ -1,5 +1,6 @@
 ﻿{
     "taskMessage": "Go to the bed room, grasp the doll_bear and send it to the Moderator.",
+    "correctedTaskMessage": "",
     "environmentName": "Environment_01",
     "isEnvironmentNameSent": false,
     "graspingTargetName": "doll_bear",

@@ -20,6 +20,7 @@ namespace SIGVerse.Competition.Handyman
 		WaitForIamReady, 
 		SendInstruction,
 		WaitForRoomReached,
+		WaitForDoesNotExist, 
 		WaitForObjectGrasped,
 		WaitForTaskFinished,
 		Judgement,
@@ -30,20 +31,23 @@ namespace SIGVerse.Competition.Handyman
 	{
 		private const int SendingAreYouReadyInterval = 1000;
 
-		private const string MsgAreYouReady     = "Are_you_ready?";
-		private const string MsgEnvironment     = "Environment";
-		private const string MsgInstruction     = "Instruction";
-		private const string MsgTaskSucceeded   = "Task_succeeded";
-		private const string MsgTaskFailed      = "Task_failed";
-		private const string MsgMissionComplete = "Mission_complete";
-
-		private const string ReasonTimeIsUp = "Time_is_up";
-		private const string ReasonGiveUp   = "Give_up";
+		private const string MsgAreYouReady          = "Are_you_ready?";
+		private const string MsgEnvironment          = "Environment";
+		private const string MsgInstruction          = "Instruction";
+		private const string MsgCorrectedInstruction = "Corrected_instruction";
+		private const string MsgTaskSucceeded        = "Task_succeeded";
+		private const string MsgTaskFailed           = "Task_failed";
+		private const string MsgMissionComplete      = "Mission_complete";
 
 		private const string MsgIamReady      = "I_am_ready";
 		private const string MsgRoomReached   = "Room_reached";
+		private const string MsgDoesNotExist  = "Does_not_exist";
 		private const string MsgObjectGrasped = "Object_grasped";
 		private const string MsgTaskFinished  = "Task_finished";
+		private const string MsgGiveUp        = "Give_up";
+
+		private const string ReasonTimeIsUp = "Time_is_up";
+		private const string ReasonGiveUp   = MsgGiveUp;
 
 		//-----------------------------
 
@@ -61,6 +65,9 @@ namespace SIGVerse.Competition.Handyman
 		private PanelMainController mainPanelController;
 
 		private string taskMessage;
+		private string correctedTaskMessage;
+
+		private bool shouldWaitDoesNotExist;
 
 		private ModeratorStep step;
 
@@ -126,17 +133,23 @@ namespace SIGVerse.Competition.Handyman
 			this.scoreManager.ResetTimeLeftText();
 
 
-			this.taskMessage = this.tool.GetTaskMessage();
+			this.taskMessage          = this.tool.GetTaskMessage();
+			this.correctedTaskMessage = this.tool.GetCorrectedTaskMessage();
+
+			this.shouldWaitDoesNotExist = this.correctedTaskMessage != string.Empty;
 
 			this.mainPanelController.SetTaskMessageText(this.taskMessage);
 
-			Debug.Log(this.taskMessage);
+			SIGVerseLogger.Info(this.taskMessage);
+
 
 			this.receivedMessageMap = new Dictionary<string, bool>();
 			this.receivedMessageMap.Add(MsgIamReady,      false);
 			this.receivedMessageMap.Add(MsgRoomReached,   false);
+			this.receivedMessageMap.Add(MsgDoesNotExist,  false);
 			this.receivedMessageMap.Add(MsgObjectGrasped, false);
 			this.receivedMessageMap.Add(MsgTaskFinished,  false);
+			this.receivedMessageMap.Add(MsgGiveUp,        false);
 
 			this.tool.InitializePlayback();
 
@@ -257,25 +270,81 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Succeeded '" + MsgRoomReached + "'");
 								this.SendPanelNotice("Good", 150, PanelNoticeStatus.Green);
-								this.scoreManager.AddScore(Score.Type.RoomReachedSuccess);
+								this.scoreManager.AddScore(Score.Type.RoomReachingSuccess);
 							}
 							else
 							{
 								SIGVerseLogger.Info("Failed '" + MsgRoomReached + "'");
 								this.SendPanelNotice("Failed\n" + MsgRoomReached.Replace('_', ' '), 100, PanelNoticeStatus.Red);
-								this.GoToNextTaskTaskFailed("Failed " + MsgRoomReached);
+								this.GoToNextTaskTaskFailed(MsgRoomReached);
 
 								return;
 							}
 
 							this.step++;
+							
+							if(this.shouldWaitDoesNotExist)
+							{
+								SIGVerseLogger.Info("Waiting for '" + MsgDoesNotExist + "'");
+							}
+							else
+							{
+								SIGVerseLogger.Info("Waiting for '" + MsgObjectGrasped + "'");
+							}
+						}
+						break;
+					}
+					case ModeratorStep.WaitForDoesNotExist:
+					{
+						if(!this.shouldWaitDoesNotExist)
+						{
+							this.step++;
+							break;
+						}
+
+						if (this.receivedMessageMap[MsgDoesNotExist])
+						{
+							string detail = "Send a new message";
+							SIGVerseLogger.Info("Succeeded '" + MsgDoesNotExist + "'");
+							this.SendPanelNotice("Good\n"+detail, 95, PanelNoticeStatus.Green);
+							this.scoreManager.AddScore(Score.Type.TargetConfirmationSuccess);
+
+							this.SendRosMessage(MsgCorrectedInstruction, this.correctedTaskMessage);
+							this.mainPanelController.SetTaskMessageText(this.correctedTaskMessage);
+							
+							this.step++;
 
 							SIGVerseLogger.Info("Waiting for '" + MsgObjectGrasped + "'");
+							break;
+						}
+
+						if (this.receivedMessageMap[MsgObjectGrasped])
+						{
+							string detail = "Target doesn't exist";
+							SIGVerseLogger.Info("Failed '" + MsgDoesNotExist + "'");
+							this.SendPanelNotice("Failed\n"+detail, 90, PanelNoticeStatus.Red);
+							this.scoreManager.AddScore(Score.Type.TargetConfirmationFailure);
+							this.GoToNextTaskTaskFailed(MsgDoesNotExist);
+
+							return;
 						}
 						break;
 					}
 					case ModeratorStep.WaitForObjectGrasped:
 					{
+						if(!this.shouldWaitDoesNotExist)
+						{
+							if (this.receivedMessageMap[MsgDoesNotExist])
+							{
+								string detail = "The target exist";
+								SIGVerseLogger.Info("Failed '" + MsgObjectGrasped + "'");
+								this.SendPanelNotice("Failed\n"+detail, 100, PanelNoticeStatus.Red);
+								this.GoToNextTaskTaskFailed(detail);
+
+								return;
+							}
+						}
+
 						if (this.receivedMessageMap[MsgObjectGrasped])
 						{
 							// Check for grasping
@@ -291,13 +360,13 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Succeeded '" + MsgObjectGrasped + "'");
 								this.SendPanelNotice("Good", 150, PanelNoticeStatus.Green);
-								this.scoreManager.AddScore(Score.Type.ObjectGraspedSuccess);
+								this.scoreManager.AddScore(Score.Type.GraspingSuccess);
 							}
 							else
 							{
 								SIGVerseLogger.Info("Failed '" + MsgObjectGrasped + "'");
 								this.SendPanelNotice("Failed\n" + MsgObjectGrasped.Replace('_', ' '), 100, PanelNoticeStatus.Red);
-								this.GoToNextTaskTaskFailed("Failed " + MsgObjectGrasped);
+								this.GoToNextTaskTaskFailed(MsgObjectGrasped);
 
 								return;
 							}
@@ -344,7 +413,7 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Failed '" + MsgTaskFinished + "'");
 								this.SendPanelNotice("Failed\n" + MsgTaskFinished.Replace('_', ' '), 100, PanelNoticeStatus.Red);
-								this.GoToNextTaskTaskFailed("Failed " + MsgTaskFinished);
+								this.GoToNextTaskTaskFailed(MsgTaskFinished);
 							}
 						}
 						break;
@@ -439,22 +508,32 @@ namespace SIGVerse.Competition.Handyman
 				// Check message order
 				if(handymanMsg.message==MsgIamReady)
 				{
-					if(this.step!=ModeratorStep.WaitForIamReady) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
+					if(this.step!=ModeratorStep.WaitForIamReady) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message + ", step="+this.step); return; }
 				}
 
 				if(handymanMsg.message==MsgRoomReached)
 				{
-					if(this.step!=ModeratorStep.WaitForRoomReached) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
+					if(this.step!=ModeratorStep.WaitForRoomReached) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message + ", step="+this.step); return; }
+				}
+
+				if(handymanMsg.message==MsgDoesNotExist)
+				{
+					if(this.step!=ModeratorStep.WaitForDoesNotExist && this.step!=ModeratorStep.WaitForObjectGrasped) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message + ", step="+this.step); return; }
 				}
 
 				if(handymanMsg.message==MsgObjectGrasped)
 				{
-					if(this.step!=ModeratorStep.WaitForObjectGrasped) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
+					if(this.step!=ModeratorStep.WaitForDoesNotExist && this.step!=ModeratorStep.WaitForObjectGrasped) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message + ", step="+this.step); return; }
 				}
 
 				if(handymanMsg.message==MsgTaskFinished)
 				{
-					if(this.step!=ModeratorStep.WaitForTaskFinished) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message); return; }
+					if(this.step!=ModeratorStep.WaitForTaskFinished) { SIGVerseLogger.Warn("Illegal timing. message : " + handymanMsg.message + ", step="+this.step); return; }
+				}
+
+				if(handymanMsg.message==MsgGiveUp)
+				{
+					this.OnGiveUp();
 				}
 
 				this.receivedMessageMap[handymanMsg.message] = true;
