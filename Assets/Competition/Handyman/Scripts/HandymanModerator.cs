@@ -276,6 +276,8 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Failed '" + MsgRoomReached + "'");
 								this.SendPanelNotice("Failed\n" + MsgRoomReached.Replace('_', ' '), 100, PanelNoticeStatus.Red);
+								this.scoreManager.AddScore(Score.Type.RoomReachingFailure);
+
 								this.GoToNextTaskTaskFailed(MsgRoomReached);
 
 								return;
@@ -324,6 +326,7 @@ namespace SIGVerse.Competition.Handyman
 							SIGVerseLogger.Info("Failed '" + MsgDoesNotExist + "'");
 							this.SendPanelNotice("Failed\n"+detail, 90, PanelNoticeStatus.Red);
 							this.scoreManager.AddScore(Score.Type.TargetConfirmationFailure);
+
 							this.GoToNextTaskTaskFailed(MsgDoesNotExist);
 
 							return;
@@ -339,6 +342,8 @@ namespace SIGVerse.Competition.Handyman
 								string detail = "The target exist";
 								SIGVerseLogger.Info("Failed '" + MsgObjectGrasped + "'");
 								this.SendPanelNotice("Failed\n"+detail, 100, PanelNoticeStatus.Red);
+								this.scoreManager.AddScore(Score.Type.GraspingFailure);
+
 								this.GoToNextTaskTaskFailed(detail);
 
 								return;
@@ -366,6 +371,8 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Failed '" + MsgObjectGrasped + "'");
 								this.SendPanelNotice("Failed\n" + MsgObjectGrasped.Replace('_', ' '), 100, PanelNoticeStatus.Red);
+								this.scoreManager.AddScore(Score.Type.GraspingFailure);
+
 								this.GoToNextTaskTaskFailed(MsgObjectGrasped);
 
 								return;
@@ -413,6 +420,8 @@ namespace SIGVerse.Competition.Handyman
 							{
 								SIGVerseLogger.Info("Failed '" + MsgTaskFinished + "'");
 								this.SendPanelNotice("Failed\n" + MsgTaskFinished.Replace('_', ' '), 100, PanelNoticeStatus.Red);
+								this.scoreManager.AddScore(Score.Type.PlacementFailure);
+
 								this.GoToNextTaskTaskFailed(MsgTaskFinished);
 							}
 						}

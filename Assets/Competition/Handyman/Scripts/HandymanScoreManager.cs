@@ -18,10 +18,13 @@ namespace SIGVerse.Competition.Handyman
 		public enum Type
 		{
 			RoomReachingSuccess,
+			RoomReachingFailure,
 			TargetConfirmationSuccess, 
 			TargetConfirmationFailure, 
 			GraspingSuccess,
+			GraspingFailure,
 			PlacementSuccess,
+			PlacementFailure,
 			HsrCollisionEnter,
 			ObjectCollisionEnter,
 		}
@@ -31,10 +34,13 @@ namespace SIGVerse.Competition.Handyman
 			switch(scoreType)
 			{
 				case Score.Type.RoomReachingSuccess      : { return +20; }
+				case Score.Type.RoomReachingFailure      : { return -10; }
 				case Score.Type.TargetConfirmationSuccess: { return +50; }
 				case Score.Type.TargetConfirmationFailure: { return -10; }
 				case Score.Type.GraspingSuccess          : { return +50; }
+				case Score.Type.GraspingFailure          : { return -10; }
 				case Score.Type.PlacementSuccess         : { return +30; }
+				case Score.Type.PlacementFailure         : { return -10; }
 				case Score.Type.HsrCollisionEnter        : { return GetHsrCollisionScore   ((Collision)args[0], (float)args[1]); }
 				case Score.Type.ObjectCollisionEnter     : { return GetObjectCollisionScore((Collision)args[0], (float)args[1]); }
 			}
