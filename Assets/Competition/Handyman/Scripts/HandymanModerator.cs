@@ -54,6 +54,7 @@ namespace SIGVerse.Competition.Handyman
 		public List<GameObject> environments;
 
 		public HandymanScoreManager scoreManager;
+		public GameObject avatarMotionPlayback;
 		public GameObject playbackManager;
 
 		//-----------------------------
@@ -81,7 +82,7 @@ namespace SIGVerse.Competition.Handyman
 		{
 			try
 			{
-				this.tool = new HandymanModeratorTool(this.environments, this.scoreManager, this.playbackManager);
+				this.tool = new HandymanModeratorTool(this.environments, this.scoreManager, this.avatarMotionPlayback, this.playbackManager);
 
 				this.stepTimer = new StepTimer();
 
@@ -220,6 +221,7 @@ namespace SIGVerse.Competition.Handyman
 						this.scoreManager.TaskStart();
 
 						this.tool.StartPlayback();
+						this.tool.StartAvatarMotionPlayback();
 
 						this.step++;
 

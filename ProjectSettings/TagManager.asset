@@ -15,6 +15,7 @@ TagManager:
   - MainMenu
   - AudienceCamera
   - NonDeductionCollider
+  - Obstacles
   layers:
   - Default
   - TransparentFX

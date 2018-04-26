@@ -90,17 +90,19 @@ namespace SIGVerse.Competition.Handyman
 
 		private bool? isPlacementSucceeded;
 
+		private HandymanAvatarMotionPlayer   avatarMotionPlayer;
+		private HandymanAvatarMotionRecorder avatarMotionRecorder;
+
 		private HandymanPlaybackRecorder playbackRecorder;
 
 
-
-		public HandymanModeratorTool(List<GameObject> environments, HandymanScoreManager scoreManager, GameObject worldPlayback)
+		public HandymanModeratorTool(List<GameObject> environments, HandymanScoreManager scoreManager, GameObject avatarMotionPlayback, GameObject worldPlayback)
 		{
 			HandymanConfig.Instance.InclementNumberOfTrials();
 
 			EnvironmentInfo environmentInfo = this.EnableEnvironment(environments);
 
-			this.GetGameObjects(worldPlayback);
+			this.GetGameObjects(avatarMotionPlayback, worldPlayback);
 
 			this.Initialize(environmentInfo, scoreManager);
 		}
@@ -153,7 +155,7 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		private void GetGameObjects(GameObject worldPlayback)
+		private void GetGameObjects(GameObject avatarMotionPlayback, GameObject worldPlayback)
 		{
 			this.robot = GameObject.FindGameObjectWithTag(TagRobot);
 
@@ -189,10 +191,10 @@ namespace SIGVerse.Competition.Handyman
 			SIGVerseLogger.Info("Count of Graspables = " + this.graspables.Count);
 
 
-			this.bedRoomArea = GameObject.Find(AreaNameBedRoom);
-			this.kitchenArea = GameObject.Find(AreaNameKitchen);
-			this.livingArea  = GameObject.Find(AreaNameLiving);
-			this.lobbyArea   = GameObject.Find(AreaNameLobby);
+			this.bedRoomArea = GameObject.Find(this.environmentName+"/RoomArea/"+AreaNameBedRoom);
+			this.kitchenArea = GameObject.Find(this.environmentName+"/RoomArea/"+AreaNameKitchen);
+			this.livingArea  = GameObject.Find(this.environmentName+"/RoomArea/"+AreaNameLiving);
+			this.lobbyArea   = GameObject.Find(this.environmentName+"/RoomArea/"+AreaNameLobby);
 
 			// Get grasping candidates positions
 			this.graspingCandidatesPositions = GameObject.FindGameObjectsWithTag(TagGraspingCandidatesPosition).ToList<GameObject>();
@@ -224,6 +226,8 @@ namespace SIGVerse.Competition.Handyman
 
 			SIGVerseLogger.Info("Count of Destinations = " + this.destinationCandidates.Count);
 
+			this.avatarMotionPlayer   = avatarMotionPlayback.GetComponent<HandymanAvatarMotionPlayer>();
+			this.avatarMotionRecorder = avatarMotionPlayback.GetComponent<HandymanAvatarMotionRecorder>();
 
 			this.playbackRecorder = worldPlayback.GetComponent<HandymanPlaybackRecorder>();
 		}
@@ -622,6 +626,15 @@ namespace SIGVerse.Competition.Handyman
 			{
 				this.playbackRecorder.Initialize(HandymanConfig.Instance.numberOfTrials);
 			}
+
+			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				this.avatarMotionRecorder.Initialize(HandymanConfig.Instance.numberOfTrials);
+			}
+			else
+			{
+				this.avatarMotionPlayer.Initialize(HandymanConfig.Instance.numberOfTrials);
+			}
 		}
 
 
@@ -664,6 +677,15 @@ namespace SIGVerse.Competition.Handyman
 				if(!this.playbackRecorder.IsInitialized()) { return false; }
 			}
 
+			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				if(!this.avatarMotionRecorder.IsInitialized()) { return false; }
+			}
+			else
+			{
+				if (!this.avatarMotionPlayer.IsInitialized()) { return false; }
+			}
+
 			return true;
 		}
 
@@ -678,6 +700,22 @@ namespace SIGVerse.Competition.Handyman
 			}
 		}
 
+		public void StartAvatarMotionPlayback()
+		{
+			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				bool isStarted = this.avatarMotionRecorder.Record();
+
+				if(!isStarted) { SIGVerseLogger.Warn("Cannot start the avatar motion recording"); }
+			}
+			else
+			{
+				bool isStarted = this.avatarMotionPlayer.Play();
+
+				if(!isStarted) { SIGVerseLogger.Warn("Cannot start the avatar motion playing"); }
+			}
+		}
+
 		public void StopPlayback()
 		{
 			if (HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord)
@@ -686,6 +724,24 @@ namespace SIGVerse.Competition.Handyman
 
 				if(!isStopped) { SIGVerseLogger.Warn("Cannot stop the world playback recording"); }
 			}
+
+			this.StopAvatarMotionPlayback();
+		}
+
+		private void StopAvatarMotionPlayback()
+		{
+			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				bool isStopped = this.avatarMotionRecorder.Stop();
+
+				if(!isStopped) { SIGVerseLogger.Warn("Cannot stop the avatar motion recording"); }
+			}
+			else
+			{
+				bool isStopped = this.avatarMotionPlayer.Stop();
+
+				if(!isStopped) { SIGVerseLogger.Warn("Cannot stop the avatar motion playing"); }
+			}
 		}
 
 		public bool IsPlaybackFinished()
@@ -693,6 +749,15 @@ namespace SIGVerse.Competition.Handyman
 			if(HandymanConfig.Instance.configFileInfo.playbackType == HandymanPlaybackCommon.PlaybackTypeRecord)
 			{
 				if(!this.playbackRecorder.IsFinished()) { return false; }
+			}
+
+			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				if(!this.avatarMotionRecorder.IsFinished()) { return false; }
+			}
+			else
+			{
+				if(!this.avatarMotionPlayer.IsFinished()) { return false; }
 			}
 
 			return true;
