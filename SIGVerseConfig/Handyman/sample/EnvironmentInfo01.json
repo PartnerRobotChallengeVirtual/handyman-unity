@@ -1,5 +1,5 @@
 ﻿{
-    "taskMessage": "Go to the living_room, grasp the rabbit_doll and put it on the low_table.",
+    "taskMessage": "Go to the living room, grasp the rabbit_doll and put it on the low_table.",
     "correctedTaskMessage": "",
     "environmentName": "Environment_01",
     "isEnvironmentNameSent": true,

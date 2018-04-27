@@ -1,5 +1,5 @@
 ﻿{
-    "taskMessage": "Go to the living_room, grasp the canned_juice and throw it in the trash_box_for_bottle_can in the living_room.",
+    "taskMessage": "Go to the living room, grasp the canned_juice and throw it in the trash_box_for_bottle_can in the living room.",
     "correctedTaskMessage": "",
     "environmentName": "Environment_02",
     "isEnvironmentNameSent": false,

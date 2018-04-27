@@ -1,5 +1,5 @@
 ﻿{
-    "taskMessage": "Go to the living_room, grasp the pink_cup and give it to me.",
+    "taskMessage": "Go to the living room, grasp the pink_cup and give it to me.",
     "correctedTaskMessage": "",
     "environmentName": "Environment_01",
     "isEnvironmentNameSent": true,
