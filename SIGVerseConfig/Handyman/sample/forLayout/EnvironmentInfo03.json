@@ -1,0 +1,220 @@
+﻿{
+    "taskMessage": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "correctedTaskMessage": "",
+    "environmentName": "RoomC",
+    "isEnvironmentNameSent": true,
+    "graspingTargetName": "babytoy_D",
+    "destinationName": "bedroom_wagon_c02",
+    "graspablesPositions": [
+        {
+            "name": "babytoy_D",
+            "position": {
+                "x": 6.476999759674072,
+                "y": 0.000999998301267624,
+                "z": 1.9199999570846558
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "destinationsPositions": [
+        {
+            "name": "living_sidetable_A",
+            "position": {
+                "x": 2.7209997177124025,
+                "y": 0.0,
+                "z": 5.970000267028809
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "lobby_diningTable_B",
+            "position": {
+                "x": 8.299999237060547,
+                "y": 0.0,
+                "z": -2.0299999713897707
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_wagon_c02",
+            "position": {
+                "x": 2.1999998092651369,
+                "y": 0.0,
+                "z": -0.14000000059604646
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_cardboard-box",
+            "position": {
+                "x": 11.09000015258789,
+                "y": 0.21799999475479127,
+                "z": 5.630000114440918
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "lobby_wide_trashbox_c02_red",
+            "position": {
+                "x": 10.71299934387207,
+                "y": 0.0,
+                "z": -4.11299991607666
+            },
+            "eulerAngles": {
+                "x": 0.000009334667083749082,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "lobby_sidetable_A",
+            "position": {
+                "x": 10.917999267578125,
+                "y": 0.0,
+                "z": -2.577000141143799
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_cornersofa",
+            "position": {
+                "x": 3.419999837875366,
+                "y": 0.0,
+                "z": 3.2860000133514406
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "lobby_sofa_1",
+            "position": {
+                "x": 4.989999771118164,
+                "y": 0.0,
+                "z": -2.9000000953674318
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_diningTable_B",
+            "position": {
+                "x": 2.2699997425079347,
+                "y": 0.0,
+                "z": 3.1399998664855959
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_wide_trashbox_c02_red",
+            "position": {
+                "x": 1.2300000190734864,
+                "y": 0.0,
+                "z": -0.1599999964237213
+            },
+            "eulerAngles": {
+                "x": 0.000009334667083749082,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_bed",
+            "position": {
+                "x": 10.52400016784668,
+                "y": 0.0,
+                "z": 1.3249999284744263
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_sidetable_A_1",
+            "position": {
+                "x": 7.005000114440918,
+                "y": 0.0,
+                "z": 3.3510000705718996
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_wagon_c02",
+            "position": {
+                "x": 10.89799976348877,
+                "y": 0.0,
+                "z": 4.510000228881836
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "lobby_sofa_2",
+            "position": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": -1.8700000047683716
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "Moderator",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
+}

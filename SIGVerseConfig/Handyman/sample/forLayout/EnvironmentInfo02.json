@@ -1,0 +1,181 @@
+﻿{
+    "taskMessage": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "correctedTaskMessage": "",
+    "environmentName": "RoomB",
+    "isEnvironmentNameSent": true,
+    "graspingTargetName": "toy_D",
+    "destinationName": "bedroom_iron_bed",
+    "graspablesPositions": [
+        {
+            "name": "toy_D",
+            "position": {
+                "x": -2.7150001525878908,
+                "y": 0.000999998301267624,
+                "z": 3.446000099182129
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "destinationsPositions": [
+        {
+            "name": "living_sidetable_A_2",
+            "position": {
+                "x": 7.003000259399414,
+                "y": 0.0,
+                "z": -4.921000003814697
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_sidetable_A_1",
+            "position": {
+                "x": 0.2670001983642578,
+                "y": 0.0,
+                "z": 4.742868900299072
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_sidetable_A_1",
+            "position": {
+                "x": 3.700000286102295,
+                "y": 0.0,
+                "z": -4.561999797821045
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_wide_trashbox_c03",
+            "position": {
+                "x": 6.109000205993652,
+                "y": 0.0,
+                "z": -3.7940001487731935
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "kitchen_sidetable_B",
+            "position": {
+                "x": 3.6480002403259279,
+                "y": 0.0,
+                "z": 3.201000213623047
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_iron_bed",
+            "position": {
+                "x": -1.8579998016357422,
+                "y": 0.0,
+                "z": 2.0430002212524416
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "kitchen_wide_trashbox_c03",
+            "position": {
+                "x": 9.75,
+                "y": 0.0,
+                "z": 0.7599999904632568
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 270.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_wide_trashbox_c02",
+            "position": {
+                "x": 9.675000190734864,
+                "y": 0.0,
+                "z": -1.4789999723434449
+            },
+            "eulerAngles": {
+                "x": 0.000009334667083749082,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_cardboard-box",
+            "position": {
+                "x": -2.2960000038146974,
+                "y": 0.2150000035762787,
+                "z": 0.4630000591278076
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_lowtable_B",
+            "position": {
+                "x": 1.2709999084472657,
+                "y": 0.0,
+                "z": -3.5889997482299806
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_sidetable_B_3",
+            "position": {
+                "x": -0.36499977111816409,
+                "y": 0.0,
+                "z": -1.593999981880188
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "Moderator",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
+}
