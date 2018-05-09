@@ -1,0 +1,467 @@
+﻿{
+    "taskMessage": "Go to the bed room, grasp the mayonnaise and throw it in the trash_box_for_burnable.",
+    "correctedTaskMessage": "Go to the bed room, grasp the empty_mayonnaise and throw it in the trash_box_for_burnable.",
+    "environmentName": "RoomB",
+    "isEnvironmentNameSent": true,
+    "graspingTargetName": "mayonaise_empty",
+    "destinationName": "living_wide_trashbox_c02",
+    "graspablesPositions": [
+        {
+            "name": "toy_D",
+            "position": {
+                "x": -2.2319998741149904,
+                "y": 0.3199999928474426,
+                "z": 1.459999918937683
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "pepper_full",
+            "position": {
+                "x": 8.031000137329102,
+                "y": 0.7599999904632568,
+                "z": 2.0929999351501467
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "tumblerglass",
+            "position": {
+                "x": 4.289000034332275,
+                "y": 0.4960000216960907,
+                "z": -4.334000110626221
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "tumiki_car",
+            "position": {
+                "x": -0.3819999694824219,
+                "y": 0.4960000216960907,
+                "z": 4.485000133514404
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "ketchup_full",
+            "position": {
+                "x": 9.117000579833985,
+                "y": 0.7109999656677246,
+                "z": 4.384000301361084
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "doll_rabbit",
+            "position": {
+                "x": 5.885000228881836,
+                "y": 0.625,
+                "z": -4.988999843597412
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 270.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "doll_dog",
+            "position": {
+                "x": 0.7920002937316895,
+                "y": 0.4960000216960907,
+                "z": 4.535000324249268
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "green_pear",
+            "position": {
+                "x": 6.8510003089904789,
+                "y": 0.7109999656677246,
+                "z": 4.377000331878662
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "cannedjuice",
+            "position": {
+                "x": 8.51300048828125,
+                "y": 0.4390000104904175,
+                "z": -5.065000057220459
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "Low_poly_camera",
+            "position": {
+                "x": 1.6,
+                "y": 0.4480000138282776,
+                "z": -3.4
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "apple",
+            "position": {
+                "x": 6.9110002517700199,
+                "y": 0.7599999904632568,
+                "z": 2.0799999237060549
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "sugar",
+            "position": {
+                "x": 7.230000019073486,
+                "y": 0.4960000216960907,
+                "z": -4.861000061035156
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "sauce_full",
+            "position": {
+                "x": -1.4749999046325684,
+                "y": 0.6039999723434448,
+                "z": 3.0269999504089357
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "clock",
+            "position": {
+                "x": 6.624000072479248,
+                "y": 0.7599999904632568,
+                "z": 1.4529999494552613
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 270.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "rubik3_scrambled",
+            "position": {
+                "x": 1.873000144958496,
+                "y": 0.47200003266334536,
+                "z": -4.968999862670898
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "cup_c02",
+            "position": {
+                "x": -1.49399995803833,
+                "y": 0.6039999723434448,
+                "z": 3.7100000381469728
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "toy_duck",
+            "position": {
+                "x": 7.196000099182129,
+                "y": 0.7109999656677246,
+                "z": 4.386000156402588
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "doll_bear",
+            "position": {
+                "x": 7.176000118255615,
+                "y": 0.4960000216960907,
+                "z": -4.289000034332275
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "hourglass",
+            "position": {
+                "x": -2.234999656677246,
+                "y": 0.6799999475479126,
+                "z": 1.8990000486373902
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "soysauce_full",
+            "position": {
+                "x": 8.593999862670899,
+                "y": 0.7109999656677246,
+                "z": 4.406000137329102
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "cigarette",
+            "position": {
+                "x": 1.7620000839233399,
+                "y": 0.4480000138282776,
+                "z": -3.61299991607666
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "mayonaise_empty",
+            "position": {
+                "x": 0.3690004348754883,
+                "y": 0.4960000216960907,
+                "z": 4.447000026702881
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "mayonaise_full",
+            "position": {
+                "x": 8.9,
+                "y": 0.7109999656677246,
+                "z": 4.39
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "destinationsPositions": [
+        {
+            "name": "living_sidetable_A_2",
+            "position": {
+                "x": 7.003000259399414,
+                "y": 0.0,
+                "z": -4.921000003814697
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_sidetable_A_1",
+            "position": {
+                "x": 0.2670001983642578,
+                "y": 0.0,
+                "z": 4.742868900299072
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_sidetable_A_1",
+            "position": {
+                "x": 3.700000286102295,
+                "y": 0.0,
+                "z": -4.561999797821045
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_wide_trashbox_c03",
+            "position": {
+                "x": 6.109000205993652,
+                "y": 0.0,
+                "z": -3.7940001487731935
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_iron_bed",
+            "position": {
+                "x": -1.8579998016357422,
+                "y": 0.0,
+                "z": 2.0430002212524416
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_wide_trashbox_c02",
+            "position": {
+                "x": 9.739999771118164,
+                "y": 0.0,
+                "z": -1.5759999752044678
+            },
+            "eulerAngles": {
+                "x": 0.000009334667083749082,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "kitchen_wide_trashbox_c03",
+            "position": {
+                "x": 9.75,
+                "y": 0.0,
+                "z": 0.7599999904632568
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 270.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "bedroom_cardboard-box",
+            "position": {
+                "x": -2.2960000038146974,
+                "y": 0.2150000035762787,
+                "z": 0.4630000591278076
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_lowtable_B",
+            "position": {
+                "x": 1.2709999084472657,
+                "y": 0.0,
+                "z": -3.5889997482299806
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "living_sidetable_B_3",
+            "position": {
+                "x": -0.36499977111816409,
+                "y": 0.0,
+                "z": -1.593999981880188
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "kitchen_sidetable_B",
+            "position": {
+                "x": 3.6480002403259279,
+                "y": 0.0,
+                "z": 3.201000213623047
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "Moderator",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
+}

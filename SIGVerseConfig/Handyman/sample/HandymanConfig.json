@@ -1,6 +1,6 @@
 ﻿{
-    "maxNumberOfTrials": 5,
-    "isScoreFileRead": false,
+    "maxNumberOfTrials": 14,
+    "isScoreFileRead": true,
     "isGraspableObjectsPositionRandom": false,
     "isAlwaysGoNext": false,
     "playbackType": 1
