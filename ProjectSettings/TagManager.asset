@@ -16,6 +16,7 @@ TagManager:
   - AudienceCamera
   - NonDeductionCollider
   - Obstacles
+  - DontRecord
   layers:
   - Default
   - TransparentFX
