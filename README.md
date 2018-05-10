@@ -1,3 +1,13 @@
+### This branch has resources of an event held in May 2018 to verify the contents of WRS2018.
+
+
+Unity scene used in the event  
+Assets/Competition/Handyman/Handyman201805.unity
+
+Unity scene for confirming layouts in advance  
+Assets/Competition/Handyman/Handyman201805Layout.unity
+
+---
 # Handyman Project
 
 This is a Unity project for the competition of Handyman task of the Partner Robot Challenge (Virtual Space) in the World Robot Competition.
@@ -42,12 +52,7 @@ SIGVerse window will be opened.
 ## How to Execute Handyman Program
 
 Please start the ROS side application beforehand.  
-By default, given 2 attempts.
-
-```diff
----    Note: Currently, task message supports only the following formats.    ---
----          "Go to the AAA,  grasp the BBB and come back here"              ---
-```
+By default, given 5 attempts.
 
 ### Execute On Unity Editor
 1. Double click "Assets/Competition/Handyman/Handyman(.unity)" in Project window.
