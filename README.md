@@ -1,10 +1,9 @@
 ### This branch has resources of an event held in May 2018 to verify the contents of WRS2018.
 
 
-Unity scene used in the event  
+- Unity scene used in the event  
 Assets/Competition/Handyman/Handyman201805.unity
-
-Unity scene for confirming layouts in advance  
+- Unity scene for confirming layouts in advance  
 Assets/Competition/Handyman/Handyman201805Layout.unity
 
 ---
