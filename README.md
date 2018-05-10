@@ -4,7 +4,8 @@
 - Unity scene used in the event  
 Assets/Competition/Handyman/Handyman201805.unity
 - Unity scene for confirming layouts in advance  
-Assets/Competition/Handyman/Handyman201805Layout.unity
+Assets/Competition/Handyman/Handyman201805Layout.unity  
+(There are config files at SIGVerseConfig/Handyman/sample/forLayout)
 
 ---
 # Handyman Project
