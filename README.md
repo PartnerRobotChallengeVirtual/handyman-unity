@@ -1,13 +1,3 @@
-### This branch has resources of an event held in May 2018 to verify the contents of WRS2018.
-
-
-- Unity scene used in the event  
-Assets/Competition/Handyman/Handyman201805.unity
-- Unity scene for confirming layouts in advance  
-Assets/Competition/Handyman/Handyman201805Layout.unity  
-(There are config files at SIGVerseConfig/Handyman/sample/forLayout)
-
----
 # Handyman Project
 
 This is a Unity project for the competition of Handyman task of the Partner Robot Challenge (Virtual Space) in the World Robot Competition.
