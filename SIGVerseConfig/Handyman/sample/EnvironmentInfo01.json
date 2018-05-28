@@ -1,7 +1,7 @@
 ﻿{
     "taskMessage": "Go to the living room, grasp the dog_doll and put it on the low_table.",
     "correctedTaskMessage": "",
-    "environmentName": "RoomA",
+    "environmentName": "LayoutA",
     "isEnvironmentNameSent": true,
     "graspingTargetName": "doll_dog",
     "destinationName": "living_lowtable_A",

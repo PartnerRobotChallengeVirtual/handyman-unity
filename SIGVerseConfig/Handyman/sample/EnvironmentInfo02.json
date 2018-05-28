@@ -1,7 +1,7 @@
 ﻿{
     "taskMessage": "Go to the living room, grasp the canned_juice on the wooden_side_table and throw it in the trash_box_for_bottle_can in the living room.",
     "correctedTaskMessage": "",
-    "environmentName": "RoomB",
+    "environmentName": "LayoutB",
     "isEnvironmentNameSent": true,
     "graspingTargetName": "cannedjuice",
     "destinationName": "living_wide_trashbox_c03",
