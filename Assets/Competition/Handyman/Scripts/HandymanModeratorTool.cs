@@ -500,7 +500,7 @@ namespace SIGVerse.Competition.Handyman
 
 		private string CreateTaskMessage()
 		{
-			return "Go to the " + this.GetRoomName(this.targetRoom) + ", grasp the " + this.graspingTarget.name + " and send it to the " + this.destination.name + ".";
+			return "Go to the " + this.GetRoomName(this.targetRoom) + ", grasp the " + this.graspingTarget.name.Split('#')[0] + " and send it to the " + this.destination.name.Split('#')[0] + ".";
 		}
 
 		public string GetTaskMessage()

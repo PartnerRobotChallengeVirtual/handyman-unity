@@ -3,7 +3,7 @@
     "correctedTaskMessage": "Go to the lobby, grasp the dog_doll and give it to me.",
     "environmentName": "LayoutA",
     "isEnvironmentNameSent": true,
-    "graspingTargetName": "doll_dog",
+    "graspingTargetName": "dog_doll",
     "destinationName": "Moderator",
     "graspablesPositions": [
         {
@@ -20,7 +20,7 @@
             }
         },
         {
-            "name": "tumiki_car",
+            "name": "block_car",
             "position": {
                 "x": 0.45399999618530276,
                 "y": 0.4960000216960907,
@@ -46,7 +46,7 @@
             }
         },
         {
-            "name": "cannedjuice",
+            "name": "canned_juice",
             "position": {
                 "x": -2.072000026702881,
                 "y": 0.7459999918937683,
@@ -59,7 +59,7 @@
             }
         },
         {
-            "name": "doll_rabbit",
+            "name": "rabbit_doll",
             "position": {
                 "x": 0.4140000343322754,
                 "y": 0.4960000216960907,
@@ -72,7 +72,7 @@
             }
         },
         {
-            "name": "soysauce_full",
+            "name": "soysauce",
             "position": {
                 "x": 2.6399998664855959,
                 "y": 0.5549999475479126,
@@ -85,7 +85,7 @@
             }
         },
         {
-            "name": "ketchup_full",
+            "name": "ketchup",
             "position": {
                 "x": 3.930999994277954,
                 "y": 0.5509999990463257,
@@ -98,7 +98,7 @@
             }
         },
         {
-            "name": "doll_dog",
+            "name": "dog_doll",
             "position": {
                 "x": 6.540999889373779,
                 "y": 0.47200003266334536,
@@ -111,7 +111,7 @@
             }
         },
         {
-            "name": "doll_bear",
+            "name": "bear_doll",
             "position": {
                 "x": 0.44599997997283938,
                 "y": 0.4960000216960907,
@@ -124,7 +124,7 @@
             }
         },
         {
-            "name": "tumblerglass",
+            "name": "tumbler",
             "position": {
                 "x": 2.7319998741149904,
                 "y": 0.3100000023841858,
@@ -137,7 +137,7 @@
             }
         },
         {
-            "name": "sauce_full",
+            "name": "sauce",
             "position": {
                 "x": 6.324999809265137,
                 "y": 0.4960000216960907,
@@ -163,7 +163,7 @@
             }
         },
         {
-            "name": "pepper_full",
+            "name": "pepper",
             "position": {
                 "x": -3.559999942779541,
                 "y": 0.4440000057220459,
@@ -189,7 +189,7 @@
             }
         },
         {
-            "name": "babytoy_D",
+            "name": "toy_penguin",
             "position": {
                 "x": -1.2660000324249268,
                 "y": 0.4960000216960907,
@@ -215,7 +215,7 @@
             }
         },
         {
-            "name": "cup_c02",
+            "name": "pink_cup",
             "position": {
                 "x": 2.321000099182129,
                 "y": 0.7259999513626099,
@@ -230,7 +230,7 @@
     ],
     "destinationsPositions": [
         {
-            "name": "living_lowtable_A",
+            "name": "low_table#living_room",
             "position": {
                 "x": -4.02400016784668,
                 "y": 0.0,
@@ -243,7 +243,7 @@
             }
         },
         {
-            "name": "bedroom_sidetable_A_2",
+            "name": "white_table#bedroom_2",
             "position": {
                 "x": 2.0399999618530275,
                 "y": 0.0,
@@ -256,7 +256,7 @@
             }
         },
         {
-            "name": "lobby_rack_c01",
+            "name": "white_rack#lobby",
             "position": {
                 "x": 2.9800000190734865,
                 "y": 0.0,
@@ -269,7 +269,7 @@
             }
         },
         {
-            "name": "bedroom_wagon_c02",
+            "name": "wagon#bedroom",
             "position": {
                 "x": 2.1600000858306886,
                 "y": 0.0,
@@ -282,7 +282,7 @@
             }
         },
         {
-            "name": "bedroom_cardboard-box",
+            "name": "cardboard_box#bedroom",
             "position": {
                 "x": 4.970000267028809,
                 "y": 0.21799999475479127,
@@ -295,7 +295,7 @@
             }
         },
         {
-            "name": "kitchen_sidetable_A",
+            "name": "white_table#kitchen",
             "position": {
                 "x": -1.4590001106262208,
                 "y": 0.0,
@@ -308,7 +308,7 @@
             }
         },
         {
-            "name": "lobby_sofa",
+            "name": "armchair#lobby",
             "position": {
                 "x": 2.319999933242798,
                 "y": 0.0,
@@ -321,7 +321,7 @@
             }
         },
         {
-            "name": "living_wide_trashbox_c03_blue",
+            "name": "trash_box_for_bottle_can#living_room",
             "position": {
                 "x": 0.6800000071525574,
                 "y": 0.0,
@@ -334,7 +334,7 @@
             }
         },
         {
-            "name": "living_wide_trashbox_c01_green",
+            "name": "trash_box_for_recycle#living_room",
             "position": {
                 "x": -1.2000000476837159,
                 "y": 0.0,
@@ -347,7 +347,7 @@
             }
         },
         {
-            "name": "living_wide_trashbox_c02_red",
+            "name": "trash_box_for_burnable#living_room",
             "position": {
                 "x": -2.4100000858306886,
                 "y": 0.0,
@@ -360,7 +360,7 @@
             }
         },
         {
-            "name": "bedroom_sidetable_A_1",
+            "name": "white_table#bedroom_1",
             "position": {
                 "x": 6.408999919891357,
                 "y": 0.0,
@@ -373,7 +373,7 @@
             }
         },
         {
-            "name": "lobby_cornersofa",
+            "name": "corner_sofa#lobby",
             "position": {
                 "x": 6.64900016784668,
                 "y": 0.0,
@@ -386,7 +386,7 @@
             }
         },
         {
-            "name": "living_sidetable_A",
+            "name": "white_table#living_room",
             "position": {
                 "x": 0.6399999856948853,
                 "y": 0.0,
@@ -399,7 +399,7 @@
             }
         },
         {
-            "name": "lobby_sidetable_A",
+            "name": "white_table#lobby",
             "position": {
                 "x": 6.815000057220459,
                 "y": 0.0,
@@ -412,7 +412,7 @@
             }
         },
         {
-            "name": "bedroom_bed",
+            "name": "bed#bedroom",
             "position": {
                 "x": 2.0899999141693117,
                 "y": 0.0,
@@ -425,7 +425,7 @@
             }
         },
         {
-            "name": "kitchen_diningTable_B",
+            "name": "wooden_table#kitchen",
             "position": {
                 "x": -2.9079999923706056,
                 "y": 0.0,

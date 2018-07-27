@@ -3,11 +3,11 @@
     "correctedTaskMessage": "",
     "environmentName": "LayoutB",
     "isEnvironmentNameSent": true,
-    "graspingTargetName": "cannedjuice",
-    "destinationName": "living_wide_trashbox_c03",
+    "graspingTargetName": "canned_juice",
+    "destinationName": "trash_box_for_bottle_can#living_room",
     "graspablesPositions": [
         {
-            "name": "toy_D",
+            "name": "toy_penguin",
             "position": {
                 "x": -2.2319998741149904,
                 "y": 0.3199999928474426,
@@ -33,7 +33,7 @@
             }
         },
         {
-            "name": "tumiki_car",
+            "name": "block_car",
             "position": {
                 "x": 7.230000019073486,
                 "y": 0.4960000216960907,
@@ -72,7 +72,7 @@
             }
         },
         {
-            "name": "soysauce_full",
+            "name": "soysauce",
             "position": {
                 "x": -2.234999656677246,
                 "y": 0.6799999475479126,
@@ -85,7 +85,7 @@
             }
         },
         {
-            "name": "doll_dog",
+            "name": "dog_doll",
             "position": {
                 "x": 7.196000099182129,
                 "y": 0.7109999656677246,
@@ -98,7 +98,7 @@
             }
         },
         {
-            "name": "cup_c02",
+            "name": "pink_cup",
             "position": {
                 "x": 0.7920002937316895,
                 "y": 0.4960000216960907,
@@ -111,7 +111,7 @@
             }
         },
         {
-            "name": "tumblerglass",
+            "name": "tumbler",
             "position": {
                 "x": 3.7849998474121095,
                 "y": 0.38499999046325686,
@@ -124,7 +124,7 @@
             }
         },
         {
-            "name": "pepper_full",
+            "name": "pepper",
             "position": {
                 "x": 3.2720000743865969,
                 "y": 0.4960000216960907,
@@ -137,7 +137,7 @@
             }
         },
         {
-            "name": "doll_rabbit",
+            "name": "rabbit_doll",
             "position": {
                 "x": -0.3819999694824219,
                 "y": 0.4960000216960907,
@@ -163,7 +163,7 @@
             }
         },
         {
-            "name": "ketchup_full",
+            "name": "ketchup",
             "position": {
                 "x": 1.7620000839233399,
                 "y": 0.4480000138282776,
@@ -176,7 +176,7 @@
             }
         },
         {
-            "name": "cannedjuice",
+            "name": "canned_juice",
             "position": {
                 "x": -0.2690000534057617,
                 "y": 0.38499999046325686,
@@ -189,7 +189,7 @@
             }
         },
         {
-            "name": "doll_bear",
+            "name": "bear_doll",
             "position": {
                 "x": 7.176000118255615,
                 "y": 0.4960000216960907,
@@ -215,7 +215,7 @@
             }
         },
         {
-            "name": "sauce_full",
+            "name": "sauce",
             "position": {
                 "x": 1.3229999542236329,
                 "y": 0.4480000138282776,
@@ -230,7 +230,7 @@
     ],
     "destinationsPositions": [
         {
-            "name": "living_sidetable_A_2",
+            "name": "white_table#living_room_2",
             "position": {
                 "x": 7.003000259399414,
                 "y": 0.0,
@@ -243,7 +243,7 @@
             }
         },
         {
-            "name": "bedroom_sidetable_A_1",
+            "name": "white_table#bedroom_1",
             "position": {
                 "x": 0.2670001983642578,
                 "y": 0.0,
@@ -256,7 +256,7 @@
             }
         },
         {
-            "name": "living_sidetable_A_1",
+            "name": "white_table#living_room_1",
             "position": {
                 "x": 3.700000286102295,
                 "y": 0.0,
@@ -269,7 +269,7 @@
             }
         },
         {
-            "name": "living_wide_trashbox_c03",
+            "name": "trash_box_for_bottle_can#living_room",
             "position": {
                 "x": 6.109000205993652,
                 "y": 0.0,
@@ -282,7 +282,7 @@
             }
         },
         {
-            "name": "bedroom_iron_bed",
+            "name": "iron_bed#bedroom",
             "position": {
                 "x": -1.8579998016357422,
                 "y": 0.0,
@@ -295,7 +295,7 @@
             }
         },
         {
-            "name": "living_wide_trashbox_c02",
+            "name": "trash_box_for_burnable#living_room",
             "position": {
                 "x": 9.739999771118164,
                 "y": 0.0,
@@ -308,7 +308,7 @@
             }
         },
         {
-            "name": "kitchen_wide_trashbox_c03",
+            "name": "trash_box_for_bottle_can#kitchen",
             "position": {
                 "x": 9.75,
                 "y": 0.0,
@@ -321,7 +321,7 @@
             }
         },
         {
-            "name": "bedroom_cardboard-box",
+            "name": "cardboard_box#bedroom",
             "position": {
                 "x": -2.2960000038146974,
                 "y": 0.2150000035762787,
@@ -334,7 +334,7 @@
             }
         },
         {
-            "name": "living_lowtable_B",
+            "name": "round_low_table#living_room",
             "position": {
                 "x": 1.2709999084472657,
                 "y": 0.0,
@@ -347,7 +347,7 @@
             }
         },
         {
-            "name": "living_sidetable_B_3",
+            "name": "wooden_side_table#living_room",
             "position": {
                 "x": -0.36499977111816409,
                 "y": 0.0,
@@ -360,7 +360,7 @@
             }
         },
         {
-            "name": "kitchen_sidetable_B",
+            "name": "wooden_side_table#kitchen",
             "position": {
                 "x": 3.6480002403259279,
                 "y": 0.0,
