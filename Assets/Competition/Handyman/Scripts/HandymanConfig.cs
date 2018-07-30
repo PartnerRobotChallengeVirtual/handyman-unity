@@ -11,6 +11,7 @@ namespace SIGVerse.Competition.Handyman
 	[System.Serializable]
 	public class HandymanConfigFileInfo
 	{
+		public int  sessionTimeLimit;
 		public int  maxNumberOfTrials;
 		public bool isScoreFileRead;
 		public bool isGraspableObjectsPositionRandom;
@@ -20,7 +21,7 @@ namespace SIGVerse.Competition.Handyman
 
 	public class HandymanConfig : Singleton<HandymanConfig>
 	{
-		public const string FolderPath = "/../SIGVerseConfig/Handyman/";
+		public const string FolderPath     = "/../SIGVerseConfig/Handyman/";
 		public const string ConfigFileName = "HandymanConfig.json";
 		public const string ScoreFileName  = "HandymanScore.txt";
 
@@ -56,8 +57,9 @@ namespace SIGVerse.Competition.Handyman
 			{
 				SIGVerseLogger.Warn("Handyman config file does not exists.");
 
+				this.configFileInfo.sessionTimeLimit  = 600;
 				this.configFileInfo.maxNumberOfTrials = 15;
-				this.configFileInfo.isScoreFileRead = false;
+				this.configFileInfo.isScoreFileRead   = false;
 				this.configFileInfo.isGraspableObjectsPositionRandom = true;
 				this.configFileInfo.isAlwaysGoNext = false;
 				this.configFileInfo.playbackType = HandymanPlaybackCommon.PlaybackTypeRecord;

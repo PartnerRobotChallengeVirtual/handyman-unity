@@ -74,13 +74,13 @@ namespace SIGVerse.Competition.Handyman
 	{
 		private const float DefaultTimeScale = 1.0f;
 
-		public int timeLimit = 600;
-
 		public List<GameObject> scoreNotificationDestinations;
 
 		public List<string> timeIsUpDestinationTags;
 
 		//---------------------------------------------------
+		private int timeLimit = 0;
+
 		private GameObject mainMenu;
 		private PanelMainController panelMainController;
 
@@ -93,6 +93,8 @@ namespace SIGVerse.Competition.Handyman
 
 		void Awake()
 		{
+			this.timeLimit = HandymanConfig.Instance.configFileInfo.sessionTimeLimit;
+
 			this.mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
 
 			this.panelMainController = this.mainMenu.GetComponent<PanelMainController>();
