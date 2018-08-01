@@ -42,20 +42,10 @@ namespace SIGVerse.Competition.Handyman
 				case Score.Type.PlacementSuccess         : { return +30; }
 				case Score.Type.PlacementFailure         : { return -10; }
 				case Score.Type.HsrCollisionEnter        : { return GetHsrCollisionScore   ((Collision)args[0], (float)args[1]); }
-				case Score.Type.ObjectCollisionEnter     : { return GetObjectCollisionScore((Collision)args[0], (float)args[1]); }
+				case Score.Type.ObjectCollisionEnter     : { return GetObjectCollisionScore((SIGVerse.Competition.CollisionType)args[0], (Collision)args[1], (float)args[2]); }
 			}
 
 			throw new Exception("Illegal score type. Type = " + (int)scoreType + ", method name=(" + System.Reflection.MethodBase.GetCurrentMethod().Name + ")");
-		}
-
-		public static float GetObjectCollisionVeloticyThreshold()
-		{
-			return 1.0f;
-		}
-
-		private static int GetObjectCollisionScore(Collision collision, float collisionVelocity)
-		{
-			return Mathf.Clamp(Mathf.FloorToInt((collisionVelocity - 1.0f) * -10), -50, -1);
 		}
 
 		public static float GetHsrCollisionVeloticyThreshold()
@@ -66,6 +56,23 @@ namespace SIGVerse.Competition.Handyman
 		private static int GetHsrCollisionScore(Collision collision, float collisionVelocity)
 		{
 			return Mathf.Clamp(Mathf.FloorToInt(Mathf.Log10(100 * collisionVelocity) * -20), -50, -5);
+		}
+
+		public static float GetObjectCollisionVeloticyThreshold()
+		{
+			return 1.0f;
+		}
+
+		private static int GetObjectCollisionScore(SIGVerse.Competition.CollisionType collisionType, Collision collision, float collisionVelocity)
+		{
+			if(collisionType==CollisionType.WithHsrBase)
+			{
+				return -5;
+			}
+			else
+			{
+				return Mathf.Clamp(Mathf.FloorToInt((collisionVelocity - 1.0f) * -10), -50, -1);
+			}
 		}
 	}
 
@@ -221,14 +228,14 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void OnTransferredCollisionEnter(Collision collision, float collisionVelocity, float effectScale)
-		{
-			this.AddScore(Score.Type.ObjectCollisionEnter, collision, collisionVelocity);
-		}
-
 		public void OnHsrCollisionEnter(Collision collision, float collisionVelocity, float effectScale)
 		{
 			this.AddScore(Score.Type.HsrCollisionEnter, collision, collisionVelocity);
+		}
+
+		public void OnTransferredCollisionEnter(SIGVerse.Competition.CollisionType collisionType, Collision collision, float collisionVelocity, float effectScale)
+		{
+			this.AddScore(Score.Type.ObjectCollisionEnter, collisionType, collision, collisionVelocity);
 		}
 	}
 }
