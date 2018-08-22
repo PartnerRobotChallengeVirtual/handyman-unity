@@ -59,6 +59,10 @@ namespace SIGVerse.Competition.Handyman
 		private const string RoomNameForTaskMessageBedRoom = "bed room";
 		private const string RoomNameForTaskMessageLiving  = "living room";
 
+		public const string SpeechExePath  = "../TTS/ConsoleSimpleTTS.exe";
+		public const string SpeechLanguage = "409";
+		public const string SpeechGender   = "Male";
+
 
 		private IRosConnection[] rosConnections;
 
@@ -94,6 +98,8 @@ namespace SIGVerse.Competition.Handyman
 		private HandymanAvatarMotionRecorder avatarMotionRecorder;
 
 		private HandymanPlaybackRecorder playbackRecorder;
+
+		private System.Diagnostics.Process speechProcess;
 
 
 		public HandymanModeratorTool(HandymanModerator moderator)
@@ -351,6 +357,17 @@ namespace SIGVerse.Competition.Handyman
 			SIGVerseLogger.Info("ROS connection : count=" + this.rosConnections.Length);
 
 
+			// Set up the voice (Using External executable file)
+			this.speechProcess = new System.Diagnostics.Process();
+
+			this.speechProcess.StartInfo.FileName = Application.dataPath + "/" + SpeechExePath;
+
+			this.speechProcess.StartInfo.CreateNoWindow = true;
+			this.speechProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+
+			SIGVerseLogger.Info("Text-To-Speech: " + this.speechProcess.StartInfo.FileName);
+
+
 			this.isPlacementSucceeded   = null;
 		}
 
@@ -558,6 +575,52 @@ namespace SIGVerse.Competition.Handyman
 		public bool IsTargetInArea(Vector3 targetPosition, GameObject area)
 		{
 			return IsTargetInArea(targetPosition, area, 0.0f);
+		}
+
+
+		public IEnumerator Speak(string message, float delay = 0.0f, bool needsCancelLatestSpeech = false)
+		{
+			yield return new WaitForSeconds(delay);
+
+			try
+			{
+				if (needsCancelLatestSpeech && !this.speechProcess.HasExited)
+				{
+					this.speechProcess.Kill();
+				}
+			}
+			catch (Exception)
+			{
+				// Do nothing even if an error occurs
+			}
+
+			yield return null;
+
+
+			message = message.Replace("_", " "); // Remove "_"
+
+			this.speechProcess.StartInfo.Arguments = "\"" + message + "\" \"Language=" + SpeechLanguage + "; Gender=" + SpeechGender + "\"";
+
+			try
+			{
+				this.speechProcess.Start();
+
+				SIGVerseLogger.Info("Moderator spoke :" + message);
+			}
+			catch (Exception)
+			{
+				SIGVerseLogger.Warn("Moderator could not speak :" + message);
+			}
+		}
+
+		public IEnumerator SpeakGood(float delay = 0.0f)
+		{
+			yield return Speak("Good!", delay, false);
+		}
+
+		public IEnumerator SpeakFailed(float delay = 0.0f)
+		{
+			yield return Speak("Failed", delay, true);
 		}
 
 
