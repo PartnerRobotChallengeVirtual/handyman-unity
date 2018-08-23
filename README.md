@@ -23,6 +23,13 @@ See also [wiki page](https://github.com/PartnerRobotChallengeVirtual/handyman-un
 4. Click [Import] button.
 5. Please confirm that no error occurred in Console window.
 
+### Import executable file and dll for TTS
+
+If you want to output speech, please import files by following the steps below.
+1. Prepare "ConsoleSimpleTTS.exe" and "Interop.SpeechLib.dll".  
+For details on these files, see [here](https://github.com/PartnerRobotChallengeVirtual/console-simple-tts).
+2. Copy those files to the "TTS" folder in the same directory as README.md.
+
 ### Build
 1. Create a "Build" folder under this project folder.
 2. Open this project with Unity.

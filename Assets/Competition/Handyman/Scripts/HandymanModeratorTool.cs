@@ -33,6 +33,20 @@ namespace SIGVerse.Competition.Handyman
 		public List<RelocatableObjectInfo> destinationsPositions; 
 	}
 
+	public class SpeechInfo
+	{
+		public string message;
+		public string gender;
+		public bool   canCancel;
+
+		public SpeechInfo(string message, string gender, bool canCancel)
+		{
+			this.message   = message;
+			this.gender    = gender;
+			this.canCancel = canCancel;
+		}
+	}
+
 	public class HandymanModeratorTool
 	{
 		private const string EnvironmentInfoFileNameFormat = "/../SIGVerseConfig/Handyman/EnvironmentInfo{0:D2}.json";
@@ -61,7 +75,8 @@ namespace SIGVerse.Competition.Handyman
 
 		public const string SpeechExePath  = "../TTS/ConsoleSimpleTTS.exe";
 		public const string SpeechLanguage = "409";
-		public const string SpeechGender   = "Male";
+		public const string SpeechGenderModerator = "Male";
+		public const string SpeechGenderHsr       = "Female";
 
 
 		private IRosConnection[] rosConnections;
@@ -100,6 +115,11 @@ namespace SIGVerse.Competition.Handyman
 		private HandymanPlaybackRecorder playbackRecorder;
 
 		private System.Diagnostics.Process speechProcess;
+
+		private Queue<SpeechInfo> speechInfoQue;
+		private SpeechInfo latestSpeechInfo;
+
+		private bool isSpeechUsed;
 
 
 		public HandymanModeratorTool(HandymanModerator moderator)
@@ -359,13 +379,15 @@ namespace SIGVerse.Competition.Handyman
 
 			// Set up the voice (Using External executable file)
 			this.speechProcess = new System.Diagnostics.Process();
-
 			this.speechProcess.StartInfo.FileName = Application.dataPath + "/" + SpeechExePath;
-
 			this.speechProcess.StartInfo.CreateNoWindow = true;
 			this.speechProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 
-			SIGVerseLogger.Info("Text-To-Speech: " + this.speechProcess.StartInfo.FileName);
+			this.isSpeechUsed = System.IO.File.Exists(this.speechProcess.StartInfo.FileName);
+
+			this.speechInfoQue = new Queue<SpeechInfo>();
+
+			SIGVerseLogger.Info("Text-To-Speech: " + Application.dataPath + "/" + SpeechExePath);
 
 
 			this.isPlacementSucceeded   = null;
@@ -578,49 +600,84 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public IEnumerator Speak(string message, float delay = 0.0f, bool needsCancelLatestSpeech = false)
+		public void ControlSpeech(bool isTaskFinished)
 		{
-			yield return new WaitForSeconds(delay);
+			if(!this.isSpeechUsed){ return; }
 
+			// Cancel current speech that can be canceled when task finished
 			try
 			{
-				if (needsCancelLatestSpeech && !this.speechProcess.HasExited)
+				if (isTaskFinished && this.latestSpeechInfo!=null && this.latestSpeechInfo.canCancel && !this.speechProcess.HasExited)
 				{
 					this.speechProcess.Kill();
 				}
 			}
 			catch (Exception)
 			{
+				SIGVerseLogger.Warn("Do nothing even if an error occurs");
 				// Do nothing even if an error occurs
 			}
 
-			yield return null;
+
+			if (this.speechInfoQue.Count <= 0){ return; }
+
+			// Return if the current speech is not over
+			if (this.latestSpeechInfo!=null && !this.speechProcess.HasExited){ return; }
 
 
-			message = message.Replace("_", " "); // Remove "_"
+			SpeechInfo speechInfo = this.speechInfoQue.Dequeue();
 
-			this.speechProcess.StartInfo.Arguments = "\"" + message + "\" \"Language=" + SpeechLanguage + "; Gender=" + SpeechGender + "\"";
+			if(isTaskFinished && speechInfo.canCancel){ return; }
+
+			this.latestSpeechInfo = speechInfo;
+
+			string message = this.latestSpeechInfo.message.Replace("_", " "); // Remove "_"
+
+			this.speechProcess.StartInfo.Arguments = "\"" + message + "\" \"Language=" + SpeechLanguage + "; Gender=" + this.latestSpeechInfo.gender + "\"";
 
 			try
 			{
 				this.speechProcess.Start();
 
-				SIGVerseLogger.Info("Moderator spoke :" + message);
+				SIGVerseLogger.Info("Spoke :" + message);
 			}
 			catch (Exception)
 			{
-				SIGVerseLogger.Warn("Moderator could not speak :" + message);
+				SIGVerseLogger.Warn("Could not speak :" + message);
 			}
 		}
 
-		public IEnumerator SpeakGood(float delay = 0.0f)
+
+		public void AddSpeechQue(string message, string gender, bool canCancel = false)
 		{
-			yield return Speak("Good!", delay, false);
+			if(!this.isSpeechUsed){ return; }
+
+			this.speechInfoQue.Enqueue(new SpeechInfo(message, gender, canCancel));
 		}
 
-		public IEnumerator SpeakFailed(float delay = 0.0f)
+		public void AddSpeechQueModerator(string message, bool canCancel = false)
 		{
-			yield return Speak("Failed", delay, true);
+			this.AddSpeechQue(message, SpeechGenderModerator, canCancel);
+		}
+
+		public void AddSpeechQueModeratorGood(bool canCancel = false)
+		{
+			this.AddSpeechQue("Good job", SpeechGenderModerator, canCancel);
+		}
+
+		public void AddSpeechQueModeratorFailed(bool canCancel = false)
+		{
+			this.AddSpeechQue("That's too bad", SpeechGenderModerator, canCancel);
+		}
+
+		public void AddSpeechQueHsr(string message, bool canCancel = false)
+		{
+			this.AddSpeechQue(message, SpeechGenderHsr, canCancel);
+		}
+
+		public bool IsSpeaking()
+		{
+			return this.speechInfoQue.Count != 0 || (this.latestSpeechInfo!=null && !this.speechProcess.HasExited);
 		}
 
 
