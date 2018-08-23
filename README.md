@@ -28,7 +28,7 @@ See also [wiki page](https://github.com/PartnerRobotChallengeVirtual/handyman-un
 If you want to output speech, please import files by following the steps below.
 1. Prepare "ConsoleSimpleTTS.exe" and "Interop.SpeechLib.dll".  
 For details on these files, see [here](https://github.com/PartnerRobotChallengeVirtual/console-simple-tts).
-2. Copy those files to the "TTS" folder in the same directory as README.md.
+2. Copy those files to the "TTS" folder in the same directory as SIGVerseConfig folder.
 
 ### Build
 1. Create a "Build" folder under this project folder.
@@ -56,7 +56,7 @@ By default, given 5 attempts.
 2. Click the Play button at the top of the Unity editor.
 
 ### Execute the Executable file
-1. Copy the "SIGVerseConfig" folder into the "Build" folder.
+1. Copy the "SIGVerseConfig" folder and the "TTS" folder into the "Build" folder.
 2. Double Click the "Handyman.exe" in the "Build" folder.
 
 ## License
