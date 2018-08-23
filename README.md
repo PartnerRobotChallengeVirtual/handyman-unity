@@ -28,7 +28,7 @@ See also [wiki page](https://github.com/PartnerRobotChallengeVirtual/handyman-un
 
 If you want to output speech, please do the following two steps.
 
-##### Windows Settings
+#### Windows Settings
 Please install the English language if you are using other than English.  
 The procedure is like as follows.
 1. Open the Windows settings menu
@@ -36,7 +36,7 @@ The procedure is like as follows.
 3. Click [Add a language] in [Languages]-[Preferred languages]
 4. Select "English (United States)" and Install
 
-##### Import Files
+#### Import Files
 Please import files by following the steps below.
 1. Prepare "ConsoleSimpleTTS.exe" and "Interop.SpeechLib.dll".  
 For details on these files, see [here](https://github.com/PartnerRobotChallengeVirtual/console-simple-tts).
