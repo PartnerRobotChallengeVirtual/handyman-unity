@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 namespace SIGVerse.Competition.Handyman
 {
@@ -10,6 +11,10 @@ namespace SIGVerse.Competition.Handyman
 	{
 		[HeaderAttribute("Handyman Objects")]
 		public HandymanScoreManager scoreManager;
+
+		//---------------------------------------
+
+		protected HandymanPlaybackEnvironmentEventController environmentController;  // Environment
 
 		protected override void Awake()
 		{
@@ -24,11 +29,19 @@ namespace SIGVerse.Competition.Handyman
 //				robot.Find("CompetitionScripts").gameObject.SetActive(false);
 				robot.Find("RosBridgeScripts")  .gameObject.SetActive(false);
 
+				Rigidbody[] robotRigidbodies = robot.GetComponentsInChildren<Rigidbody>(true);
+				foreach(Rigidbody rigidbody in robotRigidbodies) { rigidbody.isKinematic = true; }
+
+
 				Transform moderator = GameObject.FindGameObjectWithTag("Moderator").transform;
 
 				moderator.GetComponent<HandymanModerator>() .enabled = false;
 				moderator.GetComponent<HandymanPubMessage>().enabled = false;
 				moderator.GetComponent<HandymanSubMessage>().enabled = false;
+
+				Rigidbody[] moderatorRigidbodies = moderator.GetComponentsInChildren<Rigidbody>(true);
+				foreach(Rigidbody rigidbody in moderatorRigidbodies) { rigidbody.isKinematic = true; }
+
 
 				this.scoreManager.enabled = false;
 
@@ -42,6 +55,30 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
+		// Use this for initialization
+		protected override void Start()
+		{
+			base.Start();
+
+			HandymanPlaybackCommon common = this.GetComponent<HandymanPlaybackCommon>();
+
+			this.environmentController = new HandymanPlaybackEnvironmentEventController(common.environments);
+		}
+
+		protected override void ReadData(string[] headerArray, string dataStr)
+		{
+			base.ReadData(headerArray, dataStr);
+
+			this.environmentController.ReadEvents(headerArray, dataStr); // Environment
+		}
+
+		protected override void StartInitializing()
+		{
+			base.StartInitializing();
+
+			this.environmentController.StartInitializingEvents(); // Environment
+		}
+
 		public override void OnReadFileButtonClick()
 		{
 			this.trialNo = int.Parse(this.trialNoInputField.text);
@@ -49,6 +86,24 @@ namespace SIGVerse.Competition.Handyman
 			string filePath = string.Format(Application.dataPath + HandymanPlaybackCommon.FilePathFormat, this.trialNo);
 
 			this.Initialize(filePath);
+
+			this.StartCoroutine(this.ActivateEnvironment());
+		}
+
+		private IEnumerator ActivateEnvironment()
+		{
+			float startTime = Time.time;
+
+			while(this.step != Step.Waiting && (Time.time - startTime) < 30.0f) // Wait at most 30 seconds
+			{
+				yield return null;
+			}
+
+//			Debug.Log("reading file time="+(Time.time - startTime));
+
+			this.environmentController.ExecuteFirstEvent(); // Enable the environment
+
+			base.transformController.ExecuteFirstEvent();  // Initialize transforms
 		}
 	}
 }
