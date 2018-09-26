@@ -1,6 +1,6 @@
 ﻿{
     "sessionTimeLimit": 600,
-    "maxNumberOfTrials": 5,
+    "maxNumberOfTrials": 6,
     "isScoreFileRead": false,
     "isGraspableObjectsPositionRandom": false,
     "isAlwaysGoNext": false,

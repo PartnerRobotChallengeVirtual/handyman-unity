@@ -34,6 +34,25 @@ namespace SIGVerse.Competition.Handyman
 				{
 					graspingCandidatesPosition.SetActive(false);
 				}
+
+
+				// Activate all grasping candidates
+				GameObject graspingCandidatesObj = GameObject.Find("GraspingCandidates");
+
+				foreach (Transform graspingCandidate in graspingCandidatesObj.transform)
+				{
+					graspingCandidate.gameObject.SetActive(true);
+
+					graspingCandidate.position = new Vector3(0.0f, -5.0f, 0.0f); // Wait in the ground
+
+					// Disable rigidbodies
+					Rigidbody[] rigidbodies = graspingCandidate.GetComponentsInChildren<Rigidbody>(true);
+					foreach (Rigidbody rigidbody in rigidbodies) { rigidbody.isKinematic = true; }
+
+					// Disable colliders
+					Collider[] colliders = graspingCandidate.GetComponentsInChildren<Collider>(true);
+					foreach (Collider collider in colliders) { collider.enabled = false; }
+				}
 			}
 
 

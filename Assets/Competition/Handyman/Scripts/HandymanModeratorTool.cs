@@ -128,7 +128,7 @@ namespace SIGVerse.Competition.Handyman
 
 			EnvironmentInfo environmentInfo = this.EnableEnvironment(moderator.environments);
 
-			this.GetGameObjects(moderator.avatarMotionPlayback, moderator.playbackManager);
+			this.GetGameObjects(environmentInfo, moderator.avatarMotionPlayback, moderator.playbackManager);
 
 			this.Initialize(environmentInfo, moderator.scoreManager, moderator.objectCollisionAudioSource);
 		}
@@ -181,7 +181,7 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		private void GetGameObjects(GameObject avatarMotionPlayback, GameObject worldPlayback)
+		private void GetGameObjects(EnvironmentInfo environmentInfo, GameObject avatarMotionPlayback, GameObject worldPlayback)
 		{
 			this.robot = GameObject.FindGameObjectWithTag(TagRobot);
 
@@ -191,15 +191,8 @@ namespace SIGVerse.Competition.Handyman
 
 			GameObject moderatorObj = GameObject.FindGameObjectWithTag(TagModerator);
 
-
 			// Get grasping candidates
-			this.graspingCandidates = GameObject.FindGameObjectsWithTag(TagGraspingCandidates).ToList<GameObject>();
-
-
-			if (this.graspingCandidates.Count == 0)
-			{
-				throw new Exception("Count of GraspingCandidates is zero.");
-			}
+			this.graspingCandidates = this.ExtractGraspingCandidates(environmentInfo);
 
 //			List<GameObject> dummyGraspingCandidates = GameObject.FindGameObjectsWithTag(TagDummyGraspingCandidates).ToList<GameObject>();
 
@@ -259,6 +252,53 @@ namespace SIGVerse.Competition.Handyman
 			this.playbackRecorder.SetEnvironmentName(this.environmentName);
 		}
 
+		public List<GameObject> ExtractGraspingCandidates(EnvironmentInfo environmentInfo)
+		{
+			// Temporarily activate all grasping candidates
+			if(!HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				GameObject graspingCandidatesObj = GameObject.Find("GraspingCandidates");
+
+				foreach (Transform graspingCandidate in graspingCandidatesObj.transform)
+				{
+					graspingCandidate.gameObject.SetActive(true);
+				}
+			}
+
+			// Get grasping candidates
+			List<GameObject> graspingCandidates = GameObject.FindGameObjectsWithTag(TagGraspingCandidates).ToList<GameObject>();
+
+			if(!HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
+			{
+				// Confirm the graspable objects inconsistency
+				List<RelocatableObjectInfo> graspablesOnlyInFile = (from graspablePosition in environmentInfo.graspablesPositions where graspingCandidates.All(graspingcandidate => graspingcandidate.name!=graspablePosition.name) select graspablePosition).ToList();
+
+				if(graspablesOnlyInFile.Count!=0)
+				{
+					SIGVerseLogger.Error("Following objects do not exist in the scene");
+					foreach(RelocatableObjectInfo inFileWithoutScen in graspablesOnlyInFile){ SIGVerseLogger.Error("name=" + inFileWithoutScen.name); }
+					throw new Exception("Some objects do not exist in the scene");
+				}
+
+				// Deactivate unused objects
+				List<GameObject> graspablesOnlyInScene = (from graspingcandidate in graspingCandidates where environmentInfo.graspablesPositions.All(graspablePosition => graspablePosition.name!=graspingcandidate.name) select graspingcandidate).ToList();
+
+				foreach(GameObject graspableOnlyInScene in graspablesOnlyInScene)
+				{
+					graspableOnlyInScene.SetActive(false);
+				}
+
+				// Extract the effective graspable objects
+				graspingCandidates = (from graspingcandidate in graspingCandidates where environmentInfo.graspablesPositions.Any(graspablePosition => graspablePosition.name==graspingcandidate.name) select graspingcandidate).ToList();
+			}
+
+			if (graspingCandidates.Count == 0)
+			{
+				throw new Exception("Count of GraspingCandidates is zero.");
+			}
+
+			return graspingCandidates;
+		}
 
 		private void Initialize(EnvironmentInfo environmentInfo, HandymanScoreManager scoreManager, AudioSource objectCollisionAudioSource)
 		{
@@ -274,7 +314,7 @@ namespace SIGVerse.Competition.Handyman
 			}
 
 
-			Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap = null; //key:GraspablePositionInfo, value:Graspables
+			Dictionary<RelocatableObjectInfo, GameObject> graspablesPositionMap    = null; //key:GraspablePositionInfo,   value:Graspables
 			Dictionary<RelocatableObjectInfo, GameObject> destinationsPositionsMap = null; //key:DestinationPositionInfo, value:DestinationCandidate
 
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)

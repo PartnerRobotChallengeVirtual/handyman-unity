@@ -3,11 +3,11 @@
     "correctedTaskMessage": "",
     "environmentName": "LayoutB",
     "isEnvironmentNameSent": true,
-    "graspingTargetName": "canned_juice",
+    "graspingTargetName": "canned_juice#1",
     "destinationName": "trash_box_for_bottle_can#living_room",
     "graspablesPositions": [
         {
-            "name": "toy_penguin",
+            "name": "toy_penguin#1",
             "position": {
                 "x": -2.2319998741149904,
                 "y": 0.3199999928474426,
@@ -20,7 +20,7 @@
             }
         },
         {
-            "name": "cigarette",
+            "name": "cigarette#1",
             "position": {
                 "x": 8.031000137329102,
                 "y": 0.7599999904632568,
@@ -33,7 +33,7 @@
             }
         },
         {
-            "name": "block_car",
+            "name": "toy_car#1",
             "position": {
                 "x": 7.230000019073486,
                 "y": 0.4960000216960907,
@@ -46,7 +46,7 @@
             }
         },
         {
-            "name": "apple",
+            "name": "apple#1",
             "position": {
                 "x": 6.624000072479248,
                 "y": 0.7599999904632568,
@@ -59,7 +59,7 @@
             }
         },
         {
-            "name": "sugar",
+            "name": "sugar#1",
             "position": {
                 "x": -0.08500003814697266,
                 "y": 0.765999972820282,
@@ -72,7 +72,7 @@
             }
         },
         {
-            "name": "soysauce",
+            "name": "soysauce#1",
             "position": {
                 "x": -2.234999656677246,
                 "y": 0.6799999475479126,
@@ -85,7 +85,7 @@
             }
         },
         {
-            "name": "dog_doll",
+            "name": "dog_doll#1",
             "position": {
                 "x": 7.196000099182129,
                 "y": 0.7109999656677246,
@@ -98,7 +98,7 @@
             }
         },
         {
-            "name": "pink_cup",
+            "name": "pink_cup#1",
             "position": {
                 "x": 0.7920002937316895,
                 "y": 0.4960000216960907,
@@ -111,7 +111,7 @@
             }
         },
         {
-            "name": "tumbler",
+            "name": "tumbler#1",
             "position": {
                 "x": 3.7849998474121095,
                 "y": 0.38499999046325686,
@@ -124,7 +124,7 @@
             }
         },
         {
-            "name": "pepper",
+            "name": "ground_pepper#1",
             "position": {
                 "x": 3.2720000743865969,
                 "y": 0.4960000216960907,
@@ -137,7 +137,7 @@
             }
         },
         {
-            "name": "rabbit_doll",
+            "name": "rabbit_doll#1",
             "position": {
                 "x": -0.3819999694824219,
                 "y": 0.4960000216960907,
@@ -150,7 +150,7 @@
             }
         },
         {
-            "name": "toy_duck",
+            "name": "toy_duck#1",
             "position": {
                 "x": 6.8510003089904789,
                 "y": 0.7109999656677246,
@@ -163,7 +163,7 @@
             }
         },
         {
-            "name": "ketchup",
+            "name": "filled_ketchup#1",
             "position": {
                 "x": 1.7620000839233399,
                 "y": 0.4480000138282776,
@@ -176,7 +176,7 @@
             }
         },
         {
-            "name": "canned_juice",
+            "name": "canned_juice#1",
             "position": {
                 "x": -0.2690000534057617,
                 "y": 0.38499999046325686,
@@ -189,7 +189,7 @@
             }
         },
         {
-            "name": "bear_doll",
+            "name": "bear_doll#1",
             "position": {
                 "x": 7.176000118255615,
                 "y": 0.4960000216960907,
@@ -202,7 +202,7 @@
             }
         },
         {
-            "name": "clock",
+            "name": "cubic_clock#1",
             "position": {
                 "x": 0.3690004348754883,
                 "y": 0.4960000216960907,
@@ -215,7 +215,7 @@
             }
         },
         {
-            "name": "sauce",
+            "name": "sauce#1",
             "position": {
                 "x": 1.3229999542236329,
                 "y": 0.4480000138282776,
@@ -230,7 +230,7 @@
     ],
     "destinationsPositions": [
         {
-            "name": "white_table#living_room_2",
+            "name": "white_side_table#living_room_2",
             "position": {
                 "x": 7.003000259399414,
                 "y": 0.0,
@@ -243,7 +243,7 @@
             }
         },
         {
-            "name": "white_table#bedroom_1",
+            "name": "white_side_table#bedroom_1",
             "position": {
                 "x": 0.2670001983642578,
                 "y": 0.0,
@@ -256,7 +256,7 @@
             }
         },
         {
-            "name": "white_table#living_room_1",
+            "name": "white_side_table#living_room_1",
             "position": {
                 "x": 3.700000286102295,
                 "y": 0.0,
@@ -365,6 +365,19 @@
                 "x": 3.6480002403259279,
                 "y": 0.0,
                 "z": 3.201000213623047
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "wooden_shelf#bedroom",
+            "position": {
+                "x": -2.3350000381469728,
+                "y": 0.0,
+                "z": 1.654000163078308
             },
             "eulerAngles": {
                 "x": 0.0,
