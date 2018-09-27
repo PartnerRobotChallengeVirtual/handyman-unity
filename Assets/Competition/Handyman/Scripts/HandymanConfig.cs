@@ -11,6 +11,7 @@ namespace SIGVerse.Competition.Handyman
 	[System.Serializable]
 	public class HandymanConfigFileInfo
 	{
+		public string teamName;
 		public int  sessionTimeLimit;
 		public int  maxNumberOfTrials;
 		public bool isScoreFileRead;
@@ -57,6 +58,7 @@ namespace SIGVerse.Competition.Handyman
 			{
 				SIGVerseLogger.Warn("Handyman config file does not exists.");
 
+				this.configFileInfo.teamName = "XXXX";
 				this.configFileInfo.sessionTimeLimit  = 600;
 				this.configFileInfo.maxNumberOfTrials = 15;
 				this.configFileInfo.isScoreFileRead   = false;

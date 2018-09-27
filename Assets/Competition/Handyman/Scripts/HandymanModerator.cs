@@ -131,6 +131,7 @@ namespace SIGVerse.Competition.Handyman
 
 		private void PreProcess()
 		{
+			this.mainPanelController.SetTeamNameText("Team: " + HandymanConfig.Instance.configFileInfo.teamName);
 			this.mainPanelController.SetTrialNumberText(HandymanConfig.Instance.numberOfTrials);
 
 			SIGVerseLogger.Info("##### " + this.mainPanelController.GetTrialNumberText() + " #####");

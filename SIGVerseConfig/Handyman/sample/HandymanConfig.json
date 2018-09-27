@@ -1,4 +1,5 @@
 ﻿{
+    "teamName": "XXXX",
     "sessionTimeLimit": 600,
     "maxNumberOfTrials": 6,
     "isScoreFileRead": false,
