@@ -1,5 +1,5 @@
 ﻿{
-    "taskMessage": "Go to the lobby, grasp the filled_ketchup and put the filled_ketchup in the wooden_shelf in the living room.",
+    "taskMessage": "Go to the lobby, grasp the filled_ketchup and put the filled_ketchup on the wooden_shelf in the living room.",
     "correctedTaskMessage": "",
     "environmentName": "LayoutD",
     "isEnvironmentNameSent": true,
