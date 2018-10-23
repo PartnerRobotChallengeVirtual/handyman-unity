@@ -1,8 +1,8 @@
 ﻿{
-    "teamName": "XXXX",
+    "teamName": "H@ndyman",
     "sessionTimeLimit": 600,
-    "maxNumberOfTrials": 6,
-    "isScoreFileRead": false,
+    "maxNumberOfTrials": 14,
+    "isScoreFileRead": true,
     "isGraspableObjectsPositionRandom": false,
     "isAlwaysGoNext": false,
     "playbackType": 1
