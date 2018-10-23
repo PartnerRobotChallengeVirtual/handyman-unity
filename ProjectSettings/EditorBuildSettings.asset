@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Competition/Handyman/Handyman.unity
     guid: 05bc77ef2f3dd124da688ab6b9945df6
+  - enabled: 1
+    path: Assets/Competition/Handyman/Handyman201810.unity
+    guid: 78f7b9907c07cfc4d8c4bda79fdfebfb
+  - enabled: 0
+    path: Assets/Competition/Handyman/Handyman201810_Layout.unity
+    guid: 3564fc3f003b5f346951c096e410fc64
