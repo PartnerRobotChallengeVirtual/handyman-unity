@@ -97,7 +97,7 @@ namespace SIGVerse.Competition.Handyman
 
 		private GameObject robot;
 		private Transform hsrBaseFootPrint;
-		private HSRGraspingDetector hsrGraspingDetector;
+		private GraspingDetector hsrGraspingDetector;
 
 
 		private GameObject targetRoom;
@@ -185,8 +185,8 @@ namespace SIGVerse.Competition.Handyman
 		{
 			this.robot = GameObject.FindGameObjectWithTag(TagRobot);
 
-			this.hsrBaseFootPrint = SIGVerseUtils.FindTransformFromChild(this.robot.transform, HSRCommon.BaseFootPrintName);
-			this.hsrGraspingDetector = this.robot.GetComponentInChildren<HSRGraspingDetector>();
+			this.hsrBaseFootPrint = SIGVerseUtils.FindTransformFromChild(this.robot.transform, HSRCommon.Link.base_footprint.ToString());
+			this.hsrGraspingDetector = this.robot.GetComponentInChildren<GraspingDetector>();
 
 
 			GameObject moderatorObj = GameObject.FindGameObjectWithTag(TagModerator);

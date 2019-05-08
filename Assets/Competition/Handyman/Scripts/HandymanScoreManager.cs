@@ -77,7 +77,7 @@ namespace SIGVerse.Competition.Handyman
 	}
 
 
-	public class HandymanScoreManager : MonoBehaviour, IHSRCollisionHandler, ITransferredCollisionHandler
+	public class HandymanScoreManager : MonoBehaviour, IRobotCollisionHandler, ITransferredCollisionHandler
 	{
 		private const float DefaultTimeScale = 1.0f;
 
@@ -228,7 +228,7 @@ namespace SIGVerse.Competition.Handyman
 		}
 
 
-		public void OnHsrCollisionEnter(Collision collision, float collisionVelocity, float effectScale)
+		public void OnRobotCollisionEnter(Collision collision, float collisionVelocity, float effectScale)
 		{
 			this.AddScore(Score.Type.HsrCollisionEnter, collision, collisionVelocity);
 		}
