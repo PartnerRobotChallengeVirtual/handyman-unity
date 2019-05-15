@@ -79,6 +79,8 @@ namespace SIGVerse.Competition.Handyman
 		private bool isAllTaskFinished;
 		private string interruptedReason;
 
+		private string lastPanelMessage;
+
 
 		void Awake()
 		{
@@ -166,16 +168,14 @@ namespace SIGVerse.Competition.Handyman
 		private void PostProcess()
 		{
 			SIGVerseLogger.Info("Task end");
-
+			
 			if (HandymanConfig.Instance.numberOfTrials == HandymanConfig.Instance.configFileInfo.maxNumberOfTrials)
 			{
 				this.SendRosMessage(MsgMissionComplete, string.Empty);
 
-				SIGVerseLogger.Info("All sessions have ended.");
-
-				this.tool.AddSpeechQueModerator("All sessions have ended");
-
 				StartCoroutine(this.tool.CloseRosConnections());
+
+				StartCoroutine(this.DisplayEndMessage());
 
 				this.isAllTaskFinished = true;
 			}
@@ -546,6 +546,23 @@ namespace SIGVerse.Competition.Handyman
 				eventData: null, 
 				functor: (reciever, eventData) => reciever.OnPanelNoticeChange(noticeStatus)
 			);
+
+			this.lastPanelMessage = message;
+		}
+
+		public IEnumerator DisplayEndMessage()
+		{
+			yield return new WaitForSecondsRealtime(7);
+
+			string endMessage = "All sessions have ended";
+
+			SIGVerseLogger.Info(endMessage);
+			this.tool.AddSpeechQueModerator(endMessage);
+
+			string panelMessage = endMessage + "\n"
+				+"(" + SIGVerseUtils.GetOrdinal(HandymanConfig.Instance.numberOfTrials) + ": " + this.lastPanelMessage.Replace("\n", " - ") + ")";
+
+			this.SendPanelNotice(panelMessage, 80, PanelNoticeStatus.Blue);
 		}
 
 
