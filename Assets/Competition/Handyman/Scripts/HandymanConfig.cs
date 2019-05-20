@@ -56,6 +56,7 @@ namespace SIGVerse.Competition.Handyman
 			}
 			else
 			{
+#if UNITY_EDITOR
 				SIGVerseLogger.Warn("Handyman config file does not exists.");
 
 				this.configFileInfo.teamName = "XXXX";
@@ -67,6 +68,10 @@ namespace SIGVerse.Competition.Handyman
 				this.configFileInfo.playbackType = HandymanPlaybackCommon.PlaybackTypeRecord;
 
 				this.SaveConfig();
+#else
+				SIGVerseLogger.Error("Handyman config file does not exists.");
+				Application.Quit();
+#endif
 			}
 
 			// Initialize common parameter
