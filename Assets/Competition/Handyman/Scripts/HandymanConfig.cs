@@ -12,12 +12,13 @@ namespace SIGVerse.Competition.Handyman
 	public class HandymanConfigFileInfo
 	{
 		public string teamName;
-		public int  sessionTimeLimit;
-		public int  maxNumberOfTrials;
-		public bool isScoreFileRead;
-		public bool isGraspableObjectsPositionRandom;
-		public bool isAlwaysGoNext;
-		public int  playbackType;
+		public int    sessionTimeLimit;
+		public int    maxNumberOfTrials;
+		public bool   isScoreFileRead;
+		public bool   isGraspableObjectsPositionRandom;
+		public bool   isAlwaysGoNext;
+		public int    playbackType;
+		public float  bgmVolume;
 	}
 
 	public class HandymanConfig : Singleton<HandymanConfig>
@@ -66,6 +67,7 @@ namespace SIGVerse.Competition.Handyman
 				this.configFileInfo.isGraspableObjectsPositionRandom = true;
 				this.configFileInfo.isAlwaysGoNext = false;
 				this.configFileInfo.playbackType = HandymanPlaybackCommon.PlaybackTypeRecord;
+				this.configFileInfo.bgmVolume = 0.01f;
 
 				this.SaveConfig();
 #else

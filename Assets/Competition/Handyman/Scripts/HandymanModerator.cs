@@ -58,6 +58,7 @@ namespace SIGVerse.Competition.Handyman
 		public GameObject playbackManager;
 
 		public AudioSource objectCollisionAudioSource;
+		public AudioSource bgmAudioSource;
 
 		//-----------------------------
 
@@ -128,6 +129,8 @@ namespace SIGVerse.Competition.Handyman
 
 				StartCoroutine(this.tool.LoosenRigidbodyConstraints(rigidbody));
 			}
+
+			this.bgmAudioSource.volume = Mathf.Clamp01(HandymanConfig.Instance.configFileInfo.bgmVolume);
 		}
 
 
@@ -563,6 +566,8 @@ namespace SIGVerse.Competition.Handyman
 				+"(" + SIGVerseUtils.GetOrdinal(HandymanConfig.Instance.numberOfTrials) + ": " + this.lastPanelMessage.Replace("\n", " - ") + ")";
 
 			this.SendPanelNotice(panelMessage, 80, PanelNoticeStatus.Blue);
+
+			this.bgmAudioSource.enabled = false;
 		}
 
 
