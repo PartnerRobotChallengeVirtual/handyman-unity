@@ -58,7 +58,8 @@ namespace SIGVerse.Competition.Handyman
 		private const string TagGraspingCandidatesPosition = "GraspingCandidatesPosition";
 		private const string TagDestinationCandidates      = "DestinationCandidates";
 
-		private const string JudgeTriggersName    = "JudgeTriggers";
+		private const string JudgeTriggerNameOn   = "JudgeTriggerOn";
+		private const string JudgeTriggerNameIn   = "JudgeTriggerIn";
 		private const string DeliveryPositionName = "DeliveryPosition";
 
 		private const float  DeliveryThreshold = 0.3f;
@@ -365,16 +366,27 @@ namespace SIGVerse.Competition.Handyman
 
 
 			if(this.destination.tag!=TagModerator)
-			{ 
+			{
 				// Add Placement checker to triggers
-				Transform judgeTriggersTransform = this.destination.transform.Find(JudgeTriggersName);
+				Transform judgeTriggerOn = this.destination.transform.Find(JudgeTriggerNameOn);
+				Transform judgeTriggerIn = this.destination.transform.Find(JudgeTriggerNameIn);
 
-				if (judgeTriggersTransform==null) { throw new Exception("No Judge Triggers object"); }
+				if (judgeTriggerOn == null && judgeTriggerIn == null) { throw new Exception("No JudgeTrigger. name=" + this.destination.name); }
+				if (judgeTriggerOn != null && judgeTriggerIn != null) { throw new Exception("Too many JudgeTrigger. name=" + this.destination.name); }
 
-				judgeTriggersTransform.gameObject.AddComponent<PlacementChecker>();
+				if (judgeTriggerOn != null)
+				{
+					PlacementChecker placementChecker = judgeTriggerOn.gameObject.AddComponent<PlacementChecker>();
+					placementChecker.Initialize(PlacementChecker.JudgeType.On);
+				}
+				if (judgeTriggerIn != null)
+				{
+					PlacementChecker placementChecker = judgeTriggerIn.gameObject.AddComponent<PlacementChecker>();
+					placementChecker.Initialize(PlacementChecker.JudgeType.In);
+				}
 			}
 
-			
+
 			foreach (KeyValuePair<RelocatableObjectInfo, GameObject> pair in graspablesPositionMap)
 			{
 				pair.Value.transform.position    = pair.Key.position;

@@ -530,7 +530,7 @@ namespace SIGVerse.Competition.Handyman
 			);
 		}
 
-		private void SendPanelNotice(string message, int fontSize, Color color)
+		private void SendPanelNotice(string message, int fontSize, Color color, bool shouldSendToPlaybackManager = true)
 		{
 			PanelNoticeStatus noticeStatus = new PanelNoticeStatus(message, fontSize, color, 2.0f);
 
@@ -542,13 +542,16 @@ namespace SIGVerse.Competition.Handyman
 				functor: (reciever, eventData) => reciever.OnPanelNoticeChange(noticeStatus)
 			);
 
-			// For recording
-			ExecuteEvents.Execute<IPanelNoticeHandler>
-			(
-				target: this.playbackManager, 
-				eventData: null, 
-				functor: (reciever, eventData) => reciever.OnPanelNoticeChange(noticeStatus)
-			);
+			if(shouldSendToPlaybackManager)
+			{
+				// For recording
+				ExecuteEvents.Execute<IPanelNoticeHandler>
+				(
+					target: this.playbackManager,
+					eventData: null,
+					functor: (reciever, eventData) => reciever.OnPanelNoticeChange(noticeStatus)
+				);
+			}
 
 			this.lastPanelMessage = message;
 		}
@@ -565,7 +568,7 @@ namespace SIGVerse.Competition.Handyman
 			string panelMessage = endMessage + "\n"
 				+"(" + SIGVerseUtils.GetOrdinal(HandymanConfig.Instance.numberOfTrials) + ": " + this.lastPanelMessage.Replace("\n", " - ") + ")";
 
-			this.SendPanelNotice(panelMessage, 80, PanelNoticeStatus.Blue);
+			this.SendPanelNotice(panelMessage, 80, PanelNoticeStatus.Blue, false);
 
 			this.bgmAudioSource.enabled = false;
 		}
