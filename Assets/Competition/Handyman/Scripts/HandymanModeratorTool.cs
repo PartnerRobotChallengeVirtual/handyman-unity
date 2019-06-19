@@ -146,7 +146,7 @@ namespace SIGVerse.Competition.Handyman
 
 			if(HandymanConfig.Instance.configFileInfo.isGraspableObjectsPositionRandom)
 			{
-				GameObject activeEnvironment = (from environment in environments where environment.activeSelf==true select environment).FirstOrDefault();
+				GameObject activeEnvironment = (from environment in environments where environment.activeSelf==true select environment).SingleOrDefault();
 
 				if(activeEnvironment!=null)
 				{
@@ -667,7 +667,7 @@ namespace SIGVerse.Competition.Handyman
 			}
 			catch (Exception)
 			{
-				SIGVerseLogger.Warn("Do nothing even if an error occurs");
+				SIGVerseLogger.Warn("Couldn't terminate the speech process, but do nothing.");
 				// Do nothing even if an error occurs
 			}
 
