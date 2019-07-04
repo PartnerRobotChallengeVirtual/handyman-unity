@@ -11,7 +11,7 @@ See also [wiki page](https://github.com/PartnerRobotChallengeVirtual/handyman-un
 ## Prerequisites
 
 - OS: Windows 10
-- Unity version: 2018.4.0f1
+- Unity version: 2018.4.3f1
 
 ## How to Build
 
