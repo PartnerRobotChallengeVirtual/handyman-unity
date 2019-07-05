@@ -71,7 +71,7 @@ namespace SIGVerse.Competition.Handyman
 
 		private const string RoomNameForTaskMessageKitchen = "kitchen";
 		private const string RoomNameForTaskMessageLobby   = "lobby";
-		private const string RoomNameForTaskMessageBedRoom = "bed room";
+		private const string RoomNameForTaskMessageBedRoom = "bedroom";
 		private const string RoomNameForTaskMessageLiving  = "living room";
 
 		public const string SpeechExePath  = "../TTS/ConsoleSimpleTTS.exe";
